@@ -1,0 +1,554 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Bible Blitz — Bible trivia that teaches Scripture | Alpine Squad';
+const description = 'Test your Bible knowledge in 10-question rounds. Every wrong answer reveals the verse and context — so each quiz is a quick Bible study. No ads. No subscription. Privacy-first.';
+
+// Schema.org SoftwareApplication markup — Google rich-result eligibility.
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'MobileApplication',
+  name: 'Bible Blitz',
+  operatingSystem: 'iOS',
+  applicationCategory: 'EducationApplication',
+  applicationSubCategory: 'Bible Trivia',
+  offers: {
+    '@type': 'Offer',
+    price: '0.00',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    ratingCount: '4',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Alpine Squad',
+    url: 'https://alpinesquad.com',
+  },
+  url: 'https://apps.apple.com/app/bible-blitz/id6771674002',
+  description,
+};
+
+const appStoreUrl = 'https://apps.apple.com/app/bible-blitz/id6771674002';
+
+const features = [
+  {
+    icon: '📖',
+    title: 'Every answer teaches',
+    body: 'Get one wrong? You see the verse and the context. A miss becomes a verse you now know.',
+  },
+  {
+    icon: '⚡',
+    title: '10 questions, ~2 minutes',
+    body: 'Designed for actual daily use. Knock out a round on the commute or with morning coffee.',
+  },
+  {
+    icon: '🧠',
+    title: 'Spaced repetition',
+    body: 'Premium Smart Review brings back questions you keep missing — exactly when you\'re about to forget.',
+  },
+  {
+    icon: '🔒',
+    title: 'Privacy-first',
+    body: 'No accounts. No tracking. No ads. Your data lives only on your phone — we never receive it.',
+  },
+  {
+    icon: '📚',
+    title: '10 categories',
+    body: 'From Genesis to Revelation. Old Testament History, Gospels, Epistles, Prophets, and more.',
+  },
+  {
+    icon: '🔥',
+    title: 'Streak + XP',
+    body: 'Daily challenges, streaks, levels, and 22 achievements. Built for the long game.',
+  },
+];
+---
+
+<BaseLayout {title} {description} {schema} ogImage="/images/bibleblitz-og.png">
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="brand">
+        <span class="brand-mark">⛰</span>
+        <span class="brand-name">Alpine Squad</span>
+      </a>
+      <a href={appStoreUrl} class="nav-cta" rel="noopener">Get on App Store →</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">Bible Blitz · iOS</p>
+        <h1>Bible trivia that <span class="accent-text">teaches you Scripture</span>.</h1>
+        <p class="lede">
+          Test your Bible knowledge in 10-question rounds. Every wrong answer reveals the verse
+          and the context — so each quiz is a quick Bible study, not just a test.
+        </p>
+        <div class="cta-row">
+          <a href={appStoreUrl} class="appstore-badge" rel="noopener" aria-label="Download Bible Blitz on the App Store">
+            <svg viewBox="0 0 120 40" width="160" height="53" aria-hidden="true">
+              <rect width="120" height="40" rx="7" fill="#000"/>
+              <text x="60" y="16" text-anchor="middle" fill="#fff" font-family="-apple-system, sans-serif" font-size="8">Download on the</text>
+              <text x="60" y="30" text-anchor="middle" fill="#fff" font-family="-apple-system, sans-serif" font-size="14" font-weight="600">App Store</text>
+            </svg>
+          </a>
+          <span class="micro-trust">Free · No ads · No subscription</span>
+        </div>
+      </div>
+      <div class="hero-mock" aria-hidden="true">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="screen-status">9:41</div>
+            <h3 class="screen-title">Bible Blitz</h3>
+            <div class="screen-greeting">
+              <div>Good morning, Sedric</div>
+              <div class="streak"><span class="flame">🔥</span> 7</div>
+            </div>
+            <button class="screen-play">
+              Play
+              <small>10 questions · ~2 min</small>
+            </button>
+            <div class="screen-row"><span>☀️</span><div><strong>Today's Challenge</strong><br/><small>5 questions · 2× XP bonus</small></div></div>
+            <div class="screen-row"><span>📚</span><div><strong>Categories</strong><br/><small>Pick a Bible topic to focus on</small></div></div>
+            <div class="screen-row"><span>📖</span><div><strong>Memorize</strong><br/><small>Learn verses by heart, step by step</small></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title">Built to make Scripture <em>stick</em>.</h2>
+      <p class="section-sub">Most Bible apps make you read. Bible Blitz makes you recall — the proven way to retain Scripture.</p>
+      <div class="feature-grid">
+        {features.map((f) => (
+          <article class="feature-card">
+            <div class="feature-icon">{f.icon}</div>
+            <h3>{f.title}</h3>
+            <p>{f.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <div class="container">
+      <div class="pricing-card">
+        <p class="eyebrow">Premium</p>
+        <h2><span class="big-price">$4.99</span> <small>one-time</small></h2>
+        <p class="pricing-tag">No subscription. No ads. Yours forever.</p>
+        <ul class="pricing-list">
+          <li>✓ Smart Review — spaced-repetition learning</li>
+          <li>✓ Timed Blitz — 30-second speed rounds</li>
+          <li>✓ All 10 categories (Acts, Epistles, Revelation, People, Geography)</li>
+          <li>✓ Streak protection</li>
+          <li>✓ Support a solo developer building privacy-first apps</li>
+        </ul>
+        <a href={appStoreUrl} class="primary-cta" rel="noopener">Download free, upgrade if you love it</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="who">
+    <div class="container">
+      <h2 class="section-title">Who it's for</h2>
+      <div class="who-grid">
+        <div><strong>Personal devotional time.</strong> 2 minutes a day, every day.</div>
+        <div><strong>Family Bible study.</strong> Pass the phone, take turns answering.</div>
+        <div><strong>Sunday school icebreakers.</strong> Drop the phone on the table.</div>
+        <div><strong>Youth group game night.</strong> Built-in competition.</div>
+        <div><strong>Homeschool curriculum.</strong> 5 minutes during morning circle.</div>
+        <div><strong>Anyone</strong> who wants to know their Bible better.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="footer-cta">
+    <div class="container-narrow">
+      <h2>Ready to test your Bible knowledge?</h2>
+      <p>Free download. $4.99 lifetime premium (no subscription). Available now on iPhone and iPad.</p>
+      <a href={appStoreUrl} class="primary-cta" rel="noopener">Get Bible Blitz →</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-brand">Alpine Squad</p>
+        <p class="footer-micro">Privacy-first apps, built solo.</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="https://sedricbenson.github.io/disclosures/bibleblitz/privacy.html">Privacy</a>
+        <a href="https://sedricbenson.github.io/disclosures/bibleblitz/terms.html">Terms</a>
+        <a href="mailto:support@alpinesquad.com">Support</a>
+        <a href="/">Other apps</a>
+      </nav>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  .nav {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .brand:hover { text-decoration: none; }
+  .brand-mark { font-size: 20px; }
+  .nav-cta {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .hero {
+    padding: 80px 0 64px;
+    background: var(--bg);
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  @media (max-width: 800px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .hero-mock { order: -1; }
+  }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 6vw, 60px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .accent-text {
+    color: var(--accent);
+    font-style: italic;
+  }
+  .lede {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    max-width: 540px;
+  }
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .appstore-badge {
+    display: inline-block;
+    transition: transform 0.15s;
+  }
+  .appstore-badge:hover {
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+  .micro-trust {
+    font-size: 14px;
+    color: var(--ink-muted);
+  }
+
+  /* Phone mockup */
+  .hero-mock {
+    display: flex;
+    justify-content: center;
+  }
+  .phone {
+    width: 280px;
+    aspect-ratio: 9 / 19.5;
+    background: var(--ink);
+    border-radius: 36px;
+    padding: 8px;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .phone::after {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 22px;
+    background: #000;
+    border-radius: 100px;
+  }
+  .phone-screen {
+    background: var(--bg-bright);
+    height: 100%;
+    border-radius: 30px;
+    padding: 48px 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--ink);
+  }
+  .screen-status {
+    font-size: 11px;
+    font-weight: 600;
+    text-align: left;
+    padding-left: 6px;
+    margin-bottom: 4px;
+  }
+  .screen-title {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .screen-greeting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .streak {
+    color: var(--ink-soft);
+    font-weight: 500;
+    font-size: 12px;
+  }
+  .flame { font-size: 11px; }
+  .screen-play {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  .screen-play small {
+    display: block;
+    font-size: 11px;
+    opacity: 0.85;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  .screen-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg);
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+  }
+  .screen-row strong { display: block; font-size: 13px; }
+  .screen-row small { font-size: 10px; color: var(--ink-muted); }
+
+  /* Features */
+  .features {
+    padding: 88px 0;
+    background: var(--bg-bright);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4.5vw, 42px);
+    text-align: center;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 18px;
+    margin-bottom: 48px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .feature-card {
+    padding: 28px;
+    border-radius: 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+  .feature-icon { font-size: 32px; margin-bottom: 12px; }
+  .feature-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .feature-card p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  /* Pricing */
+  .pricing { padding: 88px 0; }
+  .pricing-card {
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 48px 40px;
+    border-radius: 24px;
+    background: var(--bg-bright);
+    border: 1px solid var(--border);
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .pricing-card .eyebrow { margin-bottom: 8px; }
+  .pricing-card h2 {
+    font-family: var(--serif);
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .big-price { font-weight: 600; }
+  .pricing-card small {
+    font-size: 16px;
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-weight: 400;
+  }
+  .pricing-tag {
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    font-size: 15px;
+  }
+  .pricing-list {
+    list-style: none;
+    text-align: left;
+    margin: 0 auto 32px;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+  }
+  .primary-cta {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: transform 0.15s;
+  }
+  .primary-cta:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  /* Who */
+  .who {
+    padding: 88px 0;
+    background: var(--bg-bright);
+    border-top: 1px solid var(--border);
+  }
+  .who-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .who-grid > div {
+    padding: 20px 24px;
+    border-radius: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .who-grid strong {
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* Footer CTA */
+  .footer-cta {
+    padding: 96px 0;
+    text-align: center;
+  }
+  .footer-cta h2 {
+    font-family: var(--serif);
+    font-size: clamp(28px, 4vw, 38px);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .footer-cta p {
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    font-size: 17px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 32px 0 48px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .footer-brand {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .footer-micro {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-top: 2px;
+  }
+  .footer-nav {
+    display: flex;
+    gap: 24px;
+    font-size: 14px;
+  }
+  .footer-nav a { color: var(--ink-soft); }
+</style>

@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Alpine Squad — privacy-first iOS apps';
+const description = 'A solo developer building privacy-first iOS apps. No accounts, no tracking, no subscriptions — just useful software.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Alpine Squad',
+  url: 'https://alpinesquad.com',
+  email: 'support@alpinesquad.com',
+  founder: { '@type': 'Person', name: 'Sedric Benson' },
+  description,
+};
+
+const apps = [
+  {
+    name: 'Bible Blitz',
+    tagline: 'Bible trivia that teaches Scripture.',
+    description: 'Test your Bible knowledge in 10-question rounds. Every wrong answer reveals the verse and the context.',
+    icon: '📖',
+    href: '/bibleblitz',
+    appStore: 'https://apps.apple.com/app/bible-blitz/id6771674002',
+    status: 'live',
+  },
+];
+---
+
+<BaseLayout {title} {description} {schema}>
+  <header class="nav">
+    <div class="container nav-inner">
+      <span class="brand">
+        <span class="brand-mark">⛰</span>
+        <span class="brand-name">Alpine Squad</span>
+      </span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container-narrow">
+      <p class="eyebrow">Alpine Squad</p>
+      <h1>Privacy-first apps, <span class="accent-text">built solo</span>.</h1>
+      <p class="lede">
+        No accounts. No tracking. No subscriptions. Just useful iOS apps from one developer
+        who cares about getting the details right.
+      </p>
+    </div>
+  </section>
+
+  <section class="apps-section">
+    <div class="container">
+      <h2 class="section-title">Apps</h2>
+      <div class="apps-grid">
+        {apps.map((app) => (
+          <a href={app.href} class="app-card">
+            <div class="app-icon">{app.icon}</div>
+            <h3>{app.name}</h3>
+            <p class="app-tagline">{app.tagline}</p>
+            <p class="app-desc">{app.description}</p>
+            <span class="app-cta">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-brand">Alpine Squad</p>
+        <p class="footer-micro">© 2026 · Anacortes, WA</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="mailto:support@alpinesquad.com">Contact</a>
+      </nav>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  .nav { border-bottom: 1px solid var(--border); background: var(--bg); }
+  .nav-inner { padding: 16px 24px; }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .brand-mark { font-size: 20px; }
+
+  .hero { padding: 96px 0 64px; text-align: center; }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 7vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .accent-text { color: var(--accent); font-style: italic; }
+  .lede {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .apps-section {
+    padding: 32px 0 96px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 32px;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .app-card {
+    padding: 32px;
+    border-radius: 20px;
+    background: var(--bg-bright);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .app-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+  }
+  .app-icon { font-size: 36px; margin-bottom: 4px; }
+  .app-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    font-family: var(--serif);
+  }
+  .app-tagline {
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .app-desc {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .app-cta {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 8px;
+  }
+
+  .footer {
+    padding: 32px 0 48px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .footer-brand { font-weight: 600; color: var(--ink); }
+  .footer-micro { font-size: 13px; color: var(--ink-muted); margin-top: 2px; }
+  .footer-nav { display: flex; gap: 24px; font-size: 14px; }
+  .footer-nav a { color: var(--ink-soft); }
+</style>

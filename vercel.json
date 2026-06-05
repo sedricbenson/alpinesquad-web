@@ -1,0 +1,20 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/bibleblitz/privacy",
+      "destination": "https://sedricbenson.github.io/disclosures/bibleblitz/privacy.html",
+      "permanent": false
+    },
+    {
+      "source": "/bibleblitz/terms",
+      "destination": "https://sedricbenson.github.io/disclosures/bibleblitz/terms.html",
+      "permanent": false
+    }
+  ]
+}

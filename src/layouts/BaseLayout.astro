@@ -1,0 +1,116 @@
+---
+// Single source of truth for <head>. Every page passes its own SEO meta,
+// the layout fills in the rest from sensible defaults. Outputs are
+// static HTML so SEO crawlers see everything without executing JS.
+interface Props {
+  title: string;
+  description: string;
+  /** Absolute path to OG image (1200x630 PNG). Defaults to a generic Alpine Squad card. */
+  ogImage?: string;
+  /** Canonical absolute URL for this page. */
+  canonical?: string;
+  /** JSON-LD structured data object. */
+  schema?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/og-default.png',
+  canonical,
+  schema,
+} = Astro.props;
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const fullCanonical = canonical ?? `${site}${Astro.url.pathname}`;
+const fullOgImage = ogImage.startsWith('http') ? ogImage : `${site}${ogImage}`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={fullCanonical} />
+
+    <!-- Open Graph (Facebook, iMessage, Slack, Discord) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={fullCanonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={fullOgImage} />
+    <meta property="og:site_name" content="Alpine Squad" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={fullCanonical} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullOgImage} />
+
+    <!-- Apple smart app banner — surfaces a "Get Bible Blitz" CTA in Safari on iOS -->
+    <meta name="apple-itunes-app" content="app-id=6771674002" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- JSON-LD structured data — boosts rich-result eligibility -->
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
+
+    <!-- Self-hosted system fonts; zero network requests for typography -->
+    <style is:global>
+      :root {
+        --bg: #FBF7EE;
+        --bg-bright: #FFFFFF;
+        --ink: #1A1D24;
+        --ink-soft: #5A6271;
+        --ink-muted: #8B92A0;
+        --accent: #178A53;
+        --accent-soft: rgba(23, 138, 83, 0.12);
+        --gold: #8B7355;
+        --border: rgba(26, 29, 36, 0.08);
+        --shadow: 0 6px 24px rgba(26, 29, 36, 0.06);
+        --serif: 'New York', 'Iowan Old Style', 'Palatino', serif;
+        --sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0F1115;
+          --bg-bright: #1A1D24;
+          --ink: #F5F5F2;
+          --ink-soft: #8B92A0;
+          --ink-muted: #5A6271;
+          --accent: #1FA968;
+          --accent-soft: rgba(31, 169, 104, 0.16);
+          --gold: #B89968;
+          --border: rgba(245, 245, 242, 0.10);
+          --shadow: 0 6px 24px rgba(0, 0, 0, 0.32);
+        }
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+      body {
+        font-family: var(--sans);
+        color: var(--ink);
+        background: var(--bg);
+        line-height: 1.6;
+        font-size: 17px;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      img { max-width: 100%; height: auto; display: block; }
+      .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+      .container-narrow { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
