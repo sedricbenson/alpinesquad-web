@@ -1,10 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const title = 'Bible Blitz — Bible trivia that teaches Scripture | Alpine Squad';
-const description = 'Test your Bible knowledge in 10-question rounds. Every wrong answer reveals the verse and context — so each quiz is a quick Bible study. No ads. No subscription. Privacy-first.';
+const title = 'Bible Blitz — Bible trivia that teaches Scripture | iPhone & iPad';
+const description = 'Test your Bible knowledge in 10-question rounds. Every wrong answer reveals the verse and context. No subscription. No ads. Privacy-first.';
 
-// Schema.org SoftwareApplication markup — Google rich-result eligibility.
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'MobileApplication',
@@ -18,11 +17,6 @@ const schema = {
     priceCurrency: 'USD',
     availability: 'https://schema.org/InStock',
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5',
-    ratingCount: '4',
-  },
   publisher: {
     '@type': 'Organization',
     name: 'Alpine Squad',
@@ -33,155 +27,318 @@ const schema = {
 };
 
 const appStoreUrl = 'https://apps.apple.com/app/bible-blitz/id6771674002';
-
-const features = [
-  {
-    icon: '📖',
-    title: 'Every answer teaches',
-    body: 'Get one wrong? You see the verse and the context. A miss becomes a verse you now know.',
-  },
-  {
-    icon: '⚡',
-    title: '10 questions, ~2 minutes',
-    body: 'Designed for actual daily use. Knock out a round on the commute or with morning coffee.',
-  },
-  {
-    icon: '🧠',
-    title: 'Spaced repetition',
-    body: 'Premium Smart Review brings back questions you keep missing — exactly when you\'re about to forget.',
-  },
-  {
-    icon: '🔒',
-    title: 'Privacy-first',
-    body: 'No accounts. No tracking. No ads. Your data lives only on your phone — we never receive it.',
-  },
-  {
-    icon: '📚',
-    title: '10 categories',
-    body: 'From Genesis to Revelation. Old Testament History, Gospels, Epistles, Prophets, and more.',
-  },
-  {
-    icon: '🔥',
-    title: 'Streak + XP',
-    body: 'Daily challenges, streaks, levels, and 22 achievements. Built for the long game.',
-  },
-];
 ---
 
-<BaseLayout {title} {description} {schema} ogImage="/images/bibleblitz-og.png">
+<BaseLayout {title} {description} {schema} ogImage="/images/bibleblitz-og.png" theme="auto">
+  <!-- ============================================================
+       NAV
+       ============================================================ -->
   <header class="nav">
     <div class="container nav-inner">
       <a href="/" class="brand">
         <span class="brand-mark">⛰</span>
         <span class="brand-name">Alpine Squad</span>
       </a>
-      <a href={appStoreUrl} class="nav-cta" rel="noopener">Get on App Store →</a>
+      <a href={appStoreUrl} class="nav-cta" rel="noopener">
+        Get on App Store
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
     </div>
   </header>
 
+  <!-- ============================================================
+       HERO — dark, gradient glow, real icon, phone mockup
+       ============================================================ -->
   <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-glow hero-glow-green"></div>
+      <div class="hero-glow hero-glow-gold"></div>
+      <div class="hero-grid"></div>
+    </div>
     <div class="container hero-inner">
       <div class="hero-text">
-        <p class="eyebrow">Bible Blitz · iOS</p>
-        <h1>Bible trivia that <span class="accent-text">teaches you Scripture</span>.</h1>
-        <p class="lede">
-          Test your Bible knowledge in 10-question rounds. Every wrong answer reveals the verse
-          and the context — so each quiz is a quick Bible study, not just a test.
+        <div class="hero-icon">
+          <img src="/images/bibleblitz-icon.png" alt="Bible Blitz app icon" width="92" height="92" />
+        </div>
+        <p class="eyebrow eyebrow-on-dark">Bible Blitz · iPhone & iPad</p>
+        <h1>
+          Bible trivia<br/>
+          that <span class="hero-accent">teaches</span> you<br/>
+          Scripture.
+        </h1>
+        <p class="hero-lede">
+          Test your Bible knowledge in 10-question rounds. Every wrong answer
+          reveals the verse and the context — so each quiz is a quick Bible
+          study, not just a test.
         </p>
-        <div class="cta-row">
-          <a href={appStoreUrl} class="appstore-badge" rel="noopener" aria-label="Download Bible Blitz on the App Store">
-            <svg viewBox="0 0 120 40" width="160" height="53" aria-hidden="true">
-              <rect width="120" height="40" rx="7" fill="#000"/>
-              <text x="60" y="16" text-anchor="middle" fill="#fff" font-family="-apple-system, sans-serif" font-size="8">Download on the</text>
-              <text x="60" y="30" text-anchor="middle" fill="#fff" font-family="-apple-system, sans-serif" font-size="14" font-weight="600">App Store</text>
+        <div class="hero-cta">
+          <a href={appStoreUrl} class="appstore-pill" rel="noopener" aria-label="Download Bible Blitz on the App Store">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
             </svg>
+            <span class="appstore-stack">
+              <span class="appstore-small">Download on the</span>
+              <span class="appstore-big">App Store</span>
+            </span>
           </a>
-          <span class="micro-trust">Free · No ads · No subscription</span>
+          <div class="trust-row">
+            <span class="trust-dot"></span>
+            <span>Free · No ads · No subscription</span>
+          </div>
         </div>
       </div>
-      <div class="hero-mock" aria-hidden="true">
-        <div class="phone">
+
+      <!-- Phone mockup — when /images/bibleblitz-hero-screen.png exists, it
+           gets dropped into .phone-screen. Until then, a faithful CSS
+           rendering of the home screen so the hero never looks broken. -->
+      <div class="hero-mock reveal" aria-hidden="true">
+        <div class="phone-shell">
+          <div class="phone-notch"></div>
           <div class="phone-screen">
-            <div class="screen-status">9:41</div>
-            <h3 class="screen-title">Bible Blitz</h3>
-            <div class="screen-greeting">
-              <div>Good morning, Sedric</div>
-              <div class="streak"><span class="flame">🔥</span> 7</div>
+            <img class="phone-shot" src="/images/bibleblitz-hero-screen.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="phone-screen-fallback" style="display:none">
+              <div class="fb-status">9:41</div>
+              <div class="fb-greeting">
+                <div>
+                  <div style="font-size:22px; font-weight:600">Good morning</div>
+                  <div style="font-size:13px; color:#8B9292; margin-top:2px">🔥 7 day streak</div>
+                </div>
+              </div>
+              <button class="fb-play">
+                <strong>Play</strong>
+                <span>10 questions · ~2 min</span>
+              </button>
+              <div class="fb-rows">
+                <div class="fb-row"><span>☀️</span><div><b>Today's Challenge</b><span>5 questions · 2× XP bonus</span></div><span class="fb-chev">›</span></div>
+                <div class="fb-row"><span>📚</span><div><b>Categories</b><span>Pick a Bible topic to focus on</span></div><span class="fb-chev">›</span></div>
+                <div class="fb-row"><span>📖</span><div><b>Memorize</b><span>Learn verses by heart, step by step</span></div><span class="fb-chev">›</span></div>
+                <div class="fb-row"><span>⏱</span><div><b>Timed Blitz</b><span>Beat the clock on rapid-fire questions</span></div><span class="fb-lock">🔒</span></div>
+              </div>
             </div>
-            <button class="screen-play">
-              Play
-              <small>10 questions · ~2 min</small>
-            </button>
-            <div class="screen-row"><span>☀️</span><div><strong>Today's Challenge</strong><br/><small>5 questions · 2× XP bonus</small></div></div>
-            <div class="screen-row"><span>📚</span><div><strong>Categories</strong><br/><small>Pick a Bible topic to focus on</small></div></div>
-            <div class="screen-row"><span>📖</span><div><strong>Memorize</strong><br/><small>Learn verses by heart, step by step</small></div></div>
+          </div>
+        </div>
+        <div class="phone-shadow" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TRUST STRIP
+       ============================================================ -->
+  <section class="strip">
+    <div class="container strip-inner">
+      <div class="strip-item"><b>10</b><span>categories of hand-curated questions</span></div>
+      <div class="strip-divider"></div>
+      <div class="strip-item"><b>3</b><span>translations: KJV · NKJV · NIV</span></div>
+      <div class="strip-divider"></div>
+      <div class="strip-item"><b>$4.99</b><span>one-time premium · no subscription</span></div>
+      <div class="strip-divider"></div>
+      <div class="strip-item"><b>0</b><span>ads, trackers, or accounts</span></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BIG STATEMENT — the why
+       ============================================================ -->
+  <section class="statement">
+    <div class="container-narrow statement-inner reveal">
+      <p class="eyebrow">The premise</p>
+      <h2>
+        Most Bible apps make you <em>read</em>.<br/>
+        Bible Blitz makes you <span class="accent-text">recall</span>.
+      </h2>
+      <p class="statement-body">
+        Recall is the proven way to actually retain Scripture. Hand-curated
+        questions, the verse and context revealed after every answer, and a
+        daily challenge that gives you a reason to come back.
+      </p>
+      <p class="quote">
+        "A wrong answer isn't a failure. It's a verse you now know."
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURE SHOWCASE — alternating split sections
+       ============================================================ -->
+  <section class="feature-split">
+    <div class="container feature-row reveal">
+      <div class="feature-copy">
+        <p class="eyebrow">Every answer teaches</p>
+        <h3>The verse comes <span class="accent-text">with</span> the answer.</h3>
+        <p>
+          Get one wrong? You see the verse, the reference, and a quick
+          explanation. The "miss" turns into a verse you now know.
+        </p>
+        <ul class="feature-bullets">
+          <li>✓ Verse + reference revealed after every answer</li>
+          <li>✓ One-sentence context, not a sermon</li>
+          <li>✓ Same UX whether you got it right or wrong</li>
+        </ul>
+      </div>
+      <div class="feature-art">
+        <div class="phone-shell phone-small">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img class="phone-shot" src="/images/bibleblitz-quiz-answered.png" alt="Quiz answered screen with verse context" onerror="this.style.opacity='0'" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container feature-row feature-row-reverse reveal">
+      <div class="feature-copy">
+        <p class="eyebrow">Daily streak</p>
+        <h3>A 2-minute habit that <span class="accent-text">sticks</span>.</h3>
+        <p>
+          A daily challenge with a 2× XP bonus, a streak counter, and a
+          milestone celebration every 7, 14, 30 days. Built so opening it
+          tomorrow feels easier than skipping.
+        </p>
+        <ul class="feature-bullets">
+          <li>✓ Daily Challenge with double-XP bonus</li>
+          <li>✓ Streak protection (Premium)</li>
+          <li>✓ Milestone share cards for Instagram</li>
+        </ul>
+      </div>
+      <div class="feature-art">
+        <div class="phone-shell phone-small">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img class="phone-shot" src="/images/bibleblitz-results.png" alt="Quiz results screen" onerror="this.style.opacity='0'" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container feature-row reveal">
+      <div class="feature-copy">
+        <p class="eyebrow">Verse memory</p>
+        <h3>Three steps to <span class="accent-text">memorize</span> any verse.</h3>
+        <p>
+          Read → Fill the Blanks → Recite. Fuzzy-matched so a typo doesn't
+          punish you. Built-in support for KJV, NKJV, and NIV.
+        </p>
+        <ul class="feature-bullets">
+          <li>✓ Read with key-word emphasis</li>
+          <li>✓ Word-bank fill-in puzzle</li>
+          <li>✓ Recite with forgiving fuzzy matching</li>
+        </ul>
+      </div>
+      <div class="feature-art">
+        <div class="phone-shell phone-small">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img class="phone-shot" src="/images/bibleblitz-memorize.png" alt="Verse memorization screen" onerror="this.style.opacity='0'" />
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="features">
-    <div class="container">
-      <h2 class="section-title">Built to make Scripture <em>stick</em>.</h2>
-      <p class="section-sub">Most Bible apps make you read. Bible Blitz makes you recall — the proven way to retain Scripture.</p>
-      <div class="feature-grid">
-        {features.map((f) => (
-          <article class="feature-card">
-            <div class="feature-icon">{f.icon}</div>
-            <h3>{f.title}</h3>
-            <p>{f.body}</p>
-          </article>
-        ))}
+  <!-- ============================================================
+       PRIVACY CARD — dark, distinct
+       ============================================================ -->
+  <section class="privacy">
+    <div class="container privacy-card reveal">
+      <div class="privacy-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h2>Your Bible study isn't <em>data</em>.</h2>
+      <p>
+        Bible Blitz collects nothing. No accounts. No tracking. No analytics. No
+        ads. Your name, scores, streaks, and premium status live only on your
+        phone — we don't have a server that receives them, because we never
+        built one.
+      </p>
+      <div class="privacy-pillars">
+        <div><span>🔒</span><b>Local-only data</b><p>Everything's on your device. Period.</p></div>
+        <div><span>🚫</span><b>No tracking</b><p>No SDKs. No analytics pixels. Nothing.</p></div>
+        <div><span>⛔</span><b>No accounts</b><p>No email, no password. Just download and play.</p></div>
       </div>
     </div>
   </section>
 
+  <!-- ============================================================
+       PRICING — dark gradient card
+       ============================================================ -->
   <section class="pricing">
-    <div class="container">
+    <div class="container pricing-inner reveal">
+      <p class="eyebrow">Premium</p>
+      <h2>One price. <span class="accent-text">One time.</span> Forever.</h2>
       <div class="pricing-card">
-        <p class="eyebrow">Premium</p>
-        <h2><span class="big-price">$4.99</span> <small>one-time</small></h2>
-        <p class="pricing-tag">No subscription. No ads. Yours forever.</p>
-        <ul class="pricing-list">
-          <li>✓ Smart Review — spaced-repetition learning</li>
-          <li>✓ Timed Blitz — 30-second speed rounds</li>
-          <li>✓ All 10 categories (Acts, Epistles, Revelation, People, Geography)</li>
-          <li>✓ Streak protection</li>
-          <li>✓ Support a solo developer building privacy-first apps</li>
+        <div class="pricing-tier">
+          <div class="tier-name">Bible Blitz Premium</div>
+          <div class="tier-price"><span class="dollar">$</span><span class="amount">4.99</span></div>
+          <div class="tier-sub">one-time purchase · no subscription · no ads</div>
+        </div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span><b>Smart Review</b> — spaced-repetition learning</li>
+          <li><span class="check">✓</span><b>Timed Blitz</b> — 30-second speed rounds</li>
+          <li><span class="check">✓</span><b>All 10 categories</b> — Acts, Epistles, Revelation, People, Geography</li>
+          <li><span class="check">✓</span><b>Streak protection</b> — keep your run on days you slip</li>
+          <li><span class="check">✓</span><b>Support a solo developer</b> building privacy-first apps</li>
         </ul>
-        <a href={appStoreUrl} class="primary-cta" rel="noopener">Download free, upgrade if you love it</a>
+        <a href={appStoreUrl} class="pricing-cta" rel="noopener">
+          Download free, upgrade when you love it
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <p class="pricing-trust">Quick Play, Daily Challenge, Verse Memory, 5 categories, all themes, full streak system — <b>free forever</b>.</p>
       </div>
     </div>
   </section>
 
+  <!-- ============================================================
+       WHO IT'S FOR
+       ============================================================ -->
   <section class="who">
     <div class="container">
-      <h2 class="section-title">Who it's for</h2>
+      <p class="eyebrow" style="text-align:center">Who it's for</p>
+      <h2 class="who-title">Built for the people who actually open it daily.</h2>
       <div class="who-grid">
-        <div><strong>Personal devotional time.</strong> 2 minutes a day, every day.</div>
-        <div><strong>Family Bible study.</strong> Pass the phone, take turns answering.</div>
-        <div><strong>Sunday school icebreakers.</strong> Drop the phone on the table.</div>
-        <div><strong>Youth group game night.</strong> Built-in competition.</div>
-        <div><strong>Homeschool curriculum.</strong> 5 minutes during morning circle.</div>
-        <div><strong>Anyone</strong> who wants to know their Bible better.</div>
+        <div class="who-card"><span>🌅</span><b>Personal devotional time</b><p>Two minutes a day, every day.</p></div>
+        <div class="who-card"><span>👨‍👩‍👧</span><b>Family Bible study</b><p>Pass the phone, take turns answering.</p></div>
+        <div class="who-card"><span>🎤</span><b>Sunday school icebreakers</b><p>Drop the phone on the table.</p></div>
+        <div class="who-card"><span>🏫</span><b>Youth group game night</b><p>Built-in competition.</p></div>
+        <div class="who-card"><span>📚</span><b>Homeschool morning circle</b><p>Five minutes during morning routines.</p></div>
+        <div class="who-card"><span>✝️</span><b>Anyone who wants more</b><p>Know your Bible better than yesterday.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="footer-cta">
-    <div class="container-narrow">
-      <h2>Ready to test your Bible knowledge?</h2>
-      <p>Free download. $4.99 lifetime premium (no subscription). Available now on iPhone and iPad.</p>
-      <a href={appStoreUrl} class="primary-cta" rel="noopener">Get Bible Blitz →</a>
+  <!-- ============================================================
+       FINAL CTA — bold dark band
+       ============================================================ -->
+  <section class="final-cta">
+    <div class="final-bg" aria-hidden="true">
+      <div class="hero-glow hero-glow-green"></div>
+    </div>
+    <div class="container-narrow final-inner reveal">
+      <h2>Ready to test what you actually <em>know</em>?</h2>
+      <p>Free to play. $4.99 lifetime for premium. iPhone and iPad.</p>
+      <a href={appStoreUrl} class="appstore-pill appstore-pill-large" rel="noopener">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+          <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+        </svg>
+        <span class="appstore-stack">
+          <span class="appstore-small">Download on the</span>
+          <span class="appstore-big">App Store</span>
+        </span>
+      </a>
     </div>
   </section>
 
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
   <footer class="footer">
     <div class="container footer-inner">
-      <div>
-        <p class="footer-brand">Alpine Squad</p>
-        <p class="footer-micro">Privacy-first apps, built solo.</p>
+      <div class="footer-brand">
+        <span class="brand-mark">⛰</span>
+        <div>
+          <p class="footer-name">Alpine Squad</p>
+          <p class="footer-micro">Privacy-first apps · built solo · Anacortes, WA</p>
+        </div>
       </div>
       <nav class="footer-nav">
         <a href="https://sedricbenson.github.io/disclosures/bibleblitz/privacy.html">Privacy</a>
@@ -194,361 +351,691 @@ const features = [
 </BaseLayout>
 
 <style>
+  /* ============================================================
+     NAV
+     ============================================================ */
   .nav {
-    border-bottom: 1px solid var(--border);
-    background: var(--bg);
     position: sticky;
     top: 0;
-    z-index: 10;
-    backdrop-filter: blur(12px);
+    z-index: 20;
+    background: rgba(251, 247, 238, 0.72);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid var(--border);
   }
   .nav-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 24px;
+    padding: 14px 24px;
   }
   .brand {
     display: flex;
     align-items: center;
     gap: 10px;
     color: var(--ink);
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
+    letter-spacing: -0.01em;
   }
-  .brand:hover { text-decoration: none; }
-  .brand-mark { font-size: 20px; }
+  .brand-mark { font-size: 22px; }
   .nav-cta {
-    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink);
+    background: var(--bg-elevated);
+    padding: 9px 16px;
+    border-radius: var(--r-pill);
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+  }
+  .nav-cta:hover { background: var(--bg-deep); color: var(--ink); text-decoration: none; transform: translateY(-1px); }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero {
+    position: relative;
+    background: var(--bg-dark);
+    color: var(--ink-on-dark);
+    overflow: hidden;
+    padding: 88px 0 120px;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.5;
+  }
+  .hero-glow-green {
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    top: -200px;
+    left: -200px;
+  }
+  .hero-glow-gold {
+    background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+    bottom: -300px;
+    right: -200px;
+    opacity: 0.3;
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(244, 241, 234, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244, 241, 234, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at center, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at center, black 30%, transparent 100%);
   }
 
-  .hero {
-    padding: 80px 0 64px;
-    background: var(--bg);
-  }
   .hero-inner {
+    position: relative;
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 64px;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 80px;
     align-items: center;
   }
-  @media (max-width: 800px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  @media (max-width: 880px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 56px; text-align: center; }
     .hero-mock { order: -1; }
+    .hero-cta { justify-content: center; }
+    .trust-row { justify-content: center; }
   }
-  .eyebrow {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
+
+  .hero-icon {
+    margin-bottom: 28px;
+    display: inline-block;
+  }
+  .hero-icon img {
+    width: 92px;
+    height: 92px;
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  @media (max-width: 880px) {
+    .hero-icon img { width: 76px; height: 76px; border-radius: 18px; }
+  }
+
+  .hero-text .eyebrow {
+    margin-bottom: 20px;
   }
   .hero h1 {
     font-family: var(--serif);
-    font-size: clamp(40px, 6vw, 60px);
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    margin-bottom: 24px;
+    font-size: clamp(44px, 7.5vw, 84px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    color: var(--ink-on-dark);
+    margin-bottom: 28px;
+  }
+  .hero-accent {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--accent-pop) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--accent-pop);
   }
   .accent-text {
-    color: var(--accent);
+    color: var(--accent-warm);
     font-style: italic;
   }
-  .lede {
-    font-size: 19px;
+  .hero-lede {
+    font-size: clamp(17px, 2vw, 20px);
     line-height: 1.55;
-    color: var(--ink-soft);
-    margin-bottom: 32px;
-    max-width: 540px;
+    color: var(--ink-on-dark-soft);
+    max-width: 560px;
+    margin-bottom: 40px;
   }
-  .cta-row {
+  @media (max-width: 880px) {
+    .hero-lede { margin-left: auto; margin-right: auto; }
+  }
+  .hero-cta {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
     flex-wrap: wrap;
   }
-  .appstore-badge {
-    display: inline-block;
-    transition: transform 0.15s;
+  .trust-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--ink-on-dark-muted);
   }
-  .appstore-badge:hover {
-    transform: translateY(-1px);
-    text-decoration: none;
-  }
-  .micro-trust {
-    font-size: 14px;
-    color: var(--ink-muted);
+  .trust-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-pop);
+    box-shadow: 0 0 8px var(--accent-pop);
   }
 
-  /* Phone mockup */
+  /* App Store pill button */
+  .appstore-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: var(--r-md);
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+  .appstore-pill:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+  .appstore-stack {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    align-items: flex-start;
+  }
+  .appstore-small {
+    font-size: 10.5px;
+    font-weight: 400;
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+  }
+  .appstore-big {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  .appstore-pill-large { padding: 14px 24px; }
+  .appstore-pill-large .appstore-big { font-size: 20px; }
+
+  /* Phone mockup — iOS device frame */
   .hero-mock {
+    position: relative;
     display: flex;
     justify-content: center;
   }
-  .phone {
-    width: 280px;
-    aspect-ratio: 9 / 19.5;
-    background: var(--ink);
-    border-radius: 36px;
-    padding: 8px;
-    box-shadow: var(--shadow);
+  .phone-shell {
     position: relative;
+    width: 320px;
+    aspect-ratio: 9 / 19.5;
+    background: linear-gradient(180deg, #1a1d24 0%, #0a0d12 100%);
+    border-radius: 44px;
+    padding: 6px;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      var(--shadow-hero);
   }
-  .phone::after {
-    content: '';
+  .phone-small { width: 260px; }
+  .phone-notch {
     position: absolute;
-    top: 14px;
+    top: 18px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90px;
-    height: 22px;
+    width: 96px;
+    height: 26px;
     background: #000;
     border-radius: 100px;
+    z-index: 2;
   }
   .phone-screen {
-    background: var(--bg-bright);
+    position: relative;
+    background: var(--bg-elevated);
+    color: var(--ink);
     height: 100%;
-    border-radius: 30px;
-    padding: 48px 16px 24px;
+    border-radius: 38px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    color: var(--ink);
   }
-  .screen-status {
-    font-size: 11px;
-    font-weight: 600;
-    text-align: left;
-    padding-left: 6px;
-    margin-bottom: 4px;
+  .phone-shot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
-  .screen-title {
-    text-align: center;
-    font-size: 17px;
-    font-weight: 600;
-    margin-bottom: 4px;
+  .phone-shadow {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 60px;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+    filter: blur(20px);
+    z-index: -1;
   }
-  .screen-greeting {
+
+  /* Phone fallback (when screenshot missing) */
+  .phone-screen-fallback {
+    flex: 1;
+    padding: 56px 14px 20px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    font-weight: 600;
+    flex-direction: column;
+    gap: 10px;
   }
-  .streak {
-    color: var(--ink-soft);
-    font-weight: 500;
-    font-size: 12px;
-  }
-  .flame { font-size: 11px; }
-  .screen-play {
+  .fb-status { font-size: 11px; font-weight: 600; padding-left: 8px; }
+  .fb-greeting { padding: 0 4px; margin-bottom: 4px; }
+  .fb-play {
     background: var(--accent);
     color: #fff;
     border: none;
-    border-radius: 12px;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: 600;
+    border-radius: 14px;
+    padding: 18px;
     font-family: inherit;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
     cursor: pointer;
-    margin-top: 8px;
+    box-shadow: 0 6px 16px rgba(31, 169, 104, 0.3);
   }
-  .screen-play small {
-    display: block;
-    font-size: 11px;
-    opacity: 0.85;
-    font-weight: 500;
-    margin-top: 2px;
-  }
-  .screen-row {
+  .fb-play strong { font-size: 22px; }
+  .fb-play span { font-size: 12px; opacity: 0.92; font-weight: 500; margin-top: 3px; }
+  .fb-rows { display: flex; flex-direction: column; gap: 8px; }
+  .fb-row {
     display: flex;
     align-items: center;
     gap: 10px;
+    padding: 12px;
     background: var(--bg);
-    padding: 10px 12px;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 13px;
   }
-  .screen-row strong { display: block; font-size: 13px; }
-  .screen-row small { font-size: 10px; color: var(--ink-muted); }
+  .fb-row > div { flex: 1; display: flex; flex-direction: column; }
+  .fb-row b { font-size: 13px; font-weight: 600; }
+  .fb-row span:not(.fb-chev):not(.fb-lock) { font-size: 11px; color: var(--ink-muted); margin-top: 1px; }
+  .fb-chev { color: var(--ink-muted); }
+  .fb-lock { font-size: 12px; }
 
-  /* Features */
-  .features {
-    padding: 88px 0;
-    background: var(--bg-bright);
+  /* ============================================================
+     TRUST STRIP
+     ============================================================ */
+  .strip {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0;
+  }
+  .strip-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) ;
+    align-items: center;
+    gap: 0;
+  }
+  @media (max-width: 800px) {
+    .strip-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .strip-divider { display: none; }
+  }
+  .strip-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+  }
+  .strip-item b {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--accent-warm);
+    line-height: 1;
+  }
+  .strip-item span {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    max-width: 180px;
+  }
+  .strip-divider {
+    width: 1px;
+    height: 32px;
+    background: var(--border);
+    justify-self: center;
+  }
+
+  /* ============================================================
+     STATEMENT
+     ============================================================ */
+  .statement {
+    padding: 120px 0 100px;
+    text-align: center;
+    background: var(--bg);
+  }
+  .statement h2 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5.5vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    margin: 18px 0 28px;
+  }
+  .statement em { font-style: italic; color: var(--ink-muted); }
+  .statement-body {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0 auto 40px;
+  }
+  .quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(20px, 2.8vw, 26px);
+    color: var(--accent-warm);
+    line-height: 1.4;
+    padding: 24px 32px;
+    border-left: 3px solid var(--accent);
+    background: linear-gradient(90deg, rgba(31, 169, 104, 0.06), transparent 80%);
+    max-width: 580px;
+    margin: 0 auto;
+    text-align: left;
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+  }
+
+  /* ============================================================
+     FEATURE SPLIT
+     ============================================================ */
+  .feature-split {
+    background: var(--bg-elevated);
+    padding: 100px 0;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
   }
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(32px, 4.5vw, 42px);
-    text-align: center;
-    margin-bottom: 12px;
-    letter-spacing: -0.01em;
-  }
-  .section-sub {
-    text-align: center;
-    color: var(--ink-soft);
-    font-size: 18px;
-    margin-bottom: 48px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .feature-grid {
+  .feature-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding: 60px 24px;
   }
-  .feature-card {
-    padding: 28px;
-    border-radius: 16px;
-    background: var(--bg);
-    border: 1px solid var(--border);
+  .feature-row-reverse { direction: rtl; }
+  .feature-row-reverse > * { direction: ltr; }
+  @media (max-width: 880px) {
+    .feature-row { grid-template-columns: 1fr; gap: 48px; direction: ltr !important; }
+    .feature-art { order: -1; display: flex; justify-content: center; }
   }
-  .feature-icon { font-size: 32px; margin-bottom: 12px; }
-  .feature-card h3 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .feature-card p {
-    color: var(--ink-soft);
-    font-size: 15px;
-    line-height: 1.55;
-  }
-
-  /* Pricing */
-  .pricing { padding: 88px 0; }
-  .pricing-card {
-    max-width: 540px;
-    margin: 0 auto;
-    padding: 48px 40px;
-    border-radius: 24px;
-    background: var(--bg-bright);
-    border: 1px solid var(--border);
-    text-align: center;
-    box-shadow: var(--shadow);
-  }
-  .pricing-card .eyebrow { margin-bottom: 8px; }
-  .pricing-card h2 {
+  .feature-copy .eyebrow { margin-bottom: 18px; }
+  .feature-copy h3 {
     font-family: var(--serif);
-    font-size: 64px;
-    line-height: 1;
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.08;
     letter-spacing: -0.02em;
-    margin-bottom: 4px;
+    font-weight: 600;
+    margin-bottom: 18px;
   }
-  .big-price { font-weight: 600; }
-  .pricing-card small {
-    font-size: 16px;
+  .feature-copy p {
+    font-size: 17px;
     color: var(--ink-soft);
-    font-family: var(--sans);
-    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    max-width: 480px;
   }
-  .pricing-tag {
-    color: var(--ink-soft);
-    margin-bottom: 28px;
-    font-size: 15px;
-  }
-  .pricing-list {
+  .feature-bullets {
     list-style: none;
-    text-align: left;
-    margin: 0 auto 32px;
-    max-width: 380px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    font-size: 15px;
   }
-  .primary-cta {
-    display: inline-block;
+  .feature-bullets li {
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .feature-art { display: flex; justify-content: center; align-items: center; }
+
+  /* ============================================================
+     PRIVACY
+     ============================================================ */
+  .privacy {
+    background: var(--bg-dark);
+    color: var(--ink-on-dark);
+    padding: 100px 0;
+  }
+  .privacy-card {
+    max-width: 880px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 24px;
+  }
+  .privacy-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 24px;
+    background: rgba(31, 169, 104, 0.12);
+    color: var(--accent-pop);
+    margin-bottom: 24px;
+    box-shadow: inset 0 0 0 1px rgba(31, 169, 104, 0.3);
+  }
+  .privacy-card h2 {
+    font-family: var(--serif);
+    font-size: clamp(34px, 5vw, 52px);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+  .privacy-card h2 em { font-style: italic; color: var(--accent-pop); }
+  .privacy-card > p {
+    color: var(--ink-on-dark-soft);
+    font-size: 18px;
+    line-height: 1.55;
+    max-width: 620px;
+    margin: 0 auto 48px;
+  }
+  .privacy-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    text-align: left;
+  }
+  @media (max-width: 720px) { .privacy-pillars { grid-template-columns: 1fr; } }
+  .privacy-pillars > div {
+    background: var(--bg-dark-elevated);
+    border: 1px solid var(--border-on-dark);
+    border-radius: var(--r-md);
+    padding: 24px;
+  }
+  .privacy-pillars span { font-size: 24px; display: block; margin-bottom: 10px; }
+  .privacy-pillars b { display: block; font-size: 16px; font-weight: 600; color: var(--ink-on-dark); margin-bottom: 4px; }
+  .privacy-pillars p { font-size: 13.5px; color: var(--ink-on-dark-muted); line-height: 1.5; }
+
+  /* ============================================================
+     PRICING
+     ============================================================ */
+  .pricing {
+    padding: 120px 0;
+    background: var(--bg);
+  }
+  .pricing-inner { text-align: center; }
+  .pricing-inner > .eyebrow { margin-bottom: 14px; }
+  .pricing-inner > h2 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5.5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    margin-bottom: 48px;
+  }
+  .pricing-card {
+    max-width: 580px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-deep) 100%);
+    border-radius: var(--r-xl);
+    padding: 48px 40px;
+    text-align: left;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    border: 1px solid var(--border);
+  }
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--r-xl);
+    padding: 1px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .pricing-tier { text-align: center; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+  .tier-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent-warm);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .tier-price {
+    font-family: var(--serif);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .dollar { font-size: 28px; font-weight: 600; color: var(--ink-soft); }
+  .amount { font-size: 72px; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); }
+  .tier-sub { font-size: 14px; color: var(--ink-muted); }
+
+  .pricing-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .pricing-features li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .pricing-features b { color: var(--ink); font-weight: 600; }
+  .check { color: var(--accent); font-weight: 700; }
+
+  .pricing-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     background: var(--accent);
     color: #fff;
-    padding: 14px 28px;
-    border-radius: 12px;
+    text-align: center;
+    padding: 16px 24px;
+    border-radius: var(--r-md);
     font-weight: 600;
     font-size: 16px;
-    transition: transform 0.15s;
+    transition: all 0.15s;
+    box-shadow: 0 6px 20px rgba(31, 169, 104, 0.35);
   }
-  .primary-cta:hover {
+  .pricing-cta:hover {
+    background: var(--accent-warm);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(31, 169, 104, 0.45);
     text-decoration: none;
-    transform: translateY(-1px);
+  }
+  .pricing-trust {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--ink-muted);
+    text-align: center;
+    line-height: 1.5;
   }
 
-  /* Who */
-  .who {
-    padding: 88px 0;
-    background: var(--bg-bright);
-    border-top: 1px solid var(--border);
+  /* ============================================================
+     WHO
+     ============================================================ */
+  .who { padding: 100px 0; background: var(--bg-deep); border-top: 1px solid var(--border); }
+  .who-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4.5vw, 46px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    text-align: center;
+    margin: 14px 0 56px;
   }
   .who-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 16px;
-    max-width: 880px;
-    margin: 0 auto;
   }
-  .who-grid > div {
-    padding: 20px 24px;
-    border-radius: 12px;
-    background: var(--bg);
+  .who-card {
+    background: var(--bg-elevated);
     border: 1px solid var(--border);
-    font-size: 15px;
-    color: var(--ink-soft);
+    border-radius: var(--r-md);
+    padding: 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
-  .who-grid strong {
-    color: var(--ink);
-    display: block;
-    margin-bottom: 4px;
-  }
+  .who-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .who-card span { font-size: 28px; display: block; margin-bottom: 12px; }
+  .who-card b { display: block; font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .who-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
 
-  /* Footer CTA */
-  .footer-cta {
-    padding: 96px 0;
+  /* ============================================================
+     FINAL CTA
+     ============================================================ */
+  .final-cta {
+    position: relative;
+    background: var(--bg-dark);
+    color: var(--ink-on-dark);
+    padding: 120px 0;
+    overflow: hidden;
     text-align: center;
   }
-  .footer-cta h2 {
+  .final-bg { position: absolute; inset: 0; pointer-events: none; }
+  .final-inner { position: relative; }
+  .final-cta h2 {
     font-family: var(--serif);
-    font-size: clamp(28px, 4vw, 38px);
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
+    font-size: clamp(36px, 5.5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    margin-bottom: 18px;
   }
-  .footer-cta p {
-    color: var(--ink-soft);
-    margin-bottom: 32px;
-    font-size: 17px;
-  }
+  .final-cta h2 em { font-style: italic; color: var(--accent-pop); }
+  .final-cta p { color: var(--ink-on-dark-soft); font-size: 18px; margin-bottom: 36px; }
 
-  /* Footer */
+  /* ============================================================
+     FOOTER
+     ============================================================ */
   .footer {
-    padding: 32px 0 48px;
-    border-top: 1px solid var(--border);
-    background: var(--bg);
+    background: var(--bg-dark-deep);
+    color: var(--ink-on-dark-soft);
+    padding: 40px 0 56px;
   }
   .footer-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 24px;
     flex-wrap: wrap;
-    gap: 24px;
   }
-  .footer-brand {
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .footer-micro {
-    font-size: 13px;
-    color: var(--ink-muted);
-    margin-top: 2px;
-  }
-  .footer-nav {
-    display: flex;
-    gap: 24px;
-    font-size: 14px;
-  }
-  .footer-nav a { color: var(--ink-soft); }
+  .footer-brand { display: flex; align-items: center; gap: 12px; }
+  .footer-brand .brand-mark { color: var(--ink-on-dark); }
+  .footer-name { font-weight: 600; color: var(--ink-on-dark); }
+  .footer-micro { font-size: 12.5px; color: var(--ink-on-dark-muted); margin-top: 2px; }
+  .footer-nav { display: flex; gap: 24px; font-size: 14px; }
+  .footer-nav a { color: var(--ink-on-dark-soft); }
+  .footer-nav a:hover { color: var(--ink-on-dark); }
 </style>
