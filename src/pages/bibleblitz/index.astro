@@ -61,11 +61,7 @@ const appStoreUrl = 'https://apps.apple.com/app/bible-blitz/id6771674002';
           <img src="/images/bibleblitz-icon.png" alt="Bible Blitz app icon" width="92" height="92" />
         </div>
         <p class="eyebrow eyebrow-on-dark">Bible Blitz · iPhone & iPad</p>
-        <h1>
-          Bible trivia<br/>
-          that <span class="hero-accent">teaches</span> you<br/>
-          Scripture.
-        </h1>
+        <h1>Bible trivia that <span class="hero-accent">teaches</span> you Scripture.</h1>
         <p class="hero-lede">
           Test your Bible knowledge in 10-question rounds. Every wrong answer
           reveals the verse and the context — so each quiz is a quick Bible
@@ -473,12 +469,14 @@ const appStoreUrl = 'https://apps.apple.com/app/bible-blitz/id6771674002';
   }
   .hero h1 {
     font-family: var(--serif);
-    font-size: clamp(44px, 7.5vw, 84px);
-    line-height: 0.98;
-    letter-spacing: -0.03em;
+    font-size: clamp(40px, 6.4vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
     font-weight: 600;
     color: var(--ink-on-dark);
     margin-bottom: 28px;
+    text-wrap: balance;
+    max-width: 14ch;
   }
   .hero-accent {
     font-style: italic;
@@ -580,17 +578,10 @@ const appStoreUrl = 'https://apps.apple.com/app/bible-blitz/id6771674002';
       var(--shadow-hero);
   }
   .phone-small { width: 260px; }
-  .phone-notch {
-    position: absolute;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 96px;
-    height: 26px;
-    background: #000;
-    border-radius: 100px;
-    z-index: 2;
-  }
+  /* Notch hidden — real screenshots include iOS status bar already;
+     overlaying a Dynamic Island pill on top of the app's nav bar made
+     the title text smear into the black pill. */
+  .phone-notch { display: none; }
   .phone-screen {
     position: relative;
     background: var(--bg-elevated);
@@ -670,12 +661,12 @@ const appStoreUrl = 'https://apps.apple.com/app/bible-blitz/id6771674002';
   }
   .strip-inner {
     display: grid;
-    grid-template-columns: repeat(4, 1fr) ;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr;
     align-items: center;
     gap: 0;
   }
   @media (max-width: 800px) {
-    .strip-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .strip-inner { grid-template-columns: repeat(2, 1fr); gap: 24px 16px; }
     .strip-divider { display: none; }
   }
   .strip-item {
