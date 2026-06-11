@@ -123,13 +123,6 @@ const schema = {
           <p class="hero-claims">No ads · No tracking · No subscription</p>
         </div>
       </div>
-      <div class="hero-mock" aria-hidden="true">
-        <div class="phone-shell">
-          <div class="phone-screen">
-            <img src="/images/bibleblitz-hero-screen.png" alt="" loading="eager" />
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -288,14 +281,10 @@ const schema = {
   }
   .hero-inner {
     position: relative;
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 56px;
-    align-items: center;
+    max-width: 880px;
   }
   @media (max-width: 880px) {
     .hero { padding: 64px 0 72px; }
-    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
   }
   .hero-icon {
     width: 84px;
@@ -306,14 +295,14 @@ const schema = {
   }
   .hero h1 {
     font-family: var(--serif);
-    font-size: clamp(40px, 6vw, 68px);
-    line-height: 1.04;
+    font-size: clamp(44px, 7.2vw, 88px);
+    line-height: 1.02;
     letter-spacing: -0.025em;
     font-weight: 600;
     color: var(--ink-on-dark);
-    margin: 18px 0 24px;
+    margin: 18px 0 28px;
     text-wrap: balance;
-    max-width: 14ch;
+    max-width: 16ch;
   }
   .hero-accent {
     font-style: italic;
@@ -358,25 +347,6 @@ const schema = {
     color: var(--ink-on-dark);
     border-color: transparent;
   }
-
-  /* PHONE MOCKUP --------------------------------------------------- */
-  .hero-mock { display: flex; justify-content: center; }
-  .phone-shell {
-    position: relative;
-    width: 300px;
-    aspect-ratio: 9 / 19.5;
-    background: #1a1d24;
-    border-radius: 44px;
-    padding: 6px;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 24px 80px rgba(31,169,104,0.18), 0 12px 40px rgba(0,0,0,0.36);
-  }
-  .phone-screen {
-    height: 100%;
-    border-radius: 38px;
-    overflow: hidden;
-    background: #fff;
-  }
-  .phone-screen img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   /* PREMISE -------------------------------------------------------- */
   .premise {
