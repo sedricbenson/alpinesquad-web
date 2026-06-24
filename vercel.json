@@ -7,14 +7,34 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/bibleblitz/privacy",
+      "source": "/bible-blitz/privacy",
       "destination": "https://sedricbenson.github.io/disclosures/bibleblitz/privacy.html",
       "permanent": false
     },
     {
-      "source": "/bibleblitz/terms",
+      "source": "/bible-blitz/terms",
       "destination": "https://sedricbenson.github.io/disclosures/bibleblitz/terms.html",
       "permanent": false
+    },
+    {
+      "source": "/spelly/privacy",
+      "destination": "https://sedricbenson.github.io/disclosures/spelly/privacy.html",
+      "permanent": false
+    },
+    {
+      "source": "/spelly/terms",
+      "destination": "https://sedricbenson.github.io/disclosures/spelly/terms.html",
+      "permanent": false
+    },
+    {
+      "source": "/bibleblitz",
+      "destination": "/bible-blitz",
+      "permanent": true
+    },
+    {
+      "source": "/bibleblitz/:path*",
+      "destination": "/bible-blitz/:path*",
+      "permanent": true
     }
   ]
 }
