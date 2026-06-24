@@ -5,6 +5,8 @@ interface Props {
   ogImage?: string;
   canonical?: string;
   schema?: Record<string, unknown>;
+  /** App Store id — drives the iOS Safari Smart App Banner. Omit on pages with no single app. */
+  appId?: string;
   /** Optional theme override — 'dark' renders the page on the dark palette */
   theme?: 'auto' | 'dark' | 'light';
 }
@@ -12,15 +14,20 @@ interface Props {
 const {
   title,
   description,
-  ogImage = '/og-default.png',
+  ogImage,
   canonical,
   schema,
+  appId,
   theme = 'auto',
 } = Astro.props;
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const fullCanonical = canonical ?? `${site}${Astro.url.pathname}`;
-const fullOgImage = ogImage.startsWith('http') ? ogImage : `${site}${ogImage}`;
+const fullOgImage = ogImage
+  ? ogImage.startsWith('http')
+    ? ogImage
+    : `${site}${ogImage}`
+  : undefined;
 ---
 
 <!DOCTYPE html>
@@ -39,16 +46,16 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${site}${ogImage}`;
     <meta property="og:url" content={fullCanonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={fullOgImage} />
+    {fullOgImage && <meta property="og:image" content={fullOgImage} />}
     <meta property="og:site_name" content="Alpine Squad" />
 
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content={fullOgImage ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:url" content={fullCanonical} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={fullOgImage} />
+    {fullOgImage && <meta name="twitter:image" content={fullOgImage} />}
 
-    <meta name="apple-itunes-app" content="app-id=6771674002" />
+    {appId && <meta name="apple-itunes-app" content={`app-id=${appId}`} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     {schema && (

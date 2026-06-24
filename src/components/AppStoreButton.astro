@@ -1,0 +1,70 @@
+---
+/**
+ * App Store download badge — shared across every app page.
+ *
+ * variant:
+ *   'dark'  → black badge (default; sits on light or dark sections)
+ *   'light' → uses --ink fill (sits on a light section where black is too heavy)
+ */
+interface Props {
+  href: string;
+  variant?: 'dark' | 'light';
+  label?: string;
+}
+
+const { href, variant = 'dark', label = 'Download on the App Store' } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['appstore-btn', variant === 'light' && 'appstore-btn-light']}
+  rel="noopener"
+  aria-label={label}
+>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+    ><path d="M17.05 12.04c0-2.05 1.68-3.04 1.76-3.09-.96-1.4-2.45-1.6-2.98-1.62-1.27-.13-2.48.75-3.12.75-.65 0-1.65-.74-2.72-.72-1.39.02-2.69.81-3.41 2.06-1.46 2.53-.37 6.26 1.04 8.31.69 1 1.5 2.13 2.57 2.09 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1.02 2.49-2.02.78-1.15 1.1-2.27 1.12-2.33-.02-.01-2.14-.82-2.16-3.27zM15.02 5.97c.56-.69.94-1.63.84-2.59-.81.04-1.81.54-2.39 1.22-.52.6-.98 1.57-.86 2.49.91.07 1.84-.46 2.41-1.12z"
+    ></path></svg
+  >
+  <span>
+    <small>Download on the</small>
+    <strong>App Store</strong>
+  </span>
+</a>
+
+<style>
+  .appstore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #000;
+    color: #fff;
+    padding: 11px 22px 11px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    transition: transform 0.15s;
+  }
+  .appstore-btn:hover {
+    color: #fff;
+    transform: translateY(-1px);
+  }
+  .appstore-btn span {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .appstore-btn small {
+    font-size: 10px;
+    opacity: 0.85;
+    letter-spacing: 0.3px;
+  }
+  .appstore-btn strong {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  }
+  .appstore-btn-light {
+    background: var(--ink);
+    color: var(--ink-on-dark);
+    border-color: transparent;
+  }
+</style>
