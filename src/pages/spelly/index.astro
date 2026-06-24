@@ -1,6 +1,7 @@
 ---
 import SpellyLayout from '../../layouts/SpellyLayout.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
+import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 /**
  * Spelly — marketing landing.
@@ -16,7 +17,8 @@ const title =
 const description =
   'Two spelling games in one. Picture Spell to learn by sight, Word Blitz to race the clock. Thousands of words, 23 categories, daily streaks. Free on the App Store — built for kids, families, and English learners.';
 
-const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
+const appUrlClean = appStoreUrl(APP_IDS.spelly);
+const appUrlCta = appStoreUrl(APP_IDS.spelly, 'web-spelly');
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 
 const faqs = [
@@ -80,7 +82,7 @@ const schema = {
       applicationCategory: 'EducationApplication',
       applicationSubCategory: 'Spelling Game',
       description,
-      url: appStoreUrl,
+      url: appUrlClean,
       image: `${site}/images/spelly-icon.png`,
       offers: {
         '@type': 'Offer',
@@ -98,6 +100,10 @@ const schema = {
         acceptedAnswer: { '@type': 'Answer', text: f.a },
       })),
     },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Spelly', path: '/spelly' },
+    ]),
   ],
 };
 ---
@@ -115,7 +121,7 @@ const schema = {
         learning English.
       </p>
       <div class="s-hero-cta">
-        <AppStoreButton href={appStoreUrl} label="Download Spelly on the App Store" />
+        <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
       </div>
 
       <div class="s-trust-row">
@@ -250,7 +256,7 @@ const schema = {
     <div class="container-narrow">
       <h2>Spell smarter. Today.</h2>
       <p>Free on the App Store. Two games, thousands of words, zero ads.</p>
-      <AppStoreButton href={appStoreUrl} label="Download Spelly on the App Store" />
+      <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
     </div>
   </section>
 </SpellyLayout>

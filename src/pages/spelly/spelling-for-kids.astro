@@ -1,14 +1,24 @@
 ---
 import SpellyLayout from '../../layouts/SpellyLayout.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
+import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 const title = 'Spelling Games for Kids — Free, No Ads, Family-Friendly | Spelly';
 const description =
   'A free spelling game your kids will actually want to play. Picture-based learning, two game modes, daily challenges, 23 categories. No ads, no accounts, every word reviewed for safety. iPhone and iPad.';
-const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const appUrlCta = appStoreUrl(APP_IDS.spelly, 'web-spelly-kids');
+const schema = {
+  '@context': 'https://schema.org',
+  ...breadcrumbList(site, [
+    { name: 'Alpine Squad', path: '/' },
+    { name: 'Spelly', path: '/spelly' },
+    { name: 'Spelling Games for Kids', path: '/spelly/spelling-for-kids' },
+  ]),
+};
 ---
 
-<SpellyLayout {title} {description}>
+<SpellyLayout {title} {description} {schema}>
   <section class="s-hero">
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
     <div class="container s-hero-inner">
@@ -19,7 +29,7 @@ const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
         safety. Made by an indie dev who got tired of bloated kids' apps.
       </p>
       <div class="s-hero-cta">
-        <AppStoreButton href={appStoreUrl} label="Download Spelly on the App Store" />
+        <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
       </div>
     </div>
   </section>
@@ -85,7 +95,7 @@ const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
     <div class="container-narrow">
       <h2>Free. Forever.</h2>
       <p>Optional Pro tier unlocks every category and removes the lives system. Otherwise, the whole game is free.</p>
-      <AppStoreButton href={appStoreUrl} label="Download Spelly on the App Store" />
+      <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
     </div>
   </section>
 </SpellyLayout>

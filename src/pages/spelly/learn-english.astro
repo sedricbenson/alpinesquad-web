@@ -1,14 +1,24 @@
 ---
 import SpellyLayout from '../../layouts/SpellyLayout.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
+import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 const title = 'Spelly for English Learners — Learn English Spelling by Sight | Free ESL App';
 const description =
   'Learn English spelling visually with Spelly. Picture-to-word association is how the brain actually learns vocabulary — perfect for ESL students, IELTS/TOEFL prep, and anyone learning English. Free on the App Store.';
-const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const appUrlCta = appStoreUrl(APP_IDS.spelly, 'web-spelly-esl');
+const schema = {
+  '@context': 'https://schema.org',
+  ...breadcrumbList(site, [
+    { name: 'Alpine Squad', path: '/' },
+    { name: 'Spelly', path: '/spelly' },
+    { name: 'For English Learners', path: '/spelly/learn-english' },
+  ]),
+};
 ---
 
-<SpellyLayout {title} {description}>
+<SpellyLayout {title} {description} {schema}>
   <section class="s-hero">
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
     <div class="container s-hero-inner">
@@ -19,7 +29,7 @@ const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
         ad-free, and built with ESL students, IELTS/TOEFL prep, and immigrant learners in mind.
       </p>
       <div class="s-hero-cta">
-        <AppStoreButton href={appStoreUrl} label="Download Spelly on the App Store" />
+        <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
       </div>
     </div>
   </section>
@@ -69,7 +79,7 @@ const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
     <div class="container-narrow">
       <h2>Free. No ads. No accounts.</h2>
       <p>Everything stays on your device. Start spelling smarter today.</p>
-      <AppStoreButton href={appStoreUrl} label="Download Spelly on the App Store" />
+      <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
     </div>
   </section>
 </SpellyLayout>

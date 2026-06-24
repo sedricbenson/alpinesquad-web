@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { appStoreUrl, APP_IDS } from '../lib/seo';
 
 /**
  * Shared shell for every Spelly page.
@@ -25,10 +26,10 @@ const {
   schema,
 } = Astro.props;
 
-const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
+const navAppStoreUrl = appStoreUrl(APP_IDS.spelly, 'web-spelly-nav');
 ---
 
-<BaseLayout {title} {description} {ogImage} {canonical} {schema} appId="6757465281">
+<BaseLayout {title} {description} {ogImage} {canonical} {schema} appId={APP_IDS.spelly} themeColor="#0A0F0C">
   <div class="spelly">
     <header class="s-nav">
       <div class="container s-nav-inner">
@@ -39,7 +40,7 @@ const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
         <nav class="s-nav-links" aria-label="Primary">
           <a class="s-nav-hide" href="/spelly/learn-english">For English Learners</a>
           <a class="s-nav-hide" href="/spelly/spelling-for-kids">For Kids</a>
-          <a href={appStoreUrl} class="s-nav-cta" rel="noopener">Get on App Store</a>
+          <a href={navAppStoreUrl} class="s-nav-cta" rel="noopener">Get on App Store</a>
         </nav>
       </div>
     </header>

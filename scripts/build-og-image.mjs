@@ -79,3 +79,62 @@ await sharp(Buffer.from(svg))
   .toFile(join(__dirname, '..', 'public', 'images', 'bibleblitz-og.png'));
 
 console.log('✓ Wrote public/images/bibleblitz-og.png (1200×630)');
+
+// ----------------------------------------------------------------------------
+// Alpine Squad brand mark — a clean vector mountain range (echoes the ⛰ in the
+// favicon). Used for the apple-touch-icon and the Organization logo in schema.
+// Drawn as paths (not the emoji) so it rasterizes reliably under librsvg.
+// ----------------------------------------------------------------------------
+const mountains = (scale, offX = 0, offY = 0) => {
+  const p = (x, y) => `${offX + x * scale} ${offY + y * scale}`;
+  return `
+    <path d="M${p(196, 210)} L${p(330, 372)} L${p(62, 372)} Z" fill="#FBF7EE" opacity="0.55"/>
+    <path d="M${p(316, 168)} L${p(450, 372)} L${p(182, 372)} Z" fill="#FBF7EE"/>`;
+};
+
+const iconSvg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#178A53"/>
+  ${mountains(1)}
+</svg>`;
+
+await sharp(Buffer.from(iconSvg))
+  .png({ quality: 90, compressionLevel: 9 })
+  .toFile(join(__dirname, '..', 'public', 'images', 'alpinesquad-icon.png'));
+
+console.log('✓ Wrote public/images/alpinesquad-icon.png (512×512)');
+
+// ----------------------------------------------------------------------------
+// Alpine Squad homepage OG card (1200×630).
+// ----------------------------------------------------------------------------
+const homeOg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0F0C"/>
+      <stop offset="100%" stop-color="#060B07"/>
+    </linearGradient>
+    <radialGradient id="glow2" cx="22%" cy="28%" r="62%">
+      <stop offset="0%" stop-color="#1FA968" stop-opacity="0.50"/>
+      <stop offset="100%" stop-color="#1FA968" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg2)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <g transform="translate(80,150)">
+    <rect width="150" height="150" rx="34" fill="#178A53"/>
+    ${mountains(150 / 512)}
+  </g>
+
+  <text x="80" y="395" fill="#34D17F" font-family="-apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">ALPINE SQUAD</text>
+  <text x="80" y="475" fill="#F4F1EA" font-family="ui-serif, 'New York', 'Iowan Old Style', serif" font-size="68" font-weight="600" letter-spacing="-1.5">Privacy-first iOS apps,</text>
+  <text x="80" y="552" fill="#34D17F" font-family="ui-serif, 'New York', 'Iowan Old Style', serif" font-size="68" font-weight="600" font-style="italic" letter-spacing="-1.5">built solo.</text>
+  <text x="80" y="600" fill="#6C736A" font-family="-apple-system, sans-serif" font-size="22" font-weight="500">No accounts · No tracking · No subscriptions</text>
+</svg>`;
+
+await sharp(Buffer.from(homeOg))
+  .png({ quality: 90, compressionLevel: 9 })
+  .toFile(join(__dirname, '..', 'public', 'images', 'alpinesquad-og.png'));
+
+console.log('✓ Wrote public/images/alpinesquad-og.png (1200×630)');

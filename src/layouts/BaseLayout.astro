@@ -7,6 +7,8 @@ interface Props {
   schema?: Record<string, unknown>;
   /** App Store id — drives the iOS Safari Smart App Banner. Omit on pages with no single app. */
   appId?: string;
+  /** Mobile browser chrome color — match the top of the page (nav). */
+  themeColor?: string;
   /** Optional theme override — 'dark' renders the page on the dark palette */
   theme?: 'auto' | 'dark' | 'light';
 }
@@ -18,6 +20,7 @@ const {
   canonical,
   schema,
   appId,
+  themeColor = '#FBF7EE',
   theme = 'auto',
 } = Astro.props;
 
@@ -37,6 +40,7 @@ const fullOgImage = ogImage
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content={themeColor} />
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -46,7 +50,15 @@ const fullOgImage = ogImage
     <meta property="og:url" content={fullCanonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {fullOgImage && <meta property="og:image" content={fullOgImage} />}
+    <meta property="og:locale" content="en_US" />
+    {fullOgImage && (
+      <>
+        <meta property="og:image" content={fullOgImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={title} />
+      </>
+    )}
     <meta property="og:site_name" content="Alpine Squad" />
 
     <meta name="twitter:card" content={fullOgImage ? 'summary_large_image' : 'summary'} />
@@ -54,9 +66,11 @@ const fullOgImage = ogImage
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {fullOgImage && <meta name="twitter:image" content={fullOgImage} />}
+    {fullOgImage && <meta name="twitter:image:alt" content={title} />}
 
     {appId && <meta name="apple-itunes-app" content={`app-id=${appId}`} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/images/alpinesquad-icon.png" />
 
     {schema && (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />

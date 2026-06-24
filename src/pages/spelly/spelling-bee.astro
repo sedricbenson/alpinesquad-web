@@ -1,14 +1,24 @@
 ---
 import SpellyLayout from '../../layouts/SpellyLayout.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
+import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 const title = 'Spelling Bee Practice App — Free, Thousands of Words | Spelly';
 const description =
   'Train for the spelling bee with Spelly. Two game modes, thousands of words, three difficulty tiers including SAT-grade hard words. Free on the App Store, no ads, no accounts.';
-const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const appUrlCta = appStoreUrl(APP_IDS.spelly, 'web-spelly-bee');
+const schema = {
+  '@context': 'https://schema.org',
+  ...breadcrumbList(site, [
+    { name: 'Alpine Squad', path: '/' },
+    { name: 'Spelly', path: '/spelly' },
+    { name: 'Spelling Bee Practice', path: '/spelly/spelling-bee' },
+  ]),
+};
 ---
 
-<SpellyLayout {title} {description}>
+<SpellyLayout {title} {description} {schema}>
   <section class="s-hero">
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
     <div class="container s-hero-inner">
@@ -19,7 +29,7 @@ const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
         words. Two game modes. Free, no ads, no accounts.
       </p>
       <div class="s-hero-cta">
-        <AppStoreButton href={appStoreUrl} label="Download Spelly on the App Store" />
+        <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
       </div>
     </div>
   </section>
@@ -66,7 +76,7 @@ const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
     <div class="container-narrow">
       <h2>Ready to compete?</h2>
       <p>Download Spelly and start practicing today. Free on the App Store.</p>
-      <AppStoreButton href={appStoreUrl} label="Download Spelly on the App Store" />
+      <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
     </div>
   </section>
 </SpellyLayout>

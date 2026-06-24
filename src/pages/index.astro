@@ -4,14 +4,42 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const title = 'Alpine Squad — privacy-first iOS apps';
 const description = 'A solo developer building privacy-first iOS apps. No accounts, no tracking, no subscriptions — just useful software.';
 
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+// @graph links the brand entity to the apps it publishes — helps search
+// engines understand Alpine Squad and its app catalog as one connected entity.
 const schema = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Alpine Squad',
-  url: 'https://alpinesquad.com',
-  email: 'support@alpinesquad.com',
-  founder: { '@type': 'Person', name: 'Sedric Benson' },
-  description,
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${site}/#org`,
+      name: 'Alpine Squad',
+      url: site,
+      logo: `${site}/images/alpinesquad-icon.png`,
+      email: 'support@alpinesquad.com',
+      founder: { '@type': 'Person', name: 'Sedric Benson' },
+      description,
+    },
+    {
+      '@type': 'MobileApplication',
+      name: 'Bible Blitz',
+      applicationCategory: 'EducationApplication',
+      operatingSystem: 'iOS',
+      url: 'https://apps.apple.com/app/id6771674002',
+      publisher: { '@id': `${site}/#org` },
+      offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'MobileApplication',
+      name: 'Spelly',
+      applicationCategory: 'EducationApplication',
+      operatingSystem: 'iOS',
+      url: 'https://apps.apple.com/app/id6757465281',
+      publisher: { '@id': `${site}/#org` },
+      offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
+    },
+  ],
 };
 
 const apps = [
@@ -36,7 +64,7 @@ const apps = [
 ];
 ---
 
-<BaseLayout {title} {description} {schema}>
+<BaseLayout {title} {description} {schema} ogImage="/images/alpinesquad-og.png">
   <header class="nav">
     <div class="container nav-inner">
       <span class="brand">
