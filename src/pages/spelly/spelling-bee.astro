@@ -1,0 +1,72 @@
+---
+import SpellyLayout from '../../layouts/SpellyLayout.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+
+const title = 'Spelling Bee Practice App — Free, Thousands of Words | Spelly';
+const description =
+  'Train for the spelling bee with Spelly. Two game modes, thousands of words, three difficulty tiers including SAT-grade hard words. Free on the App Store, no ads, no accounts.';
+const appStoreUrl = 'https://apps.apple.com/app/id6757465281';
+---
+
+<SpellyLayout {title} {description}>
+  <section class="s-hero">
+    <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
+    <div class="container s-hero-inner">
+      <p class="s-eyebrow">Spelling bee prep</p>
+      <h1>Train for the<br /><span class="s-hero-accent">spelling bee</span>.</h1>
+      <p class="s-lede">
+        Thousands of words across 23 categories. Three difficulty tiers — including SAT-grade hard
+        words. Two game modes. Free, no ads, no accounts.
+      </p>
+      <div class="s-hero-cta">
+        <AppStoreButton href={appStoreUrl} label="Download Spelly on the App Store" />
+      </div>
+    </div>
+  </section>
+
+  <section class="s-section">
+    <div class="container">
+      <h2 class="s-h2">Why Spelly for bee prep</h2>
+      <div class="s-feature-grid">
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
+          <h4>Thousands of words</h4>
+          <p>23 themed categories spanning everyday words, science, geography, history, mythology, and more.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg></div>
+          <h4>SAT-grade hard tier</h4>
+          <p>Hard difficulty pulls in the words that actually show up at competition level.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+          <h4>Smart review</h4>
+          <p>The app resurfaces words you miss until they stick. No more re-studying the easy ones.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          <h4>Race the clock</h4>
+          <p>Word Blitz mode trains the snap-judgment instinct you need at the microphone.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
+          <h4>Track progress</h4>
+          <p>Comprehension levels (L1 → Mastered) tell you exactly which categories you've conquered.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg></div>
+          <h4>Free, no ads</h4>
+          <p>The basic game is genuinely free. Optional Pro unlocks every category and removes lives.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-final">
+    <div class="container-narrow">
+      <h2>Ready to compete?</h2>
+      <p>Download Spelly and start practicing today. Free on the App Store.</p>
+      <AppStoreButton href={appStoreUrl} label="Download Spelly on the App Store" />
+    </div>
+  </section>
+</SpellyLayout>
