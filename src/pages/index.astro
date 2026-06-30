@@ -253,19 +253,11 @@ const apps = [
     gap: 16px;
     transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
   }
-  .app-card::before {
-    content: '';
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 3px;
-    border-radius: var(--r-lg) var(--r-lg) 0 0;
-    background: var(--card-accent);
-    opacity: 0.9;
-  }
   .app-card:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-    border-color: color-mix(in srgb, var(--card-accent) 35%, var(--border));
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--card-accent) 16%, transparent),
+      var(--shadow-sm);
+    border-color: color-mix(in srgb, var(--card-accent) 30%, var(--border));
   }
   .app-head { display: flex; align-items: center; gap: 16px; }
   .app-icon {
