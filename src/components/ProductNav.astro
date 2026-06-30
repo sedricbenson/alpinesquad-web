@@ -1,0 +1,75 @@
+---
+/**
+ * Shared sticky nav for every product page (Bible Blitz, Spelly, …).
+ * Always leads with the Alpine Squad umbrella + the app name, so every
+ * product page reads as part of one website. Neutral on-dark styling —
+ * per-app color lives in the hero/content, not the chrome.
+ */
+interface Props {
+  appName: string;
+  appHref: string;
+  appStoreUrl: string;
+  links?: { label: string; href: string }[];
+}
+const { appName, appHref, appStoreUrl, links = [] } = Astro.props;
+---
+
+<header class="p-nav">
+  <div class="container p-nav-inner">
+    <div class="p-brand">
+      <a href="/" class="p-umbrella">
+        <span class="p-mark" aria-hidden="true">⛰</span><span class="p-umbrella-name">Alpine Squad</span>
+      </a>
+      <span class="p-sep" aria-hidden="true">/</span>
+      <a href={appHref} class="p-app">{appName}</a>
+    </div>
+    <nav class="p-nav-links" aria-label="Primary">
+      {links.map((l) => <a class="p-nav-hide" href={l.href}>{l.label}</a>)}
+      <a href={appStoreUrl} class="p-nav-cta" rel="noopener">Get on App Store</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .p-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 15, 12, 0.72);
+    backdrop-filter: saturate(150%) blur(16px);
+    -webkit-backdrop-filter: saturate(150%) blur(16px);
+    border-bottom: 1px solid var(--border-on-dark);
+  }
+  .p-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .p-brand { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; min-width: 0; }
+  .p-umbrella { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-on-dark-soft); font-weight: 600; }
+  .p-umbrella:hover { color: var(--ink-on-dark); }
+  .p-mark { font-size: 18px; }
+  .p-sep { color: var(--ink-on-dark-muted); }
+  .p-app { color: var(--ink-on-dark); font-weight: 600; }
+  .p-nav-links { display: flex; align-items: center; gap: 22px; }
+  .p-nav-links a:not(.p-nav-cta) { color: var(--ink-on-dark-soft); font-size: 14px; }
+  .p-nav-links a:not(.p-nav-cta):hover { color: var(--ink-on-dark); }
+  .p-nav-cta {
+    background: var(--ink-on-dark);
+    color: var(--ink);
+    padding: 9px 18px;
+    border-radius: var(--r-pill);
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+  .p-nav-cta:hover { color: var(--ink); opacity: 0.92; transform: translateY(-1px); }
+  @media (max-width: 600px) {
+    .p-nav-hide,
+    .p-sep,
+    .p-app { display: none; }
+  }
+</style>

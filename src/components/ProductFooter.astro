@@ -1,0 +1,75 @@
+---
+/**
+ * Shared footer for every product page. Alpine-Squad-forward with a
+ * "more apps" cross-link, so every product page ties back to the umbrella.
+ */
+interface Props {
+  appName: string;
+  appHref: string;
+  tagline: string;
+  appStoreUrl: string;
+  privacyPath: string;
+  termsPath: string;
+  contactEmail: string;
+  trademark?: string;
+}
+const { appName, appHref, tagline, appStoreUrl, privacyPath, termsPath, contactEmail, trademark } =
+  Astro.props;
+---
+
+<footer class="p-footer">
+  <div class="container p-footer-inner">
+    <div>
+      <a href="/" class="p-footer-brand">
+        <span class="p-mark" aria-hidden="true">⛰</span><span>Alpine Squad</span>
+      </a>
+      <p class="p-footer-tag">{tagline}</p>
+    </div>
+    <nav class="p-footer-links" aria-label="Footer">
+      <a href={appHref}>{appName}</a>
+      <a href={appStoreUrl} rel="noopener">App Store</a>
+      <a href={privacyPath}>Privacy</a>
+      <a href={termsPath}>Terms</a>
+      <a href={`mailto:${contactEmail}`}>Contact</a>
+    </nav>
+  </div>
+  <div class="container p-footer-bottom">
+    <small>© 2026 Alpine Squad{trademark ? ` · ${trademark}` : ''}</small>
+    <a href="/" class="p-more">← More Alpine Squad apps</a>
+  </div>
+</footer>
+
+<style>
+  .p-footer {
+    background: var(--bg-dark);
+    color: var(--ink-on-dark-soft);
+    padding: 56px 0 24px;
+    border-top: 1px solid var(--border-on-dark);
+  }
+  .p-footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .p-footer-brand { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-on-dark); font-weight: 600; }
+  .p-mark { font-size: 18px; }
+  .p-footer-tag { margin-top: 8px; font-size: 14px; color: var(--ink-on-dark-muted); max-width: 32ch; }
+  .p-footer-links { display: flex; gap: 16px 24px; flex-wrap: wrap; }
+  .p-footer-links a { color: var(--ink-on-dark-soft); font-size: 14px; }
+  .p-footer-links a:hover { color: var(--ink-on-dark); }
+  .p-footer-bottom {
+    padding-top: 20px;
+    border-top: 1px solid var(--border-on-dark);
+    color: var(--ink-on-dark-muted);
+    font-size: 12.5px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .p-footer-bottom a { color: var(--ink-on-dark-muted); }
+  .p-footer-bottom a:hover { color: var(--ink-on-dark-soft); }
+</style>

@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductNav from '../../components/ProductNav.astro';
+import ProductFooter from '../../components/ProductFooter.astro';
 import { breadcrumbList } from '../../lib/seo';
 
 /**
@@ -95,15 +97,7 @@ const schema = {
 ---
 
 <BaseLayout {title} {description} {schema} ogImage="/images/bibleblitz-og.png" appId="6771674002" themeColor="#0A0F0C" theme="auto">
-  <header class="nav">
-    <div class="container nav-inner">
-      <a href="/" class="brand">
-        <span class="brand-mark" aria-hidden="true">⛰</span>
-        <span class="brand-name">Alpine Squad</span>
-      </a>
-      <a href={appStoreUrl} class="nav-cta" rel="noopener">Get on App Store</a>
-    </div>
-  </header>
+  <ProductNav appName="Bible Blitz" appHref="/bible-blitz" appStoreUrl={appStoreUrl} />
 
   <!-- HERO ----------------------------------------------------------- -->
   <section class="hero">
@@ -207,67 +201,19 @@ const schema = {
     </div>
   </section>
 
-  <!-- FOOTER --------------------------------------------------------- -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div>
-        <a href="/" class="brand brand-footer">
-          <span class="brand-mark" aria-hidden="true">⛰</span>
-          <span class="brand-name">Alpine Squad</span>
-        </a>
-        <p class="footer-tag">Small, focused apps for iOS.</p>
-      </div>
-      <nav class="footer-links" aria-label="Footer">
-        <a href={appStoreUrl} rel="noopener">App Store</a>
-        <a href="/bible-blitz/privacy">Privacy</a>
-        <a href="/bible-blitz/terms">Terms</a>
-        <a href="mailto:hello@alpinesquad.com">Contact</a>
-      </nav>
-    </div>
-    <div class="container footer-bottom">
-      <small>© {new Date().getFullYear()} Alpine Squad. Bible Blitz is a trademark of Alpine Squad.</small>
-    </div>
-  </footer>
+  <ProductFooter
+    appName="Bible Blitz"
+    appHref="/bible-blitz"
+    tagline="Small, focused apps for iOS."
+    appStoreUrl={appStoreUrl}
+    privacyPath="/bible-blitz/privacy"
+    termsPath="/bible-blitz/terms"
+    contactEmail="hello@alpinesquad.com"
+    trademark="Bible Blitz is a trademark of Alpine Squad."
+  />
 </BaseLayout>
 
 <style>
-  /* NAV ------------------------------------------------------------- */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(10, 15, 12, 0.72);
-    backdrop-filter: saturate(150%) blur(16px);
-    -webkit-backdrop-filter: saturate(150%) blur(16px);
-    border-bottom: 1px solid var(--border-on-dark);
-  }
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 14px;
-    padding-bottom: 14px;
-  }
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--ink-on-dark);
-    font-weight: 600;
-    font-size: 16px;
-  }
-  .brand-mark { font-size: 18px; color: var(--accent-pop); }
-  .nav-cta {
-    background: var(--ink-on-dark);
-    color: var(--ink);
-    padding: 9px 18px;
-    border-radius: var(--r-pill);
-    font-size: 14px;
-    font-weight: 600;
-    transition: transform 0.15s, opacity 0.15s;
-  }
-  .nav-cta:hover { color: var(--ink); opacity: 0.92; transform: translateY(-1px); }
-
   /* HERO ------------------------------------------------------------ */
   .hero {
     position: relative;
@@ -489,41 +435,4 @@ const schema = {
     max-width: 64ch;
   }
 
-  /* FOOTER --------------------------------------------------------- */
-  .footer {
-    background: var(--bg-dark);
-    color: var(--ink-on-dark-soft);
-    padding: 56px 0 24px;
-    border-top: 1px solid var(--border-on-dark);
-  }
-  .footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 40px;
-    flex-wrap: wrap;
-    margin-bottom: 32px;
-  }
-  .brand-footer { color: var(--ink-on-dark); }
-  .footer-tag {
-    margin-top: 8px;
-    font-size: 14px;
-    color: var(--ink-on-dark-muted);
-  }
-  .footer-links {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .footer-links a {
-    color: var(--ink-on-dark-soft);
-    font-size: 14px;
-  }
-  .footer-links a:hover { color: var(--ink-on-dark); }
-  .footer-bottom {
-    padding-top: 20px;
-    border-top: 1px solid var(--border-on-dark);
-    color: var(--ink-on-dark-muted);
-    font-size: 12.5px;
-  }
 </style>

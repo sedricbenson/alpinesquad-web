@@ -1,5 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import ProductNav from '../components/ProductNav.astro';
+import ProductFooter from '../components/ProductFooter.astro';
 import { appStoreUrl, APP_IDS } from '../lib/seo';
 
 /**
@@ -31,50 +33,29 @@ const navAppStoreUrl = appStoreUrl(APP_IDS.spelly, 'web-spelly-nav');
 
 <BaseLayout {title} {description} {ogImage} {canonical} {schema} appId={APP_IDS.spelly} themeColor="#0A0F0C">
   <div class="spelly">
-    <header class="s-nav">
-      <div class="container s-nav-inner">
-        <a href="/spelly" class="s-brand">
-          <img src="/images/spelly-icon.png" alt="Spelly app icon" width="30" height="30" />
-          <span>Spelly</span>
-        </a>
-        <nav class="s-nav-links" aria-label="Primary">
-          <a class="s-nav-hide" href="/spelly/learn-english">For English Learners</a>
-          <a class="s-nav-hide" href="/spelly/spelling-for-kids">For Kids</a>
-          <a href={navAppStoreUrl} class="s-nav-cta" rel="noopener">Get on App Store</a>
-        </nav>
-      </div>
-    </header>
+    <ProductNav
+      appName="Spelly"
+      appHref="/spelly"
+      appStoreUrl={navAppStoreUrl}
+      links={[
+        { label: 'For English Learners', href: '/spelly/learn-english' },
+        { label: 'For Kids', href: '/spelly/spelling-for-kids' },
+      ]}
+    />
 
     <main>
       <slot />
     </main>
 
-    <footer class="s-footer">
-      <div class="container">
-        <div class="s-footer-inner">
-          <div>
-            <a href="/spelly" class="s-footer-brand">
-              <img src="/images/spelly-icon.png" alt="" width="28" height="28" />
-              <span>Spelly</span>
-            </a>
-            <p class="s-footer-tag">Two spelling games in one. By Alpine Squad.</p>
-          </div>
-          <nav class="s-footer-links" aria-label="Footer">
-            <a href="/spelly">Home</a>
-            <a href="/spelly/learn-english">English Learners</a>
-            <a href="/spelly/spelling-for-kids">Kids</a>
-            <a href="/spelly/spelling-bee">Spelling Bee</a>
-            <a href="/spelly#faq">FAQ</a>
-            <a href="/spelly/privacy">Privacy</a>
-            <a href="/spelly/terms">Terms</a>
-          </nav>
-        </div>
-        <div class="s-footer-bottom">
-          <small>© 2026 Alpine Squad · Made with care for spellers everywhere</small>
-          <a href="/">← More Alpine Squad apps</a>
-        </div>
-      </div>
-    </footer>
+    <ProductFooter
+      appName="Spelly"
+      appHref="/spelly"
+      tagline="Two spelling games in one."
+      appStoreUrl={appStoreUrl(APP_IDS.spelly, 'web-spelly-footer')}
+      privacyPath="/spelly/privacy"
+      termsPath="/spelly/terms"
+      contactEmail="spellyapphelp@gmail.com"
+    />
   </div>
 </BaseLayout>
 
@@ -92,64 +73,6 @@ const navAppStoreUrl = appStoreUrl(APP_IDS.spelly, 'web-spelly-nav');
   }
   .spelly p a:hover {
     color: var(--s-accent);
-  }
-
-  /* NAV ------------------------------------------------------------- */
-  .spelly .s-nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(12, 10, 20, 0.72);
-    backdrop-filter: saturate(150%) blur(16px);
-    -webkit-backdrop-filter: saturate(150%) blur(16px);
-    border-bottom: 1px solid var(--border-on-dark);
-  }
-  .spelly .s-nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 14px;
-    padding-bottom: 14px;
-  }
-  .spelly .s-brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--ink-on-dark);
-    font-weight: 600;
-    font-size: 16px;
-  }
-  .spelly .s-brand img {
-    border-radius: 8px;
-  }
-  .spelly .s-nav-links {
-    display: flex;
-    align-items: center;
-    gap: 22px;
-  }
-  .spelly .s-nav-links a {
-    color: var(--ink-on-dark-soft);
-    font-size: 14px;
-  }
-  .spelly .s-nav-links a:hover {
-    color: var(--ink-on-dark);
-  }
-  .spelly .s-nav-cta {
-    background: var(--ink-on-dark);
-    color: var(--ink);
-    padding: 9px 18px;
-    border-radius: var(--r-pill);
-    font-size: 14px;
-    font-weight: 600;
-    transition: transform 0.15s, opacity 0.15s;
-  }
-  .spelly .s-nav-cta:hover {
-    color: var(--ink);
-    opacity: 0.92;
-    transform: translateY(-1px);
-  }
-  @media (max-width: 600px) {
-    .spelly .s-nav-hide { display: none; }
   }
 
   /* HERO (dark) ----------------------------------------------------- */
@@ -174,6 +97,13 @@ const navAppStoreUrl = appStoreUrl(APP_IDS.spelly, 'web-spelly-nav');
     filter: blur(40px);
   }
   .spelly .s-hero-inner { position: relative; max-width: 880px; }
+  .spelly .s-hero-icon {
+    width: 84px;
+    height: 84px;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    margin-bottom: 24px;
+  }
   .spelly .s-eyebrow {
     font-size: 13px;
     font-weight: 700;
@@ -406,44 +336,4 @@ const navAppStoreUrl = appStoreUrl(APP_IDS.spelly, 'web-spelly-nav');
   .spelly .s-final p { font-size: 17px; color: var(--ink-on-dark-soft); max-width: 48ch; margin: 0 auto 28px; }
   .spelly .s-final p a { color: var(--s-accent-pop); }
   .spelly .s-final .appstore-btn { margin: 0 auto; }
-
-  /* FOOTER ---------------------------------------------------------- */
-  .spelly .s-footer {
-    background: var(--bg-dark);
-    color: var(--ink-on-dark-soft);
-    padding: 56px 0 24px;
-    border-top: 1px solid var(--border-on-dark);
-  }
-  .spelly .s-footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 40px;
-    flex-wrap: wrap;
-    margin-bottom: 32px;
-  }
-  .spelly .s-footer-brand {
-    color: var(--ink-on-dark);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
-  }
-  .spelly .s-footer-brand img { border-radius: 7px; }
-  .spelly .s-footer-tag { margin-top: 8px; font-size: 14px; color: var(--ink-on-dark-muted); max-width: 32ch; }
-  .spelly .s-footer-links { display: flex; gap: 16px 24px; flex-wrap: wrap; }
-  .spelly .s-footer-links a { color: var(--ink-on-dark-soft); font-size: 14px; }
-  .spelly .s-footer-links a:hover { color: var(--ink-on-dark); }
-  .spelly .s-footer-bottom {
-    padding-top: 20px;
-    border-top: 1px solid var(--border-on-dark);
-    color: var(--ink-on-dark-muted);
-    font-size: 12.5px;
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .spelly .s-footer-bottom a { color: var(--ink-on-dark-muted); }
-  .spelly .s-footer-bottom a:hover { color: var(--ink-on-dark-soft); }
 </style>
