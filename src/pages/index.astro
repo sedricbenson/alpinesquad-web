@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AppStoreButton from '../components/AppStoreButton.astro';
+import { appStoreUrl, APP_IDS } from '../lib/seo';
 
 const title = 'Alpine Squad — privacy-first iOS apps';
 const description = 'A solo developer building privacy-first iOS apps. No accounts, no tracking, no subscriptions — just useful software.';
@@ -46,181 +48,295 @@ const apps = [
   {
     name: 'Bible Blitz',
     tagline: 'Bible trivia that teaches Scripture.',
-    description: 'Test your Bible knowledge in 10-question rounds. Every wrong answer reveals the verse and the context.',
-    icon: '📖',
+    description:
+      '10-question rounds across KJV, NKJV & NIV. Miss one and it reveals the verse and context — so every quiz doubles as a quick study.',
+    icon: '/images/bibleblitz-icon.png',
     href: '/bible-blitz',
-    appStore: 'https://apps.apple.com/app/bible-blitz/id6771674002',
-    status: 'live',
+    appStore: appStoreUrl(APP_IDS.bibleBlitz, 'web-home-bibleblitz'),
+    tags: ['Education', 'Free'],
+    accent: '#1FA968',
   },
   {
     name: 'Spelly',
     tagline: 'Two spelling games in one.',
-    description: 'Picture Spell to learn by sight, Word Blitz to race the clock. 14,000+ words across 23 categories. Free, no ads, no accounts.',
-    icon: '🐝',
+    description:
+      'Picture Spell to learn by sight, Word Blitz to race the clock. 14,000+ words across 23 categories — for kids, families & English learners.',
+    icon: '/images/spelly-icon.png',
     href: '/spelly',
-    appStore: 'https://apps.apple.com/app/id6757465281',
-    status: 'live',
+    appStore: appStoreUrl(APP_IDS.spelly, 'web-home-spelly'),
+    tags: ['Word game', 'Free'],
+    accent: '#6c5bcb',
   },
 ];
 ---
 
-<BaseLayout {title} {description} {schema} ogImage="/images/alpinesquad-og.png">
+<BaseLayout {title} {description} {schema} ogImage="/images/alpinesquad-og.png" themeColor="#0A0F0C">
+  <!-- NAV -------------------------------------------------------------- -->
   <header class="nav">
     <div class="container nav-inner">
-      <span class="brand">
-        <span class="brand-mark">⛰</span>
+      <a href="/" class="brand">
+        <span class="brand-mark" aria-hidden="true">⛰</span>
         <span class="brand-name">Alpine Squad</span>
-      </span>
+      </a>
+      <a href="#apps" class="nav-link">Apps</a>
     </div>
   </header>
 
+  <!-- HERO ------------------------------------------------------------- -->
   <section class="hero">
-    <div class="container-narrow">
-      <p class="eyebrow">Alpine Squad</p>
-      <h1>Privacy-first apps, <span class="accent-text">built solo</span>.</h1>
+    <div class="hero-bg" aria-hidden="true"><div class="hero-glow"></div></div>
+    <div class="container hero-inner">
+      <h1>Privacy-first apps,<br /><span class="accent-text">built solo</span>.</h1>
       <p class="lede">
-        No accounts. No tracking. No subscriptions. Just useful iOS apps from one developer
-        who cares about getting the details right.
+        No accounts. No tracking. No subscriptions. Just small, focused iOS apps from one
+        developer who sweats the details.
       </p>
+      <p class="hero-meta">Two apps live today — more on the way.</p>
     </div>
   </section>
 
-  <section class="apps-section">
+  <!-- APPS ------------------------------------------------------------- -->
+  <section class="apps-section" id="apps">
     <div class="container">
-      <h2 class="section-title">Apps</h2>
+      <h2 class="section-title">The apps</h2>
       <div class="apps-grid">
         {apps.map((app) => (
-          <a href={app.href} class="app-card">
-            <div class="app-icon">{app.icon}</div>
-            <h3>{app.name}</h3>
-            <p class="app-tagline">{app.tagline}</p>
+          <article class="app-card" style={`--card-accent: ${app.accent}`}>
+            <div class="app-head">
+              <img class="app-icon" src={app.icon} alt={`${app.name} app icon`} width="60" height="60" loading="lazy" />
+              <div>
+                <h3>{app.name}</h3>
+                <p class="app-tagline">{app.tagline}</p>
+              </div>
+            </div>
             <p class="app-desc">{app.description}</p>
-            <span class="app-cta">Learn more →</span>
-          </a>
+            <div class="app-tags">
+              {app.tags.map((t) => <span class="tag">{t}</span>)}
+            </div>
+            <div class="app-actions">
+              <a href={app.href} class="app-link">Learn more →</a>
+              <span class="app-store-wrap">
+                <AppStoreButton href={app.appStore} label={`Get ${app.name} on the App Store`} />
+              </span>
+            </div>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
+  <!-- FOOTER ----------------------------------------------------------- -->
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <p class="footer-brand">Alpine Squad</p>
-        <p class="footer-micro">© 2026 · Anacortes, WA</p>
+        <span class="brand brand-footer">
+          <span class="brand-mark" aria-hidden="true">⛰</span>
+          <span class="brand-name">Alpine Squad</span>
+        </span>
+        <p class="footer-tag">Small, focused iOS apps.</p>
       </div>
-      <nav class="footer-nav">
+      <nav class="footer-nav" aria-label="Footer">
         <a href="mailto:support@alpinesquad.com">Contact</a>
       </nav>
     </div>
+    <div class="container footer-bottom"><small>© 2026</small></div>
   </footer>
 </BaseLayout>
 
 <style>
-  .nav { border-bottom: 1px solid var(--border); background: var(--bg); }
-  .nav-inner { padding: 16px 24px; }
-  .brand {
+  /* NAV (dark, sticky) ---------------------------------------------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 15, 12, 0.72);
+    backdrop-filter: saturate(150%) blur(16px);
+    -webkit-backdrop-filter: saturate(150%) blur(16px);
+    border-bottom: 1px solid var(--border-on-dark);
+  }
+  .nav-inner {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
     gap: 10px;
-    color: var(--ink);
+    color: var(--ink-on-dark);
     font-weight: 600;
+    font-size: 16px;
   }
-  .brand-mark { font-size: 20px; }
+  .brand-mark { font-size: 18px; }
+  .nav-link { color: var(--ink-on-dark-soft); font-size: 14px; font-weight: 500; }
+  .nav-link:hover { color: var(--ink-on-dark); }
 
-  .hero { padding: 96px 0 64px; text-align: center; }
-  .eyebrow {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
+  /* HERO (dark) ----------------------------------------------------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-dark);
+    color: var(--ink-on-dark);
+    padding: 104px 0 112px;
+    text-align: center;
   }
+  @media (max-width: 720px) {
+    .hero { padding: 72px 0 80px; }
+  }
+  .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero-glow {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 110%;
+    background: radial-gradient(circle at center, rgba(31, 169, 104, 0.30) 0%, transparent 60%);
+    filter: blur(48px);
+  }
+  .hero-inner { position: relative; max-width: 760px; }
   .hero h1 {
     font-family: var(--serif);
-    font-size: clamp(40px, 7vw, 64px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    margin-bottom: 24px;
+    font-size: clamp(44px, 7.4vw, 80px);
+    line-height: 1.03;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    color: var(--ink-on-dark);
+    margin-bottom: 26px;
+    text-wrap: balance;
   }
-  .accent-text { color: var(--accent); font-style: italic; }
+  .accent-text {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--accent-pop) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
   .lede {
     font-size: 19px;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    max-width: 540px;
-    margin: 0 auto;
+    line-height: 1.6;
+    color: var(--ink-on-dark-soft);
+    max-width: 52ch;
+    margin: 0 auto 20px;
+  }
+  .hero-meta {
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    color: var(--ink-on-dark-muted);
   }
 
-  .apps-section {
-    padding: 32px 0 96px;
-  }
+  /* APPS ------------------------------------------------------------ */
+  .apps-section { padding: 80px 0 96px; background: var(--bg); }
   .section-title {
     font-family: var(--serif);
-    font-size: 32px;
-    margin-bottom: 24px;
+    font-size: clamp(26px, 3vw, 34px);
+    margin-bottom: 28px;
     letter-spacing: -0.01em;
+    color: var(--ink);
   }
   .apps-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 22px;
   }
   .app-card {
-    padding: 32px;
-    border-radius: 20px;
-    background: var(--bg-bright);
+    position: relative;
+    padding: 30px;
+    border-radius: var(--r-lg);
+    background: var(--bg-elevated);
     border: 1px solid var(--border);
-    color: var(--ink);
-    text-decoration: none;
-    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+  }
+  .app-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    background: var(--card-accent);
+    opacity: 0.9;
   }
   .app-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-    text-decoration: none;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in srgb, var(--card-accent) 35%, var(--border));
   }
-  .app-icon { font-size: 36px; margin-bottom: 4px; }
+  .app-head { display: flex; align-items: center; gap: 16px; }
+  .app-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(14, 20, 19, 0.14);
+    flex-shrink: 0;
+  }
   .app-card h3 {
-    font-size: 22px;
-    font-weight: 600;
     font-family: var(--serif);
-  }
-  .app-tagline {
+    font-size: 23px;
+    font-weight: 600;
     color: var(--ink);
-    font-weight: 500;
-    font-size: 16px;
+    line-height: 1.1;
   }
-  .app-desc {
-    color: var(--ink-soft);
-    font-size: 15px;
-    line-height: 1.5;
-    flex: 1;
+  .app-tagline { color: var(--ink); font-weight: 500; font-size: 15px; margin-top: 3px; }
+  .app-desc { color: var(--ink-soft); font-size: 15.5px; line-height: 1.6; flex: 1; }
+  .app-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: var(--card-accent);
+    background: color-mix(in srgb, var(--card-accent) 10%, transparent);
+    padding: 4px 11px;
+    border-radius: var(--r-pill);
   }
-  .app-cta {
-    color: var(--accent);
+  .app-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  /* Whole card → "Learn more"; the stretched ::after makes the card clickable. */
+  .app-link {
+    position: static;
+    color: var(--card-accent);
     font-weight: 600;
     font-size: 15px;
-    margin-top: 8px;
   }
+  .app-link::after { content: ''; position: absolute; inset: 0; }
+  /* App Store button sits above the stretched link so it stays separately clickable. */
+  .app-store-wrap { position: relative; z-index: 1; }
 
+  /* FOOTER (dark) --------------------------------------------------- */
   .footer {
-    padding: 32px 0 48px;
-    border-top: 1px solid var(--border);
+    background: var(--bg-dark);
+    color: var(--ink-on-dark-soft);
+    padding: 48px 0 28px;
+    border-top: 1px solid var(--border-on-dark);
   }
   .footer-inner {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     gap: 24px;
+    margin-bottom: 28px;
   }
-  .footer-brand { font-weight: 600; color: var(--ink); }
-  .footer-micro { font-size: 13px; color: var(--ink-muted); margin-top: 2px; }
+  .brand-footer { color: var(--ink-on-dark); }
+  .footer-tag { margin-top: 8px; font-size: 14px; color: var(--ink-on-dark-muted); }
   .footer-nav { display: flex; gap: 24px; font-size: 14px; }
-  .footer-nav a { color: var(--ink-soft); }
+  .footer-nav a { color: var(--ink-on-dark-soft); }
+  .footer-nav a:hover { color: var(--ink-on-dark); }
+  .footer-bottom {
+    padding-top: 20px;
+    border-top: 1px solid var(--border-on-dark);
+    color: var(--ink-on-dark-muted);
+    font-size: 12.5px;
+  }
 </style>
