@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Page not found — Alpine Squad';
+const description = 'That page does not exist. Head back to Alpine Squad and find the app you were looking for.';
+---
+
+<BaseLayout {title} {description}>
+  <section class="lost">
+    <div class="container-narrow">
+      <p class="lost-code">404</p>
+      <h1>Lost above the treeline.</h1>
+      <p class="lost-lede">
+        That page doesn't exist — but the apps do. Head back to base camp and take another route.
+      </p>
+      <a href="/" class="lost-cta">← Back to Alpine Squad</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lost {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, #ffffff) 0%, #ffffff 80%);
+  }
+  .lost-code {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent-warm);
+    margin-bottom: 14px;
+  }
+  .lost h1 {
+    font-family: var(--serif);
+    font-size: clamp(38px, 6vw, 64px);
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 18px;
+    text-wrap: balance;
+  }
+  .lost-lede {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 44ch;
+    margin: 0 auto 32px;
+  }
+  .lost-cta {
+    display: inline-block;
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: var(--r-pill);
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+  .lost-cta:hover { color: #fff; opacity: 0.85; transform: translateY(-1px); }
+</style>

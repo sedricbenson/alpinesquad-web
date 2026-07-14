@@ -138,6 +138,11 @@ const schema = {
         honestly, designed to respect your time.
       </p>
       <p class="hero-meta">Three live on the App Store · three more on the way.</p>
+      <div class="hero-icons" aria-hidden="true">
+        {apps.map((app) => (
+          <a href={app.href} tabindex="-1"><img src={app.icon} alt="" width="52" height="52" loading="eager" /></a>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -145,7 +150,7 @@ const schema = {
   <section class="apps-section" id="apps">
     <div class="container">
       <h2 class="section-title">The apps</h2>
-      <div class="apps-grid">
+      <div class="apps-grid reveal">
         {apps.map((app) => (
           <article class="app-card" style={`--card-accent: ${app.accent}`}>
             <div class="app-head">
@@ -275,6 +280,21 @@ const schema = {
     letter-spacing: 0.3px;
     color: var(--ink-muted);
   }
+  .hero-icons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-icons img {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(29, 29, 31, 0.16);
+    transition: transform 0.18s ease;
+  }
+  .hero-icons a:hover img { transform: translateY(-4px) scale(1.06); }
 
   /* APPS ------------------------------------------------------------ */
   .apps-section { padding: 80px 0 96px; background: var(--bg-deep); border-top: 1px solid var(--border); }
