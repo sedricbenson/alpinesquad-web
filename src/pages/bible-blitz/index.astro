@@ -96,7 +96,7 @@ const schema = {
 };
 ---
 
-<BaseLayout {title} {description} {schema} ogImage="/images/bibleblitz-og.png" appId="6771674002" themeColor="#0A0F0C" theme="auto">
+<BaseLayout {title} {description} {schema} ogImage="/images/bibleblitz-og.png" appId="6771674002" theme="auto">
   <ProductNav appName="Bible Blitz" appHref="/bible-blitz" appStoreUrl={appStoreUrl} />
 
   <!-- HERO ----------------------------------------------------------- -->
@@ -107,7 +107,7 @@ const schema = {
     <div class="container hero-inner">
       <div class="hero-text">
         <img class="hero-icon" src="/images/bibleblitz-icon.png" alt="Bible Blitz app icon" width="84" height="84" />
-        <p class="eyebrow eyebrow-on-dark">Bible Blitz · iPhone &amp; iPad</p>
+        <p class="eyebrow">Bible Blitz · iPhone &amp; iPad</p>
         <h1>Bible trivia that <span class="hero-accent">teaches</span> you Scripture.</h1>
         <p class="hero-lede">
           Fast-paced Scripture trivia across KJV, NKJV, and NIV. Every wrong answer reveals the
@@ -214,23 +214,23 @@ const schema = {
 </BaseLayout>
 
 <style>
-  /* HERO ------------------------------------------------------------ */
+  /* HERO (light, green-tinted) --------------------------------------- */
   .hero {
     position: relative;
     overflow: hidden;
-    background: var(--bg-dark);
-    color: var(--ink-on-dark);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 9%, #ffffff) 0%, #ffffff 82%);
+    color: var(--ink);
     padding: 88px 0 96px;
   }
   .hero-bg { position: absolute; inset: 0; pointer-events: none; }
   .hero-glow {
     position: absolute;
-    top: -10%;
-    left: -15%;
-    width: 80%;
-    height: 90%;
-    background: radial-gradient(circle at center, rgba(31, 169, 104, 0.32) 0%, transparent 60%);
-    filter: blur(40px);
+    top: -30%;
+    left: -10%;
+    width: 70%;
+    height: 80%;
+    background: radial-gradient(circle at center, rgba(16, 150, 87, 0.16) 0%, transparent 60%);
+    filter: blur(48px);
   }
   .hero-inner {
     position: relative;
@@ -243,7 +243,7 @@ const schema = {
     width: 84px;
     height: 84px;
     border-radius: 20px;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 28px rgba(29, 29, 31, 0.18);
     margin-bottom: 24px;
   }
   .hero h1 {
@@ -252,14 +252,14 @@ const schema = {
     line-height: 1.02;
     letter-spacing: -0.025em;
     font-weight: 600;
-    color: var(--ink-on-dark);
+    color: var(--ink);
     margin: 18px 0 28px;
     text-wrap: balance;
     max-width: 16ch;
   }
   .hero-accent {
     font-style: italic;
-    background: linear-gradient(135deg, var(--accent-pop) 0%, var(--accent) 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -267,14 +267,14 @@ const schema = {
   .hero-lede {
     font-size: 18px;
     line-height: 1.6;
-    color: var(--ink-on-dark-soft);
+    color: var(--ink-soft);
     max-width: 52ch;
     margin-bottom: 32px;
   }
   .hero-cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .hero-claims {
     font-size: 13.5px;
-    color: var(--ink-on-dark-muted);
+    color: var(--ink-muted);
     letter-spacing: 0.2px;
   }
 
@@ -297,7 +297,7 @@ const schema = {
   .appstore-btn-light {
     margin-top: 28px;
     background: var(--ink);
-    color: var(--ink-on-dark);
+    color: #fff;
     border-color: transparent;
   }
 

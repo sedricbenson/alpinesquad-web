@@ -40,10 +40,10 @@ const { appName, appHref, appStoreUrl, links = [] } = Astro.props;
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(10, 15, 12, 0.72);
-    backdrop-filter: saturate(150%) blur(16px);
-    -webkit-backdrop-filter: saturate(150%) blur(16px);
-    border-bottom: 1px solid var(--border-on-dark);
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
   }
   .p-nav-inner {
     display: flex;
@@ -53,17 +53,17 @@ const { appName, appHref, appStoreUrl, links = [] } = Astro.props;
     padding-bottom: 14px;
   }
   .p-brand { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; min-width: 0; }
-  .p-umbrella { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-on-dark-soft); font-weight: 600; }
-  .p-umbrella:hover { color: var(--ink-on-dark); }
+  .p-umbrella { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-soft); font-weight: 600; }
+  .p-umbrella:hover { color: var(--ink); }
   .p-mark { font-size: 18px; }
-  .p-sep { color: var(--ink-on-dark-muted); }
-  .p-app { color: var(--ink-on-dark); font-weight: 600; }
+  .p-sep { color: var(--ink-muted); }
+  .p-app { color: var(--ink); font-weight: 600; }
   .p-nav-links { display: flex; align-items: center; gap: 22px; }
-  .p-nav-links a:not(.p-nav-cta) { color: var(--ink-on-dark-soft); font-size: 14px; }
-  .p-nav-links a:not(.p-nav-cta):hover { color: var(--ink-on-dark); }
+  .p-nav-links a:not(.p-nav-cta) { color: var(--ink-soft); font-size: 14px; }
+  .p-nav-links a:not(.p-nav-cta):hover { color: var(--ink); }
   .p-nav-cta {
-    background: var(--ink-on-dark);
-    color: var(--ink);
+    background: var(--ink);
+    color: #fff;
     padding: 9px 18px;
     border-radius: var(--r-pill);
     font-size: 14px;
@@ -71,10 +71,10 @@ const { appName, appHref, appStoreUrl, links = [] } = Astro.props;
     white-space: nowrap;
     transition: transform 0.15s, opacity 0.15s;
   }
-  .p-nav-cta:hover { color: var(--ink); opacity: 0.92; transform: translateY(-1px); }
+  .p-nav-cta:hover { color: #fff; opacity: 0.85; transform: translateY(-1px); }
   .p-nav-soon {
-    color: var(--ink-on-dark-soft);
-    border: 1px dashed var(--border-on-dark);
+    color: var(--ink-soft);
+    border: 1px dashed var(--ink-muted);
     padding: 8px 16px;
     border-radius: var(--r-pill);
     font-size: 13px;

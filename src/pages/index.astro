@@ -116,7 +116,7 @@ const schema = {
 };
 ---
 
-<BaseLayout {title} {description} {schema} ogImage="/images/alpinesquad-og.png" themeColor="#0A0F0C">
+<BaseLayout {title} {description} {schema} ogImage="/images/alpinesquad-og.png">
   <!-- NAV -------------------------------------------------------------- -->
   <header class="nav">
     <div class="container nav-inner">
@@ -193,15 +193,15 @@ const schema = {
 </BaseLayout>
 
 <style>
-  /* NAV (dark, sticky) ---------------------------------------------- */
+  /* NAV (light glass, sticky) ---------------------------------------- */
   .nav {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(10, 15, 12, 0.72);
-    backdrop-filter: saturate(150%) blur(16px);
-    -webkit-backdrop-filter: saturate(150%) blur(16px);
-    border-bottom: 1px solid var(--border-on-dark);
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
   }
   .nav-inner {
     display: flex;
@@ -214,36 +214,36 @@ const schema = {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    color: var(--ink-on-dark);
+    color: var(--ink);
     font-weight: 600;
     font-size: 16px;
   }
   .brand-mark { font-size: 18px; }
-  .nav-link { color: var(--ink-on-dark-soft); font-size: 14px; font-weight: 500; }
-  .nav-link:hover { color: var(--ink-on-dark); }
+  .nav-link { color: var(--ink-soft); font-size: 14px; font-weight: 500; }
+  .nav-link:hover { color: var(--ink); }
 
-  /* HERO (dark) ----------------------------------------------------- */
+  /* HERO (light) ----------------------------------------------------- */
   .hero {
     position: relative;
     overflow: hidden;
-    background: var(--bg-dark);
-    color: var(--ink-on-dark);
-    padding: 104px 0 112px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 8%, #ffffff) 0%, #ffffff 85%);
+    color: var(--ink);
+    padding: 104px 0 96px;
     text-align: center;
   }
   @media (max-width: 720px) {
-    .hero { padding: 72px 0 80px; }
+    .hero { padding: 72px 0 72px; }
   }
   .hero-bg { position: absolute; inset: 0; pointer-events: none; }
   .hero-glow {
     position: absolute;
-    top: -20%;
+    top: -40%;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%;
-    height: 110%;
-    background: radial-gradient(circle at center, rgba(31, 169, 104, 0.30) 0%, transparent 60%);
-    filter: blur(48px);
+    width: 80%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(16, 150, 87, 0.14) 0%, transparent 60%);
+    filter: blur(52px);
   }
   .hero-inner { position: relative; max-width: 760px; }
   .hero h1 {
@@ -252,13 +252,13 @@ const schema = {
     line-height: 1.03;
     letter-spacing: -0.025em;
     font-weight: 600;
-    color: var(--ink-on-dark);
+    color: var(--ink);
     margin-bottom: 26px;
     text-wrap: balance;
   }
   .accent-text {
     font-style: italic;
-    background: linear-gradient(135deg, var(--accent-pop) 0%, var(--accent) 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -266,18 +266,18 @@ const schema = {
   .lede {
     font-size: 19px;
     line-height: 1.6;
-    color: var(--ink-on-dark-soft);
+    color: var(--ink-soft);
     max-width: 52ch;
     margin: 0 auto 20px;
   }
   .hero-meta {
     font-size: 14px;
     letter-spacing: 0.3px;
-    color: var(--ink-on-dark-muted);
+    color: var(--ink-muted);
   }
 
   /* APPS ------------------------------------------------------------ */
-  .apps-section { padding: 80px 0 96px; background: var(--bg); }
+  .apps-section { padding: 80px 0 96px; background: var(--bg-deep); border-top: 1px solid var(--border); }
   .section-title {
     font-family: var(--serif);
     font-size: clamp(26px, 3vw, 34px);
@@ -359,12 +359,12 @@ const schema = {
   /* App Store button sits above the stretched link so it stays separately clickable. */
   .app-store-wrap { position: relative; z-index: 1; }
 
-  /* FOOTER (dark) --------------------------------------------------- */
+  /* FOOTER (light) --------------------------------------------------- */
   .footer {
-    background: var(--bg-dark);
-    color: var(--ink-on-dark-soft);
+    background: var(--bg-deep);
+    color: var(--ink-soft);
     padding: 48px 0 28px;
-    border-top: 1px solid var(--border-on-dark);
+    border-top: 1px solid var(--border);
   }
   .footer-inner {
     display: flex;
@@ -374,15 +374,15 @@ const schema = {
     gap: 24px;
     margin-bottom: 28px;
   }
-  .brand-footer { color: var(--ink-on-dark); }
-  .footer-tag { margin-top: 8px; font-size: 14px; color: var(--ink-on-dark-muted); }
+  .brand-footer { color: var(--ink); }
+  .footer-tag { margin-top: 8px; font-size: 14px; color: var(--ink-muted); }
   .footer-nav { display: flex; gap: 24px; font-size: 14px; }
-  .footer-nav a { color: var(--ink-on-dark-soft); }
-  .footer-nav a:hover { color: var(--ink-on-dark); }
+  .footer-nav a { color: var(--ink-soft); }
+  .footer-nav a:hover { color: var(--ink); }
   .footer-bottom {
     padding-top: 20px;
-    border-top: 1px solid var(--border-on-dark);
-    color: var(--ink-on-dark-muted);
+    border-top: 1px solid var(--border);
+    color: var(--ink-muted);
     font-size: 12.5px;
   }
 </style>
