@@ -30,8 +30,7 @@ interface Props {
   privacyPath: string;
   termsPath: string;
   contactEmail: string;
-  footerTagline?: string;
-  trademark?: string;
+  trademark?: boolean;
 }
 
 const {
@@ -51,7 +50,6 @@ const {
   privacyPath,
   termsPath,
   contactEmail,
-  footerTagline = 'Privacy-first iOS apps.',
   trademark,
 } = Astro.props;
 ---
@@ -70,7 +68,6 @@ const {
     <ProductFooter
       {appName}
       {appHref}
-      tagline={footerTagline}
       {appStoreUrl}
       {privacyPath}
       {termsPath}
