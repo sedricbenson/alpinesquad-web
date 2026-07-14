@@ -1,11 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 
 const title = 'Page not found — Alpine Squad';
 const description = 'That page does not exist. Head back to Alpine Squad and find the app you were looking for.';
 ---
 
 <BaseLayout {title} {description}>
+  <SiteNav />
   <section class="lost">
     <div class="container-narrow">
       <p class="lost-code">404</p>
@@ -16,11 +19,12 @@ const description = 'That page does not exist. Head back to Alpine Squad and fin
       <a href="/" class="lost-cta">← Back to Alpine Squad</a>
     </div>
   </section>
+  <SiteFooter />
 </BaseLayout>
 
 <style>
   .lost {
-    min-height: 80vh;
+    min-height: 68vh;
     display: flex;
     align-items: center;
     text-align: center;

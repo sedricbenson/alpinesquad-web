@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AppStoreButton from '../components/AppStoreButton.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 import { appStoreUrl, APP_IDS } from '../lib/seo';
 
 const title = 'Alpine Squad — privacy-first iOS apps for learning, play & pro work';
@@ -117,16 +119,7 @@ const schema = {
 ---
 
 <BaseLayout {title} {description} {schema} ogImage="/images/alpinesquad-og.png">
-  <!-- NAV -------------------------------------------------------------- -->
-  <header class="nav">
-    <div class="container nav-inner">
-      <a href="/" class="brand">
-        <span class="brand-mark" aria-hidden="true">⛰</span>
-        <span class="brand-name">Alpine Squad</span>
-      </a>
-      <a href="#apps" class="nav-link">Apps</a>
-    </div>
-  </header>
+  <SiteNav />
 
   <!-- HERO ------------------------------------------------------------- -->
   <section class="hero">
@@ -179,52 +172,10 @@ const schema = {
     </div>
   </section>
 
-  <!-- FOOTER ----------------------------------------------------------- -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span class="footer-brand">
-        <span class="brand-mark" aria-hidden="true">⛰</span>
-        <span>Alpine Squad</span>
-        <span class="footer-copy">© 2026</span>
-      </span>
-      <nav class="footer-nav" aria-label="Footer">
-        <a href="#apps">Apps</a>
-        <a href="mailto:support@alpinesquad.com">Contact</a>
-      </nav>
-    </div>
-  </footer>
+  <SiteFooter />
 </BaseLayout>
 
 <style>
-  /* NAV (light glass, sticky) ---------------------------------------- */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(255, 255, 255, 0.78);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 14px;
-    padding-bottom: 14px;
-  }
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--ink);
-    font-weight: 600;
-    font-size: 16px;
-  }
-  .brand-mark { font-size: 18px; }
-  .nav-link { color: var(--ink-soft); font-size: 14px; font-weight: 500; }
-  .nav-link:hover { color: var(--ink); }
-
   /* HERO (light) ----------------------------------------------------- */
   .hero {
     position: relative;
@@ -377,30 +328,4 @@ const schema = {
   /* App Store button sits above the stretched link so it stays separately clickable. */
   .app-store-wrap { position: relative; z-index: 1; }
 
-  /* FOOTER (single slim row) ------------------------------------------ */
-  .footer {
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    padding: 26px 0;
-  }
-  .footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 14px 24px;
-  }
-  .footer-brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--ink);
-    font-weight: 600;
-    font-size: 14.5px;
-  }
-  .brand-mark { font-size: 16px; }
-  .footer-copy { color: var(--ink-muted); font-weight: 400; }
-  .footer-nav { display: flex; gap: 22px; font-size: 14px; }
-  .footer-nav a { color: var(--ink-soft); }
-  .footer-nav a:hover { color: var(--ink); }
 </style>
