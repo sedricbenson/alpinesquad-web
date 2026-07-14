@@ -27,6 +27,16 @@
       "permanent": false
     },
     {
+      "source": "/:app(hamcram|scratchy|pianotune|musicquest)/privacy",
+      "destination": "https://sedricbenson.github.io/disclosures/:app/privacy.html",
+      "permanent": false
+    },
+    {
+      "source": "/:app(hamcram|scratchy|pianotune|musicquest)/terms",
+      "destination": "https://sedricbenson.github.io/disclosures/:app/terms.html",
+      "permanent": false
+    },
+    {
       "source": "/bibleblitz",
       "destination": "/bible-blitz",
       "permanent": true

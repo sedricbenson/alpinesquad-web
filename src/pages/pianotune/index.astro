@@ -1,0 +1,129 @@
+---
+import AppShell from '../../layouts/AppShell.astro';
+import ComingSoonBadge from '../../components/ComingSoonBadge.astro';
+import { breadcrumbList } from '../../lib/seo';
+
+/**
+ * Pianotune — coming-soon page. Copy from piano-tuner/fastlane/metadata.
+ * When it ships: add appId="6772577552" + appStoreUrl and swap the badge.
+ */
+
+const title = 'Pianotune — Pro Piano Tuner for iPhone & iPad | Coming Soon';
+const description =
+  'Professional-grade piano tuning on iOS: full 88-key inharmonicity sampling, Railsback stretch curves, pitch-raise overpull, 76 historical temperaments, strobe + cents needle, and per-piano history. Built for working tuners and serious players. Coming soon.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'MobileApplication',
+      name: 'Pianotune – Pro Piano Tuner',
+      operatingSystem: 'iOS',
+      applicationCategory: 'MusicApplication',
+      applicationSubCategory: 'Instrument Tuning',
+      description,
+      url: `${site}/pianotune`,
+      image: `${site}/images/pianotune-icon.png`,
+      publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Pianotune', path: '/pianotune' },
+    ]),
+  ],
+};
+---
+
+<AppShell
+  {title}
+  {description}
+  {schema}
+  appName="Pianotune"
+  appHref="/pianotune"
+  accent="#4A7FB5"
+  accentPop="#74A5D4"
+  accentDeep="#2F5E8E"
+  privacyPath="/pianotune/privacy"
+  termsPath="/pianotune/terms"
+  contactEmail="support@alpinesquad.com"
+>
+  <!-- HERO ----------------------------------------------------------- -->
+  <section class="s-hero">
+    <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
+    <div class="container s-hero-inner">
+      <img class="s-hero-icon" src="/images/pianotune-icon.png" alt="Pianotune app icon" width="84" height="84" />
+      <p class="s-eyebrow">Pianotune · iPhone &amp; iPad</p>
+      <h1>Concert-grade tuning, <span class="s-hero-accent">in your pocket</span>.</h1>
+      <p class="s-lede">
+        The scientific rigor working tuners trust over their own ears — full 88-key inharmonicity
+        sampling, Railsback stretch curves, pitch-raise overpull — in a modern iOS interface with
+        per-piano history and sync.
+      </p>
+      <div class="s-hero-cta">
+        <ComingSoonBadge />
+        <p class="s-hero-claims">For technicians &amp; serious players</p>
+      </div>
+
+      <div class="s-stat-strip">
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">88</span></span><span class="s-stat-label">Keys sampled per piano</span></div>
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">76</span></span><span class="s-stat-label">Historical temperaments</span></div>
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">±0.1¢</span></span><span class="s-stat-label">Cents-accurate needle</span></div>
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">∞</span></span><span class="s-stat-label">Pianos remembered</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES --------------------------------------------------------- -->
+  <section class="s-section">
+    <div class="container">
+      <h2 class="s-h2">Tune one piano — or a hundred.</h2>
+      <p class="s-section-lede">
+        Pianotune remembers every measurement, so every return visit starts where the last one
+        ended.
+      </p>
+      <div class="s-feature-grid">
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+          <h4>Real-time pitch detection</h4>
+          <p>Cents-accurate needle and strobe display on a full 88-key strip, with auto-detect and manual key override.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
+          <h4>Learn-My-Piano</h4>
+          <p>Full chromatic inharmonicity sampling builds a unique B-coefficient fingerprint for the exact instrument in front of you.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
+          <h4>Railsback stretch curves</h4>
+          <p>Stretch computed from the piano's own measurements — not a canned curve — so octaves ring true top to bottom.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"></path><polyline points="5 12 12 5 19 12"></polyline></svg></div>
+          <h4>Pitch-raise overpull</h4>
+          <p>Overpull modelling for pianos far off pitch — get there in one pass instead of three.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
+          <h4>76 temperaments</h4>
+          <p>From equal to Werckmeister to Kirnberger — historical temperaments for period-accurate work.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8v13H3V8"></path><path d="M1 3h22v5H1z"></path><line x1="10" y1="12" x2="14" y2="12"></line></svg></div>
+          <h4>Per-piano history &amp; clients</h4>
+          <p>Cloud-era workflow: every piano's measurements, tunings, and client details, synced and searchable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL ------------------------------------------------------------- -->
+  <section class="s-final">
+    <div class="container-narrow">
+      <h2>The tuner your ears will trust.</h2>
+      <p>Pianotune is in final preparation for the App Store. Watch the <a href="/">Alpine Squad</a> homepage for launch.</p>
+      <ComingSoonBadge />
+    </div>
+  </section>
+</AppShell>

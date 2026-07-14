@@ -3,10 +3,89 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import AppStoreButton from '../components/AppStoreButton.astro';
 import { appStoreUrl, APP_IDS } from '../lib/seo';
 
-const title = 'Alpine Squad — privacy-first iOS apps';
-const description = 'Privacy-first iOS apps that teach. No accounts, no tracking, no subscriptions — just useful, ad-free software.';
+const title = 'Alpine Squad — privacy-first iOS apps for learning, play & pro work';
+const description =
+  'Privacy-first iOS apps for learning, play, and real work. Bible Blitz, Spelly, HamCram, and more — built with care, priced honestly, designed to respect your time.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const apps = [
+  {
+    name: 'Bible Blitz',
+    tagline: 'Bible trivia that teaches Scripture.',
+    description:
+      'Master Bible trivia and actually remember Scripture. Play across KJV, NKJV & NIV — every answer you miss reveals the verse and its context, so it sticks.',
+    icon: '/images/bibleblitz-icon.png',
+    href: '/bible-blitz',
+    appStore: appStoreUrl(APP_IDS.bibleBlitz, 'web-home-bibleblitz'),
+    storeUrlClean: appStoreUrl(APP_IDS.bibleBlitz),
+    tags: ['Education', 'Free'],
+    accent: '#1FA968',
+    category: 'EducationApplication',
+    price: '0.00',
+  },
+  {
+    name: 'Spelly',
+    tagline: 'Two spelling games in one.',
+    description:
+      'Two ways to make spelling click: Picture Spell to learn by sight, Word Blitz to race the clock. 14,000+ words across 23 categories for kids, families & English learners.',
+    icon: '/images/spelly-icon.png',
+    href: '/spelly',
+    appStore: appStoreUrl(APP_IDS.spelly, 'web-home-spelly'),
+    storeUrlClean: appStoreUrl(APP_IDS.spelly),
+    tags: ['Word game', 'Free'],
+    accent: '#6c5bcb',
+    category: 'EducationApplication',
+    price: '0.00',
+  },
+  {
+    name: 'HamCram',
+    tagline: 'Pass your FCC ham radio exam.',
+    description:
+      'Drill the real NCVEC question pools — Technician and General — with flashcards, quizzes, and full practice exams scored like test day. Pay once, study until you pass.',
+    icon: '/images/hamcram-icon.png',
+    href: '/hamcram',
+    appStore: appStoreUrl(APP_IDS.hamCram, 'web-home-hamcram'),
+    storeUrlClean: appStoreUrl(APP_IDS.hamCram),
+    tags: ['Exam prep', '$9.99'],
+    accent: '#E8842A',
+    category: 'EducationApplication',
+    price: '9.99',
+  },
+  {
+    name: 'Scratchy',
+    tagline: 'Scratch, reveal, guess fast!',
+    description:
+      'Scratch away the cover, watch the picture appear, and guess before the clock runs out. Daily challenges, collections, achievements — fun for all ages.',
+    icon: '/images/scratchy-icon.png',
+    href: '/scratchy',
+    tags: ['Casual game'],
+    accent: '#D6467E',
+    category: 'GameApplication',
+  },
+  {
+    name: 'Pianotune',
+    tagline: 'Pro tuning for every piano.',
+    description:
+      '88-key inharmonicity sampling, Railsback stretch curves, 76 temperaments, per-piano history. The scientific rigor working tuners trust, in your pocket.',
+    icon: '/images/pianotune-icon.png',
+    href: '/pianotune',
+    tags: ['Pro tool'],
+    accent: '#4A7FB5',
+    category: 'MusicApplication',
+  },
+  {
+    name: 'MusicQuest',
+    tagline: 'Learn to read sheet music.',
+    description:
+      'Note-recognition quizzes across treble, bass, and alto clefs, with per-note mastery stats. Build the instant recall that sight-reading demands.',
+    icon: '/images/musicquest-icon.png',
+    href: '/musicquest',
+    tags: ['Music education'],
+    accent: '#14919B',
+    category: 'EducationApplication',
+  },
+];
 
 // @graph links the brand entity to the apps it publishes — helps search
 // engines understand Alpine Squad and its app catalog as one connected entity.
@@ -23,51 +102,18 @@ const schema = {
       founder: { '@type': 'Person', name: 'Sedric Benson' },
       description,
     },
-    {
+    ...apps.map((app) => ({
       '@type': 'MobileApplication',
-      name: 'Bible Blitz',
-      applicationCategory: 'EducationApplication',
+      name: app.name,
+      applicationCategory: app.category,
       operatingSystem: 'iOS',
-      url: 'https://apps.apple.com/app/id6771674002',
+      url: app.storeUrlClean ?? `${site}${app.href}`,
+      image: `${site}${app.icon}`,
       publisher: { '@id': `${site}/#org` },
-      offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
-    },
-    {
-      '@type': 'MobileApplication',
-      name: 'Spelly',
-      applicationCategory: 'EducationApplication',
-      operatingSystem: 'iOS',
-      url: 'https://apps.apple.com/app/id6757465281',
-      publisher: { '@id': `${site}/#org` },
-      offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
-    },
+      ...(app.price ? { offers: { '@type': 'Offer', price: app.price, priceCurrency: 'USD' } } : {}),
+    })),
   ],
 };
-
-const apps = [
-  {
-    name: 'Bible Blitz',
-    tagline: 'Bible trivia that teaches Scripture.',
-    description:
-      'Master Bible trivia and actually remember Scripture. Play across KJV, NKJV & NIV — every answer you miss reveals the verse and its context, so it sticks.',
-    icon: '/images/bibleblitz-icon.png',
-    href: '/bible-blitz',
-    appStore: appStoreUrl(APP_IDS.bibleBlitz, 'web-home-bibleblitz'),
-    tags: ['Education', 'Free'],
-    accent: '#1FA968',
-  },
-  {
-    name: 'Spelly',
-    tagline: 'Two spelling games in one.',
-    description:
-      'Two ways to make spelling click: Picture Spell to learn by sight, Word Blitz to race the clock. 14,000+ words across 23 categories for kids, families & English learners.',
-    icon: '/images/spelly-icon.png',
-    href: '/spelly',
-    appStore: appStoreUrl(APP_IDS.spelly, 'web-home-spelly'),
-    tags: ['Word game', 'Free'],
-    accent: '#6c5bcb',
-  },
-];
 ---
 
 <BaseLayout {title} {description} {schema} ogImage="/images/alpinesquad-og.png" themeColor="#0A0F0C">
@@ -86,12 +132,12 @@ const apps = [
   <section class="hero">
     <div class="hero-bg" aria-hidden="true"><div class="hero-glow"></div></div>
     <div class="container hero-inner">
-      <h1>Privacy-first apps that<br /><span class="accent-text">actually teach</span>.</h1>
+      <h1>Apps that earn<br /><span class="accent-text">their keep</span>.</h1>
       <p class="lede">
-        No accounts. No tracking. No subscriptions. Just well-crafted iOS apps that teach you
-        something real and respect your time.
+        Privacy-first iOS apps for learning, play, and real work — built with care, priced
+        honestly, designed to respect your time.
       </p>
-      <p class="hero-meta">Two apps live today — more on the way.</p>
+      <p class="hero-meta">Three live on the App Store · three more on the way.</p>
     </div>
   </section>
 
@@ -112,12 +158,15 @@ const apps = [
             <p class="app-desc">{app.description}</p>
             <div class="app-tags">
               {app.tags.map((t) => <span class="tag">{t}</span>)}
+              {!app.appStore && <span class="tag tag-soon">Coming soon</span>}
             </div>
             <div class="app-actions">
               <a href={app.href} class="app-link">Learn more →</a>
-              <span class="app-store-wrap">
-                <AppStoreButton href={app.appStore} label={`Get ${app.name} on the App Store`} />
-              </span>
+              {app.appStore && (
+                <span class="app-store-wrap">
+                  <AppStoreButton href={app.appStore} label={`Get ${app.name} on the App Store`} />
+                </span>
+              )}
             </div>
           </article>
         ))}
@@ -133,7 +182,7 @@ const apps = [
           <span class="brand-mark" aria-hidden="true">⛰</span>
           <span class="brand-name">Alpine Squad</span>
         </span>
-        <p class="footer-tag">Privacy-first iOS apps that teach.</p>
+        <p class="footer-tag">Privacy-first iOS apps.</p>
       </div>
       <nav class="footer-nav" aria-label="Footer">
         <a href="mailto:support@alpinesquad.com">Contact</a>
@@ -285,6 +334,11 @@ const apps = [
     background: color-mix(in srgb, var(--card-accent) 10%, transparent);
     padding: 4px 11px;
     border-radius: var(--r-pill);
+  }
+  .tag-soon {
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1px dashed var(--ink-muted);
   }
   .app-actions {
     display: flex;

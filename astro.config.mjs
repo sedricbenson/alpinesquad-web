@@ -22,8 +22,11 @@ export default defineConfig({
       lastmod: new Date(),
       serialize(item) {
         const path = new URL(item.url).pathname;
+        const liveApps = ['/spelly/', '/bible-blitz/', '/hamcram/'];
+        const comingSoon = ['/scratchy/', '/pianotune/', '/musicquest/'];
         if (path === '/') item.priority = 1.0;
-        else if (path === '/spelly/' || path === '/bible-blitz/') item.priority = 0.9;
+        else if (liveApps.includes(path)) item.priority = 0.9;
+        else if (comingSoon.includes(path)) item.priority = 0.8;
         else item.priority = 0.7;
         return item;
       },

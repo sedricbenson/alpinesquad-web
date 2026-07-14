@@ -8,7 +8,8 @@
 interface Props {
   appName: string;
   appHref: string;
-  appStoreUrl: string;
+  /** Omit for unreleased apps — shows a "Coming soon" pill instead */
+  appStoreUrl?: string;
   links?: { label: string; href: string }[];
 }
 const { appName, appHref, appStoreUrl, links = [] } = Astro.props;
@@ -25,7 +26,11 @@ const { appName, appHref, appStoreUrl, links = [] } = Astro.props;
     </div>
     <nav class="p-nav-links" aria-label="Primary">
       {links.map((l) => <a class="p-nav-hide" href={l.href}>{l.label}</a>)}
-      <a href={appStoreUrl} class="p-nav-cta" rel="noopener">Get on App Store</a>
+      {appStoreUrl ? (
+        <a href={appStoreUrl} class="p-nav-cta" rel="noopener">Get on App Store</a>
+      ) : (
+        <span class="p-nav-soon">Coming soon</span>
+      )}
     </nav>
   </div>
 </header>
@@ -67,6 +72,15 @@ const { appName, appHref, appStoreUrl, links = [] } = Astro.props;
     transition: transform 0.15s, opacity 0.15s;
   }
   .p-nav-cta:hover { color: var(--ink); opacity: 0.92; transform: translateY(-1px); }
+  .p-nav-soon {
+    color: var(--ink-on-dark-soft);
+    border: 1px dashed var(--border-on-dark);
+    padding: 8px 16px;
+    border-radius: var(--r-pill);
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
   @media (max-width: 600px) {
     .p-nav-hide,
     .p-sep,

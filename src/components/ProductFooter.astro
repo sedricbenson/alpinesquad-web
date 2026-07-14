@@ -7,7 +7,8 @@ interface Props {
   appName: string;
   appHref: string;
   tagline: string;
-  appStoreUrl: string;
+  /** Omit for unreleased apps */
+  appStoreUrl?: string;
   privacyPath: string;
   termsPath: string;
   contactEmail: string;
@@ -27,7 +28,7 @@ const { appName, appHref, tagline, appStoreUrl, privacyPath, termsPath, contactE
     </div>
     <nav class="p-footer-links" aria-label="Footer">
       <a href={appHref}>{appName}</a>
-      <a href={appStoreUrl} rel="noopener">App Store</a>
+      {appStoreUrl && <a href={appStoreUrl} rel="noopener">App Store</a>}
       <a href={privacyPath}>Privacy</a>
       <a href={termsPath}>Terms</a>
       <a href={`mailto:${contactEmail}`}>Contact</a>

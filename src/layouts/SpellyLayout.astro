@@ -1,16 +1,10 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import ProductNav from '../components/ProductNav.astro';
-import ProductFooter from '../components/ProductFooter.astro';
+import AppShell from './AppShell.astro';
 import { appStoreUrl, APP_IDS } from '../lib/seo';
 
 /**
- * Shared shell for every Spelly page.
- *
- * Wraps BaseLayout with Spelly's App Store id + a scoped indigo palette, and
- * supplies the shared nav/footer + section component styles (the `.s-*`
- * classes) so each page is just SEO frontmatter + content. Visual language
- * mirrors the Bible Blitz page so the whole domain reads as one family.
+ * Spelly's shell — AppShell with Spelly's indigo palette + nav links.
+ * Every Spelly page (main + keyword landings) wraps in this.
  */
 interface Props {
   title: string;
@@ -27,313 +21,28 @@ const {
   canonical,
   schema,
 } = Astro.props;
-
-const navAppStoreUrl = appStoreUrl(APP_IDS.spelly, 'web-spelly-nav');
 ---
 
-<BaseLayout {title} {description} {ogImage} {canonical} {schema} appId={APP_IDS.spelly} themeColor="#0A0F0C">
-  <div class="spelly">
-    <ProductNav
-      appName="Spelly"
-      appHref="/spelly"
-      appStoreUrl={navAppStoreUrl}
-      links={[
-        { label: 'For English Learners', href: '/spelly/learn-english' },
-        { label: 'For Kids', href: '/spelly/spelling-for-kids' },
-      ]}
-    />
-
-    <main>
-      <slot />
-    </main>
-
-    <ProductFooter
-      appName="Spelly"
-      appHref="/spelly"
-      tagline="Privacy-first iOS apps that teach."
-      appStoreUrl={appStoreUrl(APP_IDS.spelly, 'web-spelly-footer')}
-      privacyPath="/spelly/privacy"
-      termsPath="/spelly/terms"
-      contactEmail="spellyapphelp@gmail.com"
-    />
-  </div>
-</BaseLayout>
-
-<style is:global>
-  .spelly {
-    --s-accent: #6c5bcb;
-    --s-accent-pop: #8b7be0;
-    --s-accent-deep: #4a3fb0;
-    --s-warm: #ff7b47;
-    --s-warm-deep: #e0533a;
-  }
-  .spelly p a {
-    color: var(--s-accent-deep);
-    font-weight: 500;
-  }
-  .spelly p a:hover {
-    color: var(--s-accent);
-  }
-
-  /* HERO (dark) ----------------------------------------------------- */
-  .spelly .s-hero {
-    position: relative;
-    overflow: hidden;
-    background: var(--bg-dark);
-    color: var(--ink-on-dark);
-    padding: 88px 0 80px;
-  }
-  @media (max-width: 880px) {
-    .spelly .s-hero { padding: 64px 0 64px; }
-  }
-  .spelly .s-hero-bg { position: absolute; inset: 0; pointer-events: none; }
-  .spelly .s-hero-glow {
-    position: absolute;
-    top: -10%;
-    left: -15%;
-    width: 80%;
-    height: 90%;
-    background: radial-gradient(circle at center, rgba(108, 91, 203, 0.34) 0%, transparent 60%);
-    filter: blur(40px);
-  }
-  .spelly .s-hero-inner { position: relative; max-width: 880px; }
-  .spelly .s-hero-icon {
-    width: 84px;
-    height: 84px;
-    border-radius: 20px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
-    margin-bottom: 24px;
-  }
-  .spelly .s-eyebrow {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    color: var(--s-accent-pop);
-    margin-bottom: 18px;
-  }
-  .spelly .s-hero h1 {
-    font-family: var(--serif);
-    font-size: clamp(44px, 7vw, 76px);
-    line-height: 1.04;
-    letter-spacing: -0.025em;
-    font-weight: 600;
-    color: var(--ink-on-dark);
-    margin: 0 0 24px;
-    text-wrap: balance;
-    max-width: 18ch;
-  }
-  .spelly .s-hero-accent {
-    font-style: italic;
-    background: linear-gradient(135deg, var(--s-accent-pop) 0%, var(--s-accent) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .spelly .s-lede {
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--ink-on-dark-soft);
-    max-width: 56ch;
-    margin-bottom: 32px;
-  }
-  .spelly .s-hero-cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-
-  /* TRUST ROW ------------------------------------------------------- */
-  .spelly .s-trust-row { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 28px; }
-  .spelly .s-trust-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 13.5px;
-    color: var(--ink-on-dark-soft);
-  }
-  .spelly .s-trust-chip svg {
-    width: 15px;
-    height: 15px;
-    stroke: var(--s-accent-pop);
-    stroke-width: 2.4;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  /* STAT STRIP ------------------------------------------------------ */
-  .spelly .s-stat-strip {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-top: 44px;
-    border-top: 1px solid var(--border-on-dark);
-    padding-top: 32px;
-  }
-  .spelly .s-stat-value {
-    font-family: var(--serif);
-    font-size: 34px;
-    font-weight: 600;
-    color: var(--ink-on-dark);
-    display: block;
-    line-height: 1;
-  }
-  .spelly .s-stat-value .accent { color: var(--s-accent-pop); }
-  .spelly .s-stat-label { font-size: 13px; color: var(--ink-on-dark-muted); margin-top: 8px; display: block; }
-  @media (max-width: 640px) {
-    .spelly .s-stat-strip { grid-template-columns: repeat(2, 1fr); gap: 24px 20px; }
-  }
-
-  /* SECTIONS (light) ------------------------------------------------ */
-  .spelly .s-section { padding: 88px 0; background: var(--bg); border-top: 1px solid var(--border); }
-  .spelly .s-section-alt { padding: 88px 0; background: var(--bg-deep); border-top: 1px solid var(--border); }
-  .spelly .s-h2 {
-    font-family: var(--serif);
-    font-size: clamp(30px, 3.6vw, 40px);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 16px;
-    text-wrap: balance;
-  }
-  .spelly .s-section-lede {
-    font-size: 17px;
-    color: var(--ink-soft);
-    line-height: 1.6;
-    max-width: 60ch;
-    margin-bottom: 40px;
-  }
-
-  /* MODES ----------------------------------------------------------- */
-  .spelly .s-modes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  .spelly .s-mode-card {
-    padding: 32px;
-    border-radius: var(--r-lg);
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-  }
-  .spelly .s-mode-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
-  }
-  .spelly .s-mode-icon svg {
-    width: 24px;
-    height: 24px;
-    stroke: #fff;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .spelly .s-mode-a .s-mode-icon { background: linear-gradient(135deg, var(--s-accent-pop), var(--s-accent)); }
-  .spelly .s-mode-b .s-mode-icon { background: linear-gradient(135deg, var(--s-warm), var(--s-warm-deep)); }
-  .spelly .s-mode-card h3 {
-    font-family: var(--serif);
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 8px;
-  }
-  .spelly .s-mode-card p { font-size: 15.5px; color: var(--ink-soft); line-height: 1.6; }
-
-  /* FEATURES -------------------------------------------------------- */
-  .spelly .s-feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 32px 24px;
-  }
-  .spelly .s-feature-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: rgba(108, 91, 203, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 14px;
-  }
-  .spelly .s-feature-icon svg {
-    width: 20px;
-    height: 20px;
-    stroke: var(--s-accent);
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .spelly .s-feature h4 { font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
-  .spelly .s-feature p { font-size: 15px; color: var(--ink-soft); line-height: 1.55; }
-
-  /* AUDIENCE -------------------------------------------------------- */
-  .spelly .s-audience-row { display: flex; flex-wrap: wrap; gap: 10px; }
-  .spelly .s-chip {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--ink);
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    padding: 8px 16px;
-    border-radius: var(--r-pill);
-  }
-
-  /* FAQ (inline) ---------------------------------------------------- */
-  .spelly .s-faq { padding: 88px 0; background: var(--bg-deep); border-top: 1px solid var(--border); }
-  .spelly .s-faq-item { border-top: 1px solid var(--border); padding: 20px 0; }
-  .spelly .s-faq-item:last-child { border-bottom: 1px solid var(--border); }
-  .spelly .s-faq-item summary {
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--ink);
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-  }
-  .spelly .s-faq-item summary::-webkit-details-marker { display: none; }
-  .spelly .s-faq-item summary::after {
-    content: '+';
-    font-size: 22px;
-    color: var(--ink-muted);
-    font-weight: 400;
-    transition: transform 0.2s;
-  }
-  .spelly .s-faq-item[open] summary::after { transform: rotate(45deg); }
-  .spelly .s-faq-item :is(p, ul) {
-    margin-top: 12px;
-    font-size: 15.5px;
-    color: var(--ink-soft);
-    line-height: 1.65;
-    max-width: 68ch;
-  }
-  .spelly .s-faq-item ul { padding-left: 20px; }
-  .spelly .s-faq-item li { margin: 4px 0; }
-
-  /* FINAL CTA (dark band) ------------------------------------------- */
-  .spelly .s-final {
-    padding: 96px 0;
-    background: var(--bg-dark);
-    color: var(--ink-on-dark);
-    border-top: 1px solid var(--border-on-dark);
-    text-align: center;
-  }
-  .spelly .s-final h2 {
-    font-family: var(--serif);
-    font-size: clamp(30px, 4vw, 44px);
-    font-weight: 600;
-    color: var(--ink-on-dark);
-    margin-bottom: 16px;
-    letter-spacing: -0.02em;
-  }
-  .spelly .s-final p { font-size: 17px; color: var(--ink-on-dark-soft); max-width: 48ch; margin: 0 auto 28px; }
-  .spelly .s-final p a { color: var(--s-accent-pop); }
-  .spelly .s-final .appstore-btn { margin: 0 auto; }
-</style>
+<AppShell
+  {title}
+  {description}
+  {ogImage}
+  {canonical}
+  {schema}
+  appName="Spelly"
+  appHref="/spelly"
+  appId={APP_IDS.spelly}
+  appStoreUrl={appStoreUrl(APP_IDS.spelly, 'web-spelly-nav')}
+  accent="#6c5bcb"
+  accentPop="#8b7be0"
+  accentDeep="#4a3fb0"
+  navLinks={[
+    { label: 'For English Learners', href: '/spelly/learn-english' },
+    { label: 'For Kids', href: '/spelly/spelling-for-kids' },
+  ]}
+  privacyPath="/spelly/privacy"
+  termsPath="/spelly/terms"
+  contactEmail="spellyapphelp@gmail.com"
+>
+  <slot />
+</AppShell>

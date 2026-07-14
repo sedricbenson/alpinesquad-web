@@ -1,0 +1,122 @@
+---
+import AppShell from '../../layouts/AppShell.astro';
+import ComingSoonBadge from '../../components/ComingSoonBadge.astro';
+import { breadcrumbList } from '../../lib/seo';
+
+/**
+ * Scratchy (ScratchGuess) — coming-soon page. Copy from scratchy/APPSTORE_METADATA.md.
+ * When the app clears review: add appId + appStoreUrl to AppShell and swap
+ * ComingSoonBadge for AppStoreButton.
+ */
+
+const title = 'Scratchy — Scratch & Guess Game for iPhone & iPad | Coming Soon';
+const description =
+  'Scratch away to reveal a hidden picture — then guess what it is before the clock runs out. Daily challenges, collections, achievements. A fast, satisfying guessing game for all ages. Coming soon to the App Store.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'MobileApplication',
+      name: 'Scratchy — Scratch & Guess',
+      operatingSystem: 'iOS',
+      applicationCategory: 'GameApplication',
+      applicationSubCategory: 'Puzzle',
+      description,
+      url: `${site}/scratchy`,
+      image: `${site}/images/scratchy-icon.png`,
+      publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Scratchy', path: '/scratchy' },
+    ]),
+  ],
+};
+---
+
+<AppShell
+  {title}
+  {description}
+  {schema}
+  appName="Scratchy"
+  appHref="/scratchy"
+  accent="#D6467E"
+  accentPop="#EE6FA1"
+  accentDeep="#B02D62"
+  privacyPath="/scratchy/privacy"
+  termsPath="/scratchy/terms"
+  contactEmail="support@alpinesquad.com"
+>
+  <!-- HERO ----------------------------------------------------------- -->
+  <section class="s-hero">
+    <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
+    <div class="container s-hero-inner">
+      <img class="s-hero-icon" src="/images/scratchy-icon.png" alt="Scratchy app icon" width="84" height="84" />
+      <p class="s-eyebrow">Scratchy · iPhone &amp; iPad</p>
+      <h1>Scratch. Reveal. <span class="s-hero-accent">Guess.</span></h1>
+      <p class="s-lede">
+        Drag your finger to scratch off the cover, watch the picture appear, and lock in your
+        answer before the clock runs out. The less you scratch, the higher your score.
+      </p>
+      <div class="s-hero-cta">
+        <ComingSoonBadge />
+        <p class="s-hero-claims">Free to play · Family-friendly · Quick rounds</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES --------------------------------------------------------- -->
+  <section class="s-section">
+    <div class="container">
+      <h2 class="s-h2">A guessing game you can't put down.</h2>
+      <p class="s-section-lede">
+        Fast, satisfying rounds for all ages — perfect for a spare minute, dangerous for a spare
+        hour.
+      </p>
+      <div class="s-feature-grid">
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="M21 15l-5-5L5 21"></path></svg></div>
+          <h4>Hundreds of items to discover</h4>
+          <p>Fun categories full of hidden pictures — reveal them one scratch at a time.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg></div>
+          <h4>Daily challenges &amp; streaks</h4>
+          <p>A fresh challenge every day with streak rewards — come back and keep it alive.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8v13H3V8"></path><path d="M1 3h22v5H1z"></path><line x1="10" y1="12" x2="14" y2="12"></line></svg></div>
+          <h4>Build your collection</h4>
+          <p>Every item you reveal joins your collection. Complete categories, chase the full set.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg></div>
+          <h4>Achievements &amp; level-ups</h4>
+          <p>Scores climb with how little you scratch — precision pays. Level up and unlock more.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          <h4>Quick, relaxing rounds</h4>
+          <p>Each round fits in a spare minute. No pressure, no grind — just one more guess.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+          <h4>Kid-friendly by design</h4>
+          <p>Clean, colorful, and safe for all ages. Free to play — optional purchases, never required.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL ------------------------------------------------------------- -->
+  <section class="s-final">
+    <div class="container-narrow">
+      <h2>How many can you guess?</h2>
+      <p>Scratchy is in App Store review now — check back soon, or find it on the <a href="/">Alpine Squad</a> homepage the day it lands.</p>
+      <ComingSoonBadge />
+    </div>
+  </section>
+</AppShell>
