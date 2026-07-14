@@ -1,0 +1,51 @@
+---
+/**
+ * Global nav for umbrella pages (homepage, 404). Product pages use
+ * ProductNav (breadcrumb + store CTA) instead.
+ */
+---
+
+<header class="site-nav">
+  <div class="container site-nav-inner">
+    <a href="/" class="site-brand">
+      <span class="site-mark" aria-hidden="true">⛰</span>
+      <span>Alpine Squad</span>
+    </a>
+    <nav class="site-links" aria-label="Primary">
+      <a href="/#apps">Apps</a>
+      <a href="mailto:support@alpinesquad.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .site-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .site-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .site-brand:hover { color: var(--ink); }
+  .site-mark { font-size: 18px; }
+  .site-links { display: flex; gap: 22px; font-size: 14px; font-weight: 500; }
+  .site-links a { color: var(--ink-soft); }
+  .site-links a:hover { color: var(--ink); }
+</style>

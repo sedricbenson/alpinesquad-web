@@ -1,0 +1,263 @@
+---
+import SpellyLayout from '../../layouts/SpellyLayout.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
+
+/**
+ * Spelly — marketing landing.
+ *
+ * Maintenance contract:
+ *   - Word/category counts → search "14,000+" / "23"
+ *   - New FAQ → add to the `faqs` array (feeds both the visible list and FAQPage schema)
+ *   - New screenshot → drop at /images/spelly-*.png
+ */
+
+const title =
+  'Spelly — Learn English Spelling | Free Spelling Games for Kids, Families & English Learners';
+const description =
+  'Two spelling games in one. Picture Spell to learn by sight, Word Blitz to race the clock. Thousands of words, 23 categories, daily streaks. Free on the App Store — built for kids, families, and English learners.';
+
+const appUrlClean = appStoreUrl(APP_IDS.spelly);
+const appUrlCta = appStoreUrl(APP_IDS.spelly, 'web-spelly');
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const faqs = [
+  {
+    q: 'Is Spelly free?',
+    a: 'Yes. The core game — both Picture Spell and Word Blitz, all 23 categories at every difficulty, the daily challenge, streaks, achievements — is free, with no ads. Optional Spelly Pro unlocks every category at every difficulty, removes the lives system (unlimited play), and gives double XP.',
+  },
+  {
+    q: 'Does Spelly have ads?',
+    a: "No. Zero ads. No interstitials, no banners, no 'watch a video to continue' prompts. Everything stays on your device — no tracking, no data collection.",
+  },
+  {
+    q: 'What ages is Spelly for?',
+    a: 'Spelly has three difficulty tiers: Easy (ages 6-10, beginning spellers), Medium (ages 11-15, intermediate vocabulary), and Hard (ages 16+ through adult, SAT-grade words). Kids, teens, parents, and English learners all use the same app at their own level.',
+  },
+  {
+    q: 'Does Spelly work offline?',
+    a: 'Yes. No internet connection needed once installed. Great for car rides, planes, waiting rooms, and anywhere reception is spotty. The whole word bank ships with the app.',
+  },
+  {
+    q: 'Is Spelly safe for kids?',
+    a: 'Yes. Every word in every category has been reviewed for safety. No accounts required (no logins, no personal data). No ads, no third-party trackers. No in-app messaging or social features that could expose kids to strangers.',
+  },
+  {
+    q: 'Is Spelly good for ESL or English learners?',
+    a: "Yes — it's designed with English learners in mind alongside kids and families. Picture Spell uses picture-to-word association (how the brain actually learns vocabulary), which is faster than rote memorization. It works for ESL students, IELTS/TOEFL prep, and adults learning English.",
+  },
+  {
+    q: 'Can adults use Spelly?',
+    a: 'Absolutely. The Medium and Hard difficulty tiers include SAT-grade, IELTS-grade, and TOEFL-grade vocabulary. Many adults use Spelly to brush up on spelling, prep for exams, or just enjoy a daily word game.',
+  },
+  {
+    q: "What's the difference between Picture Spell and Word Blitz?",
+    a: 'Picture Spell is the calm, paced mode — you see a picture and pick the correct spelling from four options. No timer. Great for learning vocabulary at your own pace. Word Blitz is the arcade mode — correctly-spelled and misspelled words fall down the screen, and you tap only the correct ones before they disappear. Five lives, multipliers, and power-ups. Picture Spell teaches; Word Blitz tests.',
+  },
+  {
+    q: 'How does the daily challenge work?',
+    a: 'Each day Spelly generates a fresh goal — spell N words correctly, hit a streak, complete a category, etc. Hit it to keep your daily streak alive and bank bonus coins. Resets at midnight local time.',
+  },
+  {
+    q: 'How many words does Spelly have?',
+    a: 'Over 14,000 hand-curated words across 23 categories — animals, food, science, geography, sports, history, mythology, common words, and more. Each word has been reviewed for safety and tagged by difficulty.',
+  },
+  {
+    q: 'What devices does Spelly support?',
+    a: 'iPhone and iPad. Universal app — one download, runs natively on both. Requires iOS 17 or later. Light and dark mode supported. No Android version yet.',
+  },
+  {
+    q: "What's Spelly Pro?",
+    a: 'An optional one-time in-app purchase that unlocks every category at every difficulty (removes any locked categories), removes the lives system so you can play unlimited rounds, and doubles XP earned per game. The free game stands on its own — Pro is for users who want everything available immediately and no lives gating.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'MobileApplication',
+      name: 'Spelly',
+      operatingSystem: 'iOS 17+',
+      applicationCategory: 'EducationApplication',
+      applicationSubCategory: 'Spelling Game',
+      description,
+      url: appUrlClean,
+      image: `${site}/images/spelly-icon.png`,
+      offers: {
+        '@type': 'Offer',
+        price: '0.00',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+      },
+      publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Spelly', path: '/spelly' },
+    ]),
+  ],
+};
+---
+
+<SpellyLayout {title} {description} {schema}>
+  <!-- HERO ----------------------------------------------------------- -->
+  <section class="s-hero">
+    <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
+    <div class="container s-hero-inner">
+      <img class="s-hero-icon" src="/images/spelly-icon.png" alt="Spelly app icon" width="84" height="84" />
+      <p class="s-eyebrow">Spelly · iPhone &amp; iPad</p>
+      <h1>Learn English spelling,<br />the <span class="s-hero-accent">fun</span> way.</h1>
+      <p class="s-lede">
+        Two spelling games in one. <strong>Picture Spell</strong> to learn by sight.
+        <strong>Word Blitz</strong> to race the clock. Built for kids, families, and anyone
+        learning English.
+      </p>
+      <div class="s-hero-cta">
+        <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
+      </div>
+
+      <div class="s-trust-row">
+        <span class="s-trust-chip">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Free forever
+        </span>
+        <span class="s-trust-chip">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+          No ads
+        </span>
+        <span class="s-trust-chip">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          Private by design
+        </span>
+        <span class="s-trust-chip">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Daily streaks
+        </span>
+      </div>
+
+      <div class="s-stat-strip">
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">14,000+</span></span><span class="s-stat-label">Hand-curated words</span></div>
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">23</span></span><span class="s-stat-label">Themed categories</span></div>
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">2</span></span><span class="s-stat-label">Game modes</span></div>
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">0</span></span><span class="s-stat-label">Ads, accounts, trackers</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TWO MODES ------------------------------------------------------ -->
+  <section class="s-section">
+    <div class="container">
+      <h2 class="s-h2">Two ways to play</h2>
+      <p class="s-section-lede">
+        Switch between calm, paced learning and high-energy arcade racing — whichever fits the
+        moment.
+      </p>
+      <div class="s-modes-grid">
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="M21 15l-5-5L5 21"></path></svg></div>
+          <h3>Picture Spell</h3>
+          <p>See the picture. Pick the correct spelling. The fastest way to lock vocabulary in — perfect for new spellers and English learners. No timer, no pressure.</p>
+        </div>
+        <div class="s-mode-card s-mode-b">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
+          <h3>Word Blitz</h3>
+          <p>Race the clock. Tap correctly-spelled words, dodge the misspelled ones. Five lives, multipliers, and power-ups keep every round fresh.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIENCE ------------------------------------------------------- -->
+  <section class="s-section-alt">
+    <div class="container">
+      <h2 class="s-h2">Built for every learner</h2>
+      <p class="s-section-lede">
+        One app, every level — Easy for ages 6–10, Medium for 11–15, Hard for 16+ and SAT-grade
+        vocabulary.
+      </p>
+      <div class="s-audience-row">
+        <span class="s-chip">Kids ages 6+</span>
+        <span class="s-chip">Families</span>
+        <span class="s-chip">ESL students</span>
+        <span class="s-chip">IELTS / TOEFL prep</span>
+        <span class="s-chip">SAT vocabulary</span>
+        <span class="s-chip">Homeschool</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY IT WORKS --------------------------------------------------- -->
+  <section class="s-section">
+    <div class="container">
+      <h2 class="s-h2">Why it works</h2>
+      <p class="s-section-lede">
+        Picture-to-word association is how the brain actually learns vocabulary. Plus everything
+        below — for free, on your device.
+      </p>
+      <div class="s-feature-grid">
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
+          <h4>Thousands of words</h4>
+          <p>23 categories — animals, food, science, geography, sports, history, mythology, and more.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg></div>
+          <h4>Daily streaks</h4>
+          <p>A fresh challenge every day. Hit it to keep your streak alive and bank bonus coins.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+          <h4>Smart review</h4>
+          <p>Comprehension levels gamify every category, and the app resurfaces words you keep missing.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg></div>
+          <h4>No ads, no trackers</h4>
+          <p>Everything stays on your device. No accounts, no data collection. Just spelling.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></div>
+          <h4>Light &amp; dark</h4>
+          <p>iPhone and iPad. Dark mode, light mode, your call. Looks great either way.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+          <h4>Family-friendly</h4>
+          <p>Every word reviewed for safety. Approved by parents. Loved by kids.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ ------------------------------------------------------------ -->
+  <section class="s-faq" id="faq">
+    <div class="container-narrow">
+      <p class="eyebrow">Frequently asked</p>
+      <h2 class="s-h2">The short answers.</h2>
+      {faqs.map((f) => (
+        <details class="s-faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- FINAL CTA ------------------------------------------------------ -->
+  <section class="s-final">
+    <div class="container-narrow">
+      <h2>Spell smarter. Today.</h2>
+      <p>Free on the App Store. Two games, thousands of words, zero ads.</p>
+      <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
+    </div>
+  </section>
+</SpellyLayout>

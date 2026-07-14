@@ -1,0 +1,48 @@
+---
+/**
+ * Global footer for umbrella pages — one slim row.
+ * Product pages use ProductFooter (adds per-app links).
+ */
+---
+
+<footer class="site-footer">
+  <div class="container site-footer-inner">
+    <span class="site-footer-brand">
+      <span class="site-mark" aria-hidden="true">⛰</span>
+      <span>Alpine Squad</span>
+      <span class="site-footer-copy">© 2026</span>
+    </span>
+    <nav class="site-footer-links" aria-label="Footer">
+      <a href="/#apps">Apps</a>
+      <a href="mailto:support@alpinesquad.com">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 26px 0;
+  }
+  .site-footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+  }
+  .site-footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14.5px;
+  }
+  .site-mark { font-size: 16px; }
+  .site-footer-copy { color: var(--ink-muted); font-weight: 400; }
+  .site-footer-links { display: flex; gap: 22px; font-size: 14px; }
+  .site-footer-links a { color: var(--ink-soft); }
+  .site-footer-links a:hover { color: var(--ink); }
+</style>

@@ -1,189 +1,331 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AppStoreButton from '../components/AppStoreButton.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { appStoreUrl, APP_IDS } from '../lib/seo';
 
-const title = 'Alpine Squad — privacy-first iOS apps';
-const description = 'A solo developer building privacy-first iOS apps. No accounts, no tracking, no subscriptions — just useful software.';
+const title = 'Alpine Squad — privacy-first iOS apps for learning, play & pro work';
+const description =
+  'Privacy-first iOS apps for learning, play, and real work. Bible Blitz, Spelly, HamCram, and more — built with care, priced honestly, designed to respect your time.';
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Alpine Squad',
-  url: 'https://alpinesquad.com',
-  email: 'support@alpinesquad.com',
-  founder: { '@type': 'Person', name: 'Sedric Benson' },
-  description,
-};
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 
 const apps = [
   {
     name: 'Bible Blitz',
     tagline: 'Bible trivia that teaches Scripture.',
-    description: 'Test your Bible knowledge in 10-question rounds. Every wrong answer reveals the verse and the context.',
-    icon: '📖',
-    href: '/bibleblitz',
-    appStore: 'https://apps.apple.com/app/bible-blitz/id6771674002',
-    status: 'live',
+    description:
+      'Master Bible trivia and actually remember Scripture. Play across KJV, NKJV & NIV — every answer you miss reveals the verse and its context, so it sticks.',
+    icon: '/images/bibleblitz-icon.png',
+    href: '/bible-blitz',
+    appStore: appStoreUrl(APP_IDS.bibleBlitz, 'web-home-bibleblitz'),
+    storeUrlClean: appStoreUrl(APP_IDS.bibleBlitz),
+    tags: ['Education', 'Free'],
+    accent: '#1FA968',
+    category: 'EducationApplication',
+    price: '0.00',
+  },
+  {
+    name: 'Spelly',
+    tagline: 'Two spelling games in one.',
+    description:
+      'Two ways to make spelling click: Picture Spell to learn by sight, Word Blitz to race the clock. 14,000+ words across 23 categories for kids, families & English learners.',
+    icon: '/images/spelly-icon.png',
+    href: '/spelly',
+    appStore: appStoreUrl(APP_IDS.spelly, 'web-home-spelly'),
+    storeUrlClean: appStoreUrl(APP_IDS.spelly),
+    tags: ['Word game', 'Free'],
+    accent: '#6c5bcb',
+    category: 'EducationApplication',
+    price: '0.00',
+  },
+  {
+    name: 'HamCram',
+    tagline: 'Pass your FCC ham radio exam.',
+    description:
+      'Drill the real NCVEC question pools — Technician and General — with flashcards, quizzes, and full practice exams scored like test day. Pay once, study until you pass.',
+    icon: '/images/hamcram-icon.png',
+    href: '/hamcram',
+    appStore: appStoreUrl(APP_IDS.hamCram, 'web-home-hamcram'),
+    storeUrlClean: appStoreUrl(APP_IDS.hamCram),
+    tags: ['Exam prep', '$9.99'],
+    accent: '#E8842A',
+    category: 'EducationApplication',
+    price: '9.99',
+  },
+  {
+    name: 'Scratchy',
+    tagline: 'Scratch, reveal, guess fast!',
+    description:
+      'Scratch away the cover, watch the picture appear, and guess before the clock runs out. Daily challenges, collections, achievements — fun for all ages.',
+    icon: '/images/scratchy-icon.png',
+    href: '/scratchy',
+    tags: ['Casual game'],
+    accent: '#D6467E',
+    category: 'GameApplication',
+  },
+  {
+    name: 'Pianotune',
+    tagline: 'Pro tuning for every piano.',
+    description:
+      '88-key inharmonicity sampling, Railsback stretch curves, 76 temperaments, per-piano history. The scientific rigor working tuners trust, in your pocket.',
+    icon: '/images/pianotune-icon.png',
+    href: '/pianotune',
+    tags: ['Pro tool'],
+    accent: '#4A7FB5',
+    category: 'MusicApplication',
+  },
+  {
+    name: 'MusicQuest',
+    tagline: 'Learn to read sheet music.',
+    description:
+      'Note-recognition quizzes across treble, bass, and alto clefs, with per-note mastery stats. Build the instant recall that sight-reading demands.',
+    icon: '/images/musicquest-icon.png',
+    href: '/musicquest',
+    tags: ['Music education'],
+    accent: '#14919B',
+    category: 'EducationApplication',
   },
 ];
+
+// @graph links the brand entity to the apps it publishes — helps search
+// engines understand Alpine Squad and its app catalog as one connected entity.
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${site}/#org`,
+      name: 'Alpine Squad',
+      url: site,
+      logo: `${site}/images/alpinesquad-icon.png`,
+      email: 'support@alpinesquad.com',
+      founder: { '@type': 'Person', name: 'Sedric Benson' },
+      description,
+    },
+    ...apps.map((app) => ({
+      '@type': 'MobileApplication',
+      name: app.name,
+      applicationCategory: app.category,
+      operatingSystem: 'iOS',
+      url: app.storeUrlClean ?? `${site}${app.href}`,
+      image: `${site}${app.icon}`,
+      publisher: { '@id': `${site}/#org` },
+      ...(app.price ? { offers: { '@type': 'Offer', price: app.price, priceCurrency: 'USD' } } : {}),
+    })),
+  ],
+};
 ---
 
-<BaseLayout {title} {description} {schema}>
-  <header class="nav">
-    <div class="container nav-inner">
-      <span class="brand">
-        <span class="brand-mark">⛰</span>
-        <span class="brand-name">Alpine Squad</span>
-      </span>
-    </div>
-  </header>
+<BaseLayout {title} {description} {schema} ogImage="/images/alpinesquad-og.png">
+  <SiteNav />
 
+  <!-- HERO ------------------------------------------------------------- -->
   <section class="hero">
-    <div class="container-narrow">
-      <p class="eyebrow">Alpine Squad</p>
-      <h1>Privacy-first apps, <span class="accent-text">built solo</span>.</h1>
+    <div class="hero-bg" aria-hidden="true"><div class="hero-glow"></div></div>
+    <div class="container hero-inner">
+      <h1>Apps that earn<br /><span class="accent-text">their keep</span>.</h1>
       <p class="lede">
-        No accounts. No tracking. No subscriptions. Just useful iOS apps from one developer
-        who cares about getting the details right.
+        Privacy-first iOS apps for learning, play, and real work — built with care, priced
+        honestly, designed to respect your time.
       </p>
-    </div>
-  </section>
-
-  <section class="apps-section">
-    <div class="container">
-      <h2 class="section-title">Apps</h2>
-      <div class="apps-grid">
+      <p class="hero-meta">Three live on the App Store · three more on the way.</p>
+      <div class="hero-icons" aria-hidden="true">
         {apps.map((app) => (
-          <a href={app.href} class="app-card">
-            <div class="app-icon">{app.icon}</div>
-            <h3>{app.name}</h3>
-            <p class="app-tagline">{app.tagline}</p>
-            <p class="app-desc">{app.description}</p>
-            <span class="app-cta">Learn more →</span>
-          </a>
+          <a href={app.href} tabindex="-1"><img src={app.icon} alt="" width="52" height="52" loading="eager" /></a>
         ))}
       </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div>
-        <p class="footer-brand">Alpine Squad</p>
-        <p class="footer-micro">© 2026 · Anacortes, WA</p>
+  <!-- APPS ------------------------------------------------------------- -->
+  <section class="apps-section" id="apps">
+    <div class="container">
+      <h2 class="section-title">The apps</h2>
+      <div class="apps-grid reveal">
+        {apps.map((app) => (
+          <article class="app-card" style={`--card-accent: ${app.accent}`}>
+            <div class="app-head">
+              <img class="app-icon" src={app.icon} alt={`${app.name} app icon`} width="60" height="60" loading="lazy" />
+              <div>
+                <h3>{app.name}</h3>
+                <p class="app-tagline">{app.tagline}</p>
+              </div>
+            </div>
+            <p class="app-desc">{app.description}</p>
+            <div class="app-tags">
+              {app.tags.map((t) => <span class="tag">{t}</span>)}
+              {!app.appStore && <span class="tag tag-soon">Coming soon</span>}
+            </div>
+            <div class="app-actions">
+              <a href={app.href} class="app-link">Learn more →</a>
+              {app.appStore && (
+                <span class="app-store-wrap">
+                  <AppStoreButton href={app.appStore} label={`Get ${app.name} on the App Store`} />
+                </span>
+              )}
+            </div>
+          </article>
+        ))}
       </div>
-      <nav class="footer-nav">
-        <a href="mailto:support@alpinesquad.com">Contact</a>
-      </nav>
     </div>
-  </footer>
+  </section>
+
+  <SiteFooter />
 </BaseLayout>
 
 <style>
-  .nav { border-bottom: 1px solid var(--border); background: var(--bg); }
-  .nav-inner { padding: 16px 24px; }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  /* HERO (light) ----------------------------------------------------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 8%, #ffffff) 0%, #ffffff 85%);
     color: var(--ink);
-    font-weight: 600;
+    padding: 104px 0 96px;
+    text-align: center;
   }
-  .brand-mark { font-size: 20px; }
-
-  .hero { padding: 96px 0 64px; text-align: center; }
-  .eyebrow {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
+  @media (max-width: 720px) {
+    .hero { padding: 72px 0 72px; }
   }
+  .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero-glow {
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(16, 150, 87, 0.14) 0%, transparent 60%);
+    filter: blur(52px);
+  }
+  .hero-inner { position: relative; max-width: 760px; }
   .hero h1 {
     font-family: var(--serif);
-    font-size: clamp(40px, 7vw, 64px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
+    font-size: clamp(44px, 7.4vw, 80px);
+    line-height: 1.03;
+    letter-spacing: -0.025em;
+    font-weight: 600;
     color: var(--ink);
-    margin-bottom: 24px;
+    margin-bottom: 26px;
+    text-wrap: balance;
   }
-  .accent-text { color: var(--accent); font-style: italic; }
+  .accent-text {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
   .lede {
     font-size: 19px;
-    line-height: 1.55;
+    line-height: 1.6;
     color: var(--ink-soft);
-    max-width: 540px;
-    margin: 0 auto;
+    max-width: 52ch;
+    margin: 0 auto 20px;
   }
+  .hero-meta {
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    color: var(--ink-muted);
+  }
+  .hero-icons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-icons img {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(29, 29, 31, 0.16);
+    transition: transform 0.18s ease;
+  }
+  .hero-icons a:hover img { transform: translateY(-4px) scale(1.06); }
 
-  .apps-section {
-    padding: 32px 0 96px;
-  }
+  /* APPS ------------------------------------------------------------ */
+  .apps-section { padding: 80px 0 96px; background: var(--bg-deep); border-top: 1px solid var(--border); }
   .section-title {
     font-family: var(--serif);
-    font-size: 32px;
-    margin-bottom: 24px;
+    font-size: clamp(26px, 3vw, 34px);
+    margin-bottom: 28px;
     letter-spacing: -0.01em;
+    color: var(--ink);
   }
   .apps-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 22px;
   }
   .app-card {
-    padding: 32px;
-    border-radius: 20px;
-    background: var(--bg-bright);
+    position: relative;
+    padding: 30px;
+    border-radius: var(--r-lg);
+    background: var(--bg-elevated);
     border: 1px solid var(--border);
-    color: var(--ink);
-    text-decoration: none;
-    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
   }
   .app-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-    text-decoration: none;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--card-accent) 16%, transparent),
+      var(--shadow-sm);
+    border-color: color-mix(in srgb, var(--card-accent) 30%, var(--border));
   }
-  .app-icon { font-size: 36px; margin-bottom: 4px; }
+  .app-head { display: flex; align-items: center; gap: 16px; }
+  .app-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(14, 20, 19, 0.14);
+    flex-shrink: 0;
+  }
   .app-card h3 {
-    font-size: 22px;
-    font-weight: 600;
     font-family: var(--serif);
-  }
-  .app-tagline {
+    font-size: 23px;
+    font-weight: 600;
     color: var(--ink);
-    font-weight: 500;
-    font-size: 16px;
+    line-height: 1.1;
   }
-  .app-desc {
+  .app-tagline { color: var(--ink); font-weight: 500; font-size: 15px; margin-top: 3px; }
+  .app-desc { color: var(--ink-soft); font-size: 15.5px; line-height: 1.6; flex: 1; }
+  .app-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: var(--card-accent);
+    background: color-mix(in srgb, var(--card-accent) 10%, transparent);
+    padding: 4px 11px;
+    border-radius: var(--r-pill);
+  }
+  .tag-soon {
     color: var(--ink-soft);
-    font-size: 15px;
-    line-height: 1.5;
-    flex: 1;
+    background: transparent;
+    border: 1px dashed var(--ink-muted);
   }
-  .app-cta {
-    color: var(--accent);
+  .app-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  /* Whole card → "Learn more"; the stretched ::after makes the card clickable. */
+  .app-link {
+    position: static;
+    color: var(--card-accent);
     font-weight: 600;
     font-size: 15px;
-    margin-top: 8px;
   }
+  .app-link::after { content: ''; position: absolute; inset: 0; }
+  /* App Store button sits above the stretched link so it stays separately clickable. */
+  .app-store-wrap { position: relative; z-index: 1; }
 
-  .footer {
-    padding: 32px 0 48px;
-    border-top: 1px solid var(--border);
-  }
-  .footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-  .footer-brand { font-weight: 600; color: var(--ink); }
-  .footer-micro { font-size: 13px; color: var(--ink-muted); margin-top: 2px; }
-  .footer-nav { display: flex; gap: 24px; font-size: 14px; }
-  .footer-nav a { color: var(--ink-soft); }
 </style>

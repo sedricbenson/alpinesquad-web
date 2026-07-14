@@ -5,17 +5,51 @@ import sitemap from '@astrojs/sitemap';
 // One repo, one Vercel deploy, file-based routes per app.
 //
 // Routes today:
-//   /                — Alpine Squad landing (what is this, what's shipped)
-//   /bibleblitz      — Bible Blitz product page
-//   /bibleblitz/privacy + /terms — Disclosure pages (mirrors disclosures repo)
+//   /                          — Alpine Squad landing (lists every shipped app)
+//   /bible-blitz               — Bible Blitz product page
+//   /spelly + /spelly/*        — Spelly product page + keyword landing pages
+//   /{bible-blitz,spelly}/{privacy,terms} — redirect to the disclosures repo
 //
 // SEO is the headline feature here. Astro outputs static HTML, zero JS by
 // default, with sitemap + robots + structured data per page. Lighthouse
 // targets: 100/100/100/100.
+// Privacy/terms live in the disclosures repo (GitHub Pages). Declaring the
+// redirects here makes them work on ANY host (astro preview included);
+// vercel.json duplicates them as proper server-side 307s in production.
+const DISCLOSURE_APPS = {
+  'bible-blitz': 'bibleblitz',
+  spelly: 'spelly',
+  hamcram: 'hamcram',
+  scratchy: 'scratchy',
+  pianotune: 'pianotune',
+  musicquest: 'musicquest',
+};
+const redirects = { '/bibleblitz': '/bible-blitz' };
+for (const [route, folder] of Object.entries(DISCLOSURE_APPS)) {
+  redirects[`/${route}/privacy`] = `https://sedricbenson.github.io/disclosures/${folder}/privacy.html`;
+  redirects[`/${route}/terms`] = `https://sedricbenson.github.io/disclosures/${folder}/terms.html`;
+}
+
 export default defineConfig({
   site: 'https://alpinesquad.com',
   output: 'static',
-  integrations: [sitemap()],
+  redirects,
+  integrations: [
+    sitemap({
+      changefreq: 'monthly',
+      lastmod: new Date(),
+      serialize(item) {
+        const path = new URL(item.url).pathname;
+        const liveApps = ['/spelly/', '/bible-blitz/', '/hamcram/'];
+        const comingSoon = ['/scratchy/', '/pianotune/', '/musicquest/'];
+        if (path === '/') item.priority = 1.0;
+        else if (liveApps.includes(path)) item.priority = 0.9;
+        else if (comingSoon.includes(path)) item.priority = 0.8;
+        else item.priority = 0.7;
+        return item;
+      },
+    }),
+  ],
   build: {
     inlineStylesheets: 'auto',
   },

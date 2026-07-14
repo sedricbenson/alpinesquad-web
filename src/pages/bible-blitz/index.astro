@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductNav from '../../components/ProductNav.astro';
+import ProductFooter from '../../components/ProductFooter.astro';
+import { breadcrumbList } from '../../lib/seo';
 
 /**
  * Bible Blitz — marketing page.
@@ -19,7 +22,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const title = 'Bible Blitz — Bible trivia that teaches Scripture | iPhone & iPad';
 const description = 'Free Bible trivia app for iPhone and iPad. 10-question rounds across KJV, NKJV, and NIV. Every wrong answer reveals the verse and context — quiz becomes study. No ads, no tracking, no subscription.';
-const appStoreUrl = 'https://apps.apple.com/app/bible-blitz/id6771674002';
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const appStoreUrlCanonical = 'https://apps.apple.com/app/bible-blitz/id6771674002';
+const appStoreUrl = `${appStoreUrlCanonical}?ct=web-bibleblitz`;
 
 const faqs = [
   {
@@ -48,7 +53,7 @@ const faqs = [
   },
   {
     q: 'Who makes Bible Blitz?',
-    a: 'Bible Blitz is built by Alpine Squad, an independent iOS studio. We build small, focused apps and ship updates quickly based on user feedback.',
+    a: 'Bible Blitz is built by Alpine Squad, an iOS studio focused on privacy-first apps that teach. We ship updates quickly based on player feedback.',
   },
 ];
 
@@ -62,7 +67,7 @@ const schema = {
       applicationCategory: 'EducationApplication',
       applicationSubCategory: 'Bible Trivia',
       description,
-      url: appStoreUrl,
+      url: appStoreUrlCanonical,
       offers: {
         '@type': 'Offer',
         price: '0.00',
@@ -72,7 +77,7 @@ const schema = {
       publisher: {
         '@type': 'Organization',
         name: 'Alpine Squad',
-        url: 'https://alpinesquad.com',
+        url: site,
       },
     },
     {
@@ -83,20 +88,16 @@ const schema = {
         acceptedAnswer: { '@type': 'Answer', text: f.a },
       })),
     },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Bible Blitz', path: '/bible-blitz' },
+    ]),
   ],
 };
 ---
 
-<BaseLayout {title} {description} {schema} ogImage="/images/bibleblitz-og.png" theme="auto">
-  <header class="nav">
-    <div class="container nav-inner">
-      <a href="/" class="brand">
-        <span class="brand-mark" aria-hidden="true">⛰</span>
-        <span class="brand-name">Alpine Squad</span>
-      </a>
-      <a href={appStoreUrl} class="nav-cta" rel="noopener">Get on App Store</a>
-    </div>
-  </header>
+<BaseLayout {title} {description} {schema} ogImage="/images/bibleblitz-og.png" appId="6771674002" theme="auto">
+  <ProductNav appName="Bible Blitz" appHref="/bible-blitz" appStoreUrl={appStoreUrl} />
 
   <!-- HERO ----------------------------------------------------------- -->
   <section class="hero">
@@ -106,11 +107,11 @@ const schema = {
     <div class="container hero-inner">
       <div class="hero-text">
         <img class="hero-icon" src="/images/bibleblitz-icon.png" alt="Bible Blitz app icon" width="84" height="84" />
-        <p class="eyebrow eyebrow-on-dark">Bible Blitz · iPhone &amp; iPad</p>
+        <p class="eyebrow">Bible Blitz · iPhone &amp; iPad</p>
         <h1>Bible trivia that <span class="hero-accent">teaches</span> you Scripture.</h1>
         <p class="hero-lede">
-          10-question rounds across KJV, NKJV, and NIV. Every wrong answer reveals the verse
-          and the context — so each quiz is a quick Bible study, not just a test.
+          Fast-paced Scripture trivia across KJV, NKJV, and NIV. Every wrong answer reveals the
+          verse and its context — so each round is a quick Bible study, not just a test.
         </p>
         <div class="hero-cta">
           <a href={appStoreUrl} class="appstore-btn" rel="noopener" aria-label="Download Bible Blitz on the App Store">
@@ -145,7 +146,7 @@ const schema = {
   <section class="features">
     <div class="container-narrow">
       <p class="eyebrow">What's inside</p>
-      <h2>A small app that does a few things well.</h2>
+      <h2>Everything you need to actually learn.</h2>
 
       <div class="feat">
         <h3>Daily Challenge</h3>
@@ -200,84 +201,35 @@ const schema = {
     </div>
   </section>
 
-  <!-- FOOTER --------------------------------------------------------- -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div>
-        <a href="/" class="brand brand-footer">
-          <span class="brand-mark" aria-hidden="true">⛰</span>
-          <span class="brand-name">Alpine Squad</span>
-        </a>
-        <p class="footer-tag">Small, focused apps for iOS.</p>
-      </div>
-      <nav class="footer-links" aria-label="Footer">
-        <a href={appStoreUrl} rel="noopener">App Store</a>
-        <a href="/bibleblitz/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
-        <a href="mailto:hello@alpinesquad.com">Contact</a>
-      </nav>
-    </div>
-    <div class="container footer-bottom">
-      <small>© {new Date().getFullYear()} Alpine Squad. Bible Blitz is a trademark of Alpine Squad.</small>
-    </div>
-  </footer>
+  <ProductFooter
+    appName="Bible Blitz"
+    appHref="/bible-blitz"
+    appStoreUrl={appStoreUrl}
+    privacyPath="/bible-blitz/privacy"
+    termsPath="/bible-blitz/terms"
+    contactEmail="hello@alpinesquad.com"
+    trademark
+  />
 </BaseLayout>
 
 <style>
-  /* NAV ------------------------------------------------------------- */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(10, 15, 12, 0.72);
-    backdrop-filter: saturate(150%) blur(16px);
-    -webkit-backdrop-filter: saturate(150%) blur(16px);
-    border-bottom: 1px solid var(--border-on-dark);
-  }
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 14px;
-    padding-bottom: 14px;
-  }
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--ink-on-dark);
-    font-weight: 600;
-    font-size: 16px;
-  }
-  .brand-mark { font-size: 18px; color: var(--accent-pop); }
-  .nav-cta {
-    background: var(--ink-on-dark);
-    color: var(--ink);
-    padding: 9px 18px;
-    border-radius: var(--r-pill);
-    font-size: 14px;
-    font-weight: 600;
-    transition: transform 0.15s, opacity 0.15s;
-  }
-  .nav-cta:hover { color: var(--ink); opacity: 0.92; transform: translateY(-1px); }
-
-  /* HERO ------------------------------------------------------------ */
+  /* HERO (light, green-tinted) --------------------------------------- */
   .hero {
     position: relative;
     overflow: hidden;
-    background: var(--bg-dark);
-    color: var(--ink-on-dark);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 9%, #ffffff) 0%, #ffffff 82%);
+    color: var(--ink);
     padding: 88px 0 96px;
   }
   .hero-bg { position: absolute; inset: 0; pointer-events: none; }
   .hero-glow {
     position: absolute;
-    top: -10%;
-    left: -15%;
-    width: 80%;
-    height: 90%;
-    background: radial-gradient(circle at center, rgba(31, 169, 104, 0.32) 0%, transparent 60%);
-    filter: blur(40px);
+    top: -30%;
+    left: -10%;
+    width: 70%;
+    height: 80%;
+    background: radial-gradient(circle at center, rgba(16, 150, 87, 0.16) 0%, transparent 60%);
+    filter: blur(48px);
   }
   .hero-inner {
     position: relative;
@@ -290,7 +242,7 @@ const schema = {
     width: 84px;
     height: 84px;
     border-radius: 20px;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 28px rgba(29, 29, 31, 0.18);
     margin-bottom: 24px;
   }
   .hero h1 {
@@ -299,14 +251,14 @@ const schema = {
     line-height: 1.02;
     letter-spacing: -0.025em;
     font-weight: 600;
-    color: var(--ink-on-dark);
+    color: var(--ink);
     margin: 18px 0 28px;
     text-wrap: balance;
     max-width: 16ch;
   }
   .hero-accent {
     font-style: italic;
-    background: linear-gradient(135deg, var(--accent-pop) 0%, var(--accent) 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -314,14 +266,14 @@ const schema = {
   .hero-lede {
     font-size: 18px;
     line-height: 1.6;
-    color: var(--ink-on-dark-soft);
+    color: var(--ink-soft);
     max-width: 52ch;
     margin-bottom: 32px;
   }
   .hero-cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .hero-claims {
     font-size: 13.5px;
-    color: var(--ink-on-dark-muted);
+    color: var(--ink-muted);
     letter-spacing: 0.2px;
   }
 
@@ -344,7 +296,7 @@ const schema = {
   .appstore-btn-light {
     margin-top: 28px;
     background: var(--ink);
-    color: var(--ink-on-dark);
+    color: #fff;
     border-color: transparent;
   }
 
@@ -482,41 +434,4 @@ const schema = {
     max-width: 64ch;
   }
 
-  /* FOOTER --------------------------------------------------------- */
-  .footer {
-    background: var(--bg-dark);
-    color: var(--ink-on-dark-soft);
-    padding: 56px 0 24px;
-    border-top: 1px solid var(--border-on-dark);
-  }
-  .footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 40px;
-    flex-wrap: wrap;
-    margin-bottom: 32px;
-  }
-  .brand-footer { color: var(--ink-on-dark); }
-  .footer-tag {
-    margin-top: 8px;
-    font-size: 14px;
-    color: var(--ink-on-dark-muted);
-  }
-  .footer-links {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .footer-links a {
-    color: var(--ink-on-dark-soft);
-    font-size: 14px;
-  }
-  .footer-links a:hover { color: var(--ink-on-dark); }
-  .footer-bottom {
-    padding-top: 20px;
-    border-top: 1px solid var(--border-on-dark);
-    color: var(--ink-on-dark-muted);
-    font-size: 12.5px;
-  }
 </style>

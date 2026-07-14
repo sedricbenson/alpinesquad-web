@@ -1,0 +1,48 @@
+---
+import AppShell from './AppShell.astro';
+import { appStoreUrl, APP_IDS } from '../lib/seo';
+
+/**
+ * Spelly's shell — AppShell with Spelly's indigo palette + nav links.
+ * Every Spelly page (main + keyword landings) wraps in this.
+ */
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonical?: string;
+  schema?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/images/spelly-og.png',
+  canonical,
+  schema,
+} = Astro.props;
+---
+
+<AppShell
+  {title}
+  {description}
+  {ogImage}
+  {canonical}
+  {schema}
+  appName="Spelly"
+  appHref="/spelly"
+  appId={APP_IDS.spelly}
+  appStoreUrl={appStoreUrl(APP_IDS.spelly, 'web-spelly-nav')}
+  accent="#6c5bcb"
+  accentPop="#8b7be0"
+  accentDeep="#4a3fb0"
+  navLinks={[
+    { label: 'For English Learners', href: '/spelly/learn-english' },
+    { label: 'For Kids', href: '/spelly/spelling-for-kids' },
+  ]}
+  privacyPath="/spelly/privacy"
+  termsPath="/spelly/terms"
+  contactEmail="spellyapphelp@gmail.com"
+>
+  <slot />
+</AppShell>

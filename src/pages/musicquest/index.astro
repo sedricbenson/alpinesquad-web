@@ -1,0 +1,121 @@
+---
+import AppShell from '../../layouts/AppShell.astro';
+import ComingSoonBadge from '../../components/ComingSoonBadge.astro';
+import { breadcrumbList } from '../../lib/seo';
+
+/**
+ * MusicQuest — coming-soon page. Copy from music-quest/docs/release-notes-v1.0.md.
+ * When it ships: add appId + appStoreUrl and swap the badge.
+ */
+
+const title = 'MusicQuest — Learn to Read Sheet Music | iPhone & iPad | Coming Soon';
+const description =
+  'Master sight-reading with note-recognition quizzes across treble, bass, and alto clefs. Per-note mastery stats, progress trends, fully offline and private. Coming soon to the App Store.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'MobileApplication',
+      name: 'MusicQuest: Learn Music Theory',
+      operatingSystem: 'iOS',
+      applicationCategory: 'EducationApplication',
+      applicationSubCategory: 'Music Education',
+      description,
+      url: `${site}/musicquest`,
+      image: `${site}/images/musicquest-icon.png`,
+      publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'MusicQuest', path: '/musicquest' },
+    ]),
+  ],
+};
+---
+
+<AppShell
+  {title}
+  {description}
+  {schema}
+  appName="MusicQuest"
+  appHref="/musicquest"
+  accent="#14919B"
+  accentPop="#3BB8C3"
+  accentDeep="#0C6B73"
+  privacyPath="/musicquest/privacy"
+  termsPath="/musicquest/terms"
+  contactEmail="support@alpinesquad.com"
+>
+  <!-- HERO ----------------------------------------------------------- -->
+  <section class="s-hero">
+    <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
+    <div class="container s-hero-inner">
+      <img class="s-hero-icon" src="/images/musicquest-icon.png" alt="MusicQuest app icon" width="84" height="84" />
+      <p class="s-eyebrow">MusicQuest · iPhone &amp; iPad</p>
+      <h1>Read music like you <span class="s-hero-accent">read words</span>.</h1>
+      <p class="s-lede">
+        Note-recognition quizzes across treble, bass, and alto clefs build the instant recall
+        sight-reading demands — with per-note stats that show you exactly what to practice next.
+      </p>
+      <div class="s-hero-cta">
+        <ComingSoonBadge />
+        <p class="s-hero-claims">Offline · Private · iPhone &amp; iPad</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES --------------------------------------------------------- -->
+  <section class="s-section">
+    <div class="container">
+      <h2 class="s-h2">Practice that knows where you're weak.</h2>
+      <p class="s-section-lede">
+        Sight-reading is instant recognition, and recognition is built by focused reps — not by
+        re-drilling the notes you already know.
+      </p>
+      <div class="s-feature-grid">
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="18" r="3"></circle><path d="M11 18V4l8-2v13"></path><circle cx="16" cy="15" r="3"></circle></svg></div>
+          <h4>Three clefs</h4>
+          <p>Treble, bass, and alto — crisp, professionally rendered notation on every question.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <h4>Quiz-driven recognition</h4>
+          <p>See a note, name it, get instant feedback. Multiple choice keeps rounds fast and frictionless.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+          <h4>Per-note mastery</h4>
+          <p>See exactly which notes you've mastered and which need work — down to the individual note.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
+          <h4>Progress trends</h4>
+          <p>Accuracy over time, session history, totals — watch the graph climb as recognition gets automatic.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <h4>Private by design</h4>
+          <p>No accounts, no tracking. Your practice data stays on your device.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path><path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg></div>
+          <h4>Fully offline</h4>
+          <p>Practice on the bus, backstage, anywhere. No connection needed, ever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL ------------------------------------------------------------- -->
+  <section class="s-final">
+    <div class="container-narrow">
+      <h2>Every fluent reader started with one note.</h2>
+      <p>MusicQuest is in final preparation for the App Store. Watch the <a href="/">Alpine Squad</a> homepage for launch.</p>
+      <ComingSoonBadge />
+    </div>
+  </section>
+</AppShell>

@@ -1,0 +1,67 @@
+---
+/**
+ * Shared footer for every product page — one slim modern row:
+ * brand + copyright left, links right. `trademark` appends "{appName}™"
+ * to the copyright cluster.
+ */
+interface Props {
+  appName: string;
+  appHref: string;
+  tagline?: string;
+  /** Omit for unreleased apps */
+  appStoreUrl?: string;
+  privacyPath: string;
+  termsPath: string;
+  contactEmail: string;
+  trademark?: boolean;
+}
+const { appName, appHref, appStoreUrl, privacyPath, termsPath, contactEmail, trademark } =
+  Astro.props;
+---
+
+<footer class="p-footer">
+  <div class="container p-footer-inner">
+    <a href="/" class="p-footer-brand">
+      <span class="p-mark" aria-hidden="true">⛰</span>
+      <span>Alpine Squad</span>
+      <span class="p-footer-copy">© 2026{trademark ? ` · ${appName}™` : ''}</span>
+    </a>
+    <nav class="p-footer-links" aria-label="Footer">
+      <a href={appHref}>{appName}</a>
+      {appStoreUrl && <a href={appStoreUrl} rel="noopener">App Store</a>}
+      <a href={privacyPath}>Privacy</a>
+      <a href={termsPath}>Terms</a>
+      <a href={`mailto:${contactEmail}`}>Contact</a>
+      <a href="/">More apps →</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .p-footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 26px 0;
+  }
+  .p-footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+  }
+  .p-footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14.5px;
+  }
+  .p-footer-brand:hover { color: var(--ink); }
+  .p-mark { font-size: 16px; }
+  .p-footer-copy { color: var(--ink-muted); font-weight: 400; }
+  .p-footer-links { display: flex; gap: 12px 22px; flex-wrap: wrap; font-size: 14px; }
+  .p-footer-links a { color: var(--ink-soft); }
+  .p-footer-links a:hover { color: var(--ink); }
+</style>

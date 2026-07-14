@@ -1,0 +1,35 @@
+---
+/**
+ * Stand-in CTA for apps not yet on the App Store. Sized like the
+ * AppStoreButton so heroes/final-CTA bands keep identical rhythm.
+ */
+interface Props {
+  note?: string;
+}
+const { note = 'Coming soon to the App Store' } = Astro.props;
+---
+
+<span class="coming-soon-badge">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="10"></circle>
+    <polyline points="12 6 12 12 16 14"></polyline>
+  </svg>
+  <span>{note}</span>
+</span>
+
+<style>
+  .coming-soon-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 22px;
+    border-radius: 12px;
+    border: 1px dashed color-mix(in srgb, var(--s-accent, var(--accent)) 55%, transparent);
+    color: var(--s-accent-pop, var(--accent));
+    background: color-mix(in srgb, var(--s-accent, var(--accent)) 8%, transparent);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    white-space: nowrap;
+  }
+</style>

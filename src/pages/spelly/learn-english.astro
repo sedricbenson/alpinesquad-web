@@ -1,0 +1,85 @@
+---
+import SpellyLayout from '../../layouts/SpellyLayout.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
+
+const title = 'Spelly for English Learners — Learn English Spelling by Sight | Free ESL App';
+const description =
+  'Learn English spelling visually with Spelly. Picture-to-word association is how the brain actually learns vocabulary — perfect for ESL students, IELTS/TOEFL prep, and anyone learning English. Free on the App Store.';
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const appUrlCta = appStoreUrl(APP_IDS.spelly, 'web-spelly-esl');
+const schema = {
+  '@context': 'https://schema.org',
+  ...breadcrumbList(site, [
+    { name: 'Alpine Squad', path: '/' },
+    { name: 'Spelly', path: '/spelly' },
+    { name: 'For English Learners', path: '/spelly/learn-english' },
+  ]),
+};
+---
+
+<SpellyLayout {title} {description} {schema}>
+  <section class="s-hero">
+    <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
+    <div class="container s-hero-inner">
+      <p class="s-eyebrow">For English learners</p>
+      <h1>Learn English spelling<br />by <span class="s-hero-accent">sight</span>.</h1>
+      <p class="s-lede">
+        Picture-to-word association is how the brain actually learns vocabulary. Spelly is free,
+        ad-free, and built with ESL students, IELTS/TOEFL prep, and immigrant learners in mind.
+      </p>
+      <div class="s-hero-cta">
+        <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
+      </div>
+    </div>
+  </section>
+
+  <section class="s-section">
+    <div class="container">
+      <h2 class="s-h2">Why visual spelling works</h2>
+      <p class="s-section-lede">
+        English spelling is famously irregular. Picture-based learning bypasses the rote phonetic
+        confusion and locks the word straight to its meaning.
+      </p>
+      <div class="s-feature-grid">
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
+          <h4>See the meaning</h4>
+          <p>The emoji shows you what the word is. No translation needed. Direct image-to-spelling association.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+          <h4>Spot the trap</h4>
+          <p>Pick from four spellings — only one is right. Trains your eye on the subtle differences ESL learners hit most.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
+          <h4>Track progress</h4>
+          <p>Comprehension levels (L1 → Mastered) across 23 categories. See exactly where you're improving.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-section-alt">
+    <div class="container">
+      <h2 class="s-h2">Built for English learners</h2>
+      <div class="s-audience-row">
+        <span class="s-chip">ESL students</span>
+        <span class="s-chip">IELTS prep</span>
+        <span class="s-chip">TOEFL prep</span>
+        <span class="s-chip">New immigrants</span>
+        <span class="s-chip">English as a foreign language</span>
+        <span class="s-chip">Adult learners</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-final">
+    <div class="container-narrow">
+      <h2>Free. No ads. No accounts.</h2>
+      <p>Everything stays on your device. Start spelling smarter today.</p>
+      <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
+    </div>
+  </section>
+</SpellyLayout>
