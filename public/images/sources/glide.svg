@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="gBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1F4A"/>
+      <stop offset="45%" stop-color="#1A4A8C"/>
+      <stop offset="100%" stop-color="#3A9FD8"/>
+    </linearGradient>
+    <radialGradient id="gGlow" cx="40%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#A8E4FF" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#A8E4FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gIce" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F2FBFF"/>
+      <stop offset="40%" stop-color="#C5ECFA"/>
+      <stop offset="100%" stop-color="#7EC4E8"/>
+    </linearGradient>
+    <linearGradient id="gIceEdge" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5BA8D4"/>
+      <stop offset="100%" stop-color="#2E6FA0"/>
+    </linearGradient>
+    <radialGradient id="gBall" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#8EC8FF"/>
+      <stop offset="55%" stop-color="#1E4A9E"/>
+      <stop offset="100%" stop-color="#0A1F4A"/>
+    </radialGradient>
+    <linearGradient id="gTrail" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#C8EEFF" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+    </linearGradient>
+    <filter id="gSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#gBg)"/>
+  <rect width="1024" height="1024" fill="url(#gGlow)"/>
+
+  <g fill="#E8F7FF" opacity="0.5">
+    <circle cx="120" cy="140" r="3.5"/>
+    <circle cx="900" cy="110" r="3"/>
+    <circle cx="940" cy="300" r="2.5"/>
+    <circle cx="90" cy="420" r="2.5"/>
+    <circle cx="800" cy="880" r="3"/>
+    <circle cx="160" cy="860" r="2.5"/>
+  </g>
+
+  <!-- larger, more centered ice scene (scale ~1.25 vs prior) -->
+  <g transform="translate(512,530) scale(1.22)">
+    <ellipse cx="0" cy="145" rx="300" ry="52" fill="#061428" opacity="0.38" filter="url(#gSoft)"/>
+
+    <path d="M-280,-50 L160,-165 L340,45 L-100,160 Z" fill="url(#gIce)"/>
+    <path d="M-280,-50 L-100,160 L-100,200 L-280,-10 Z" fill="url(#gIceEdge)" opacity="0.9"/>
+    <path d="M-100,160 L340,45 L340,85 L-100,200 Z" fill="#3A7AAB" opacity="0.92"/>
+    <path d="M-210,-25 L90,-120 L115,-85 L-170,25 Z" fill="#FFFFFF" opacity="0.38"/>
+    <g stroke="#5BA8D4" stroke-width="3" fill="none" opacity="0.35">
+      <path d="M-90,25 L30,-50"/>
+      <path d="M50,60 L140,-15"/>
+      <path d="M-150,80 L-40,15"/>
+    </g>
+
+    <!-- gold goal -->
+    <g transform="translate(55,-25)">
+      <circle cx="0" cy="0" r="62" fill="none" stroke="#F0C14A" stroke-width="9"/>
+      <circle cx="0" cy="0" r="36" fill="none" stroke="#F5D76E" stroke-width="7"/>
+      <circle cx="0" cy="0" r="14" fill="#F0C14A"/>
+    </g>
+
+    <!-- blocker L -->
+    <g transform="translate(-175,-75)">
+      <rect x="0" y="0" width="50" height="50" rx="7" fill="#2A3348" transform="skewX(-18) translate(10,0)"/>
+      <rect x="50" y="0" width="50" height="50" rx="7" fill="#1E2638" transform="skewX(-18) translate(10,0)"/>
+      <rect x="0" y="50" width="50" height="50" rx="7" fill="#252E42" transform="skewX(-18) translate(10,0)"/>
+    </g>
+
+    <!-- trail -->
+    <g opacity="0.9">
+      <rect x="-250" y="40" width="190" height="16" rx="8" fill="url(#gTrail)" transform="rotate(-18)"/>
+      <rect x="-220" y="62" width="140" height="9" rx="4.5" fill="url(#gTrail)" transform="rotate(-18)" opacity="0.65"/>
+    </g>
+
+    <!-- ball -->
+    <g transform="translate(-85,60)">
+      <ellipse cx="4" cy="44" rx="50" ry="16" fill="#061428" opacity="0.32"/>
+      <circle cx="0" cy="0" r="58" fill="url(#gBall)"/>
+      <circle cx="-16" cy="-18" r="17" fill="#FFFFFF" opacity="0.58"/>
+      <circle cx="12" cy="10" r="10" fill="#0A1F4A" opacity="0.22"/>
+    </g>
+  </g>
+</svg>
