@@ -27,13 +27,33 @@
       "permanent": false
     },
     {
-      "source": "/:app(hamcram|scratchy|pianotune|musicquest)/privacy",
+      "source": "/:app(hamcram|scratchy|pianotune|musicquest|glide|switch)/privacy",
       "destination": "https://sedricbenson.github.io/disclosures/:app/privacy.html",
       "permanent": false
     },
     {
-      "source": "/:app(hamcram|scratchy|pianotune|musicquest)/terms",
+      "source": "/:app(hamcram|scratchy|pianotune|musicquest|glide|switch)/terms",
       "destination": "https://sedricbenson.github.io/disclosures/:app/terms.html",
+      "permanent": false
+    },
+    {
+      "source": "/untangle-dots/privacy",
+      "destination": "https://sedricbenson.github.io/disclosures/untangle/privacy.html",
+      "permanent": false
+    },
+    {
+      "source": "/untangle-dots/terms",
+      "destination": "https://sedricbenson.github.io/disclosures/untangle/terms.html",
+      "permanent": false
+    },
+    {
+      "source": "/word-trap/privacy",
+      "destination": "https://sedricbenson.github.io/disclosures/wordtrap/privacy.html",
+      "permanent": false
+    },
+    {
+      "source": "/word-trap/terms",
+      "destination": "https://sedricbenson.github.io/disclosures/wordtrap/terms.html",
       "permanent": false
     },
     {

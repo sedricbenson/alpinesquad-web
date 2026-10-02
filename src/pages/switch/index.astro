@@ -1,0 +1,74 @@
+---
+import AppShell from '../../layouts/AppShell.astro';
+import ComingSoonBadge from '../../components/ComingSoonBadge.astro';
+import { breadcrumbList } from '../../lib/seo';
+
+/**
+ * Switch - Lights Puzzle — coming soon (App Store Rejected; hide from live).
+ * App id reserved: 6807579427. Flip to live when Ready for Distribution.
+ */
+
+const title = 'Switch — Lights Puzzle for iPhone & iPad | Coming Soon';
+const description =
+  'Switch is a lights puzzle from Alpine Squad for iPhone and iPad. Coming soon to the App Store.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'MobileApplication',
+      name: 'Switch - Lights Puzzle',
+      operatingSystem: 'iOS',
+      applicationCategory: 'GameApplication',
+      applicationSubCategory: 'Puzzle',
+      description,
+      url: `${site}/switch`,
+      publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Switch', path: '/switch' },
+    ]),
+  ],
+};
+---
+
+<AppShell
+  {title}
+  {description}
+  {schema}
+  appName="Switch"
+  appHref="/switch"
+  accent="#F0B429"
+  accentPop="#F7C948"
+  accentDeep="#C9920E"
+  privacyPath="/switch/privacy"
+  termsPath="/switch/terms"
+  contactEmail="support@alpinesquad.com"
+>
+  <section class="s-hero">
+    <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
+    <div class="container s-hero-inner">
+      <p class="s-eyebrow">Switch · iPhone &amp; iPad</p>
+      <h1>Flip the lights. <span class="s-hero-accent">Clear the board.</span></h1>
+      <p class="s-lede">
+        A lights puzzle from Alpine Squad — tap switches, chase the pattern, finish the grid.
+        Coming soon to the App Store.
+      </p>
+      <div class="s-hero-cta">
+        <ComingSoonBadge />
+        <p class="s-hero-claims">In preparation for the App Store</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-final">
+    <div class="container-narrow">
+      <h2>Almost ready.</h2>
+      <p>Switch is in preparation. Watch the <a href="/">Alpine Squad</a> homepage for launch.</p>
+      <ComingSoonBadge />
+    </div>
+  </section>
+</AppShell>

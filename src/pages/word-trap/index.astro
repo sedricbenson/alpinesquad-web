@@ -1,0 +1,74 @@
+---
+import AppShell from '../../layouts/AppShell.astro';
+import ComingSoonBadge from '../../components/ComingSoonBadge.astro';
+import { breadcrumbList } from '../../lib/seo';
+
+/**
+ * Word Trap — coming soon (App Store listing not public yet).
+ * App id reserved: 6809978528. Flip to live when the listing is Ready.
+ */
+
+const title = 'Word Trap — Word Puzzle Game for iPhone & iPad | Coming Soon';
+const description =
+  'Word Trap is a word puzzle from Alpine Squad for iPhone and iPad. Coming soon to the App Store.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'MobileApplication',
+      name: 'Word Trap',
+      operatingSystem: 'iOS',
+      applicationCategory: 'GameApplication',
+      applicationSubCategory: 'Word',
+      description,
+      url: `${site}/word-trap`,
+      publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Word Trap', path: '/word-trap' },
+    ]),
+  ],
+};
+---
+
+<AppShell
+  {title}
+  {description}
+  {schema}
+  appName="Word Trap"
+  appHref="/word-trap"
+  accent="#C45C26"
+  accentPop="#E07A42"
+  accentDeep="#9A3F12"
+  privacyPath="/word-trap/privacy"
+  termsPath="/word-trap/terms"
+  contactEmail="support@alpinesquad.com"
+>
+  <section class="s-hero">
+    <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
+    <div class="container s-hero-inner">
+      <p class="s-eyebrow">Word Trap · iPhone &amp; iPad</p>
+      <h1>Words with a <span class="s-hero-accent">trap</span>.</h1>
+      <p class="s-lede">
+        A word puzzle from Alpine Squad — privacy-first, built for quick rounds. Details when it
+        lands on the App Store.
+      </p>
+      <div class="s-hero-cta">
+        <ComingSoonBadge />
+        <p class="s-hero-claims">In preparation for the App Store</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-final">
+    <div class="container-narrow">
+      <h2>Watch this space.</h2>
+      <p>Word Trap is in preparation. Check the <a href="/">Alpine Squad</a> homepage when it ships.</p>
+      <ComingSoonBadge />
+    </div>
+  </section>
+</AppShell>

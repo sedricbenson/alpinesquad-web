@@ -1,0 +1,114 @@
+---
+import AppShell from '../../layouts/AppShell.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
+
+const title = 'Untangle Dots — Calm Knot Puzzle for iPhone & iPad | Free on the App Store';
+const description =
+  'A calm knot puzzle: drag the dots until no two lines cross. Every board is solvable. Daily puzzle, no ads pressure. Free on the App Store for iPhone & iPad.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const appUrlClean = appStoreUrl(APP_IDS.untangleDots);
+const appUrlCta = appStoreUrl(APP_IDS.untangleDots, 'web-untangle-dots');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'MobileApplication',
+      name: 'Untangle Dots',
+      operatingSystem: 'iOS',
+      applicationCategory: 'GameApplication',
+      applicationSubCategory: 'Puzzle',
+      description,
+      url: appUrlClean,
+      image: `${site}/images/untangle-dots-icon.png`,
+      offers: {
+        '@type': 'Offer',
+        price: '0.00',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+      },
+      publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Untangle Dots', path: '/untangle-dots' },
+    ]),
+  ],
+};
+---
+
+<AppShell
+  {title}
+  {description}
+  {schema}
+  ogImage="/images/untangle-dots-og.png"
+  appName="Untangle Dots"
+  appHref="/untangle-dots"
+  appId={APP_IDS.untangleDots}
+  appStoreUrl={appStoreUrl(APP_IDS.untangleDots, 'web-untangle-dots-nav')}
+  accent="#6B5CE7"
+  accentPop="#8B7CF5"
+  accentDeep="#4A3CB8"
+  privacyPath="/untangle-dots/privacy"
+  termsPath="/untangle-dots/terms"
+  contactEmail="support@alpinesquad.com"
+>
+  <section class="s-hero">
+    <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
+    <div class="container s-hero-inner">
+      <img class="s-hero-icon" src="/images/untangle-dots-icon.png" alt="Untangle Dots app icon" width="84" height="84" />
+      <p class="s-eyebrow">Untangle Dots · iPhone &amp; iPad</p>
+      <h1>Drag the knots <span class="s-hero-accent">apart</span>.</h1>
+      <p class="s-lede">
+        Every board starts as a tangled web of dots and lines. Drag the dots until no two lines
+        cross — that is the whole game.
+      </p>
+      <div class="s-hero-cta">
+        <AppStoreButton href={appUrlCta} label="Download Untangle Dots on the App Store" />
+        <p class="s-hero-claims">Free · Daily puzzle · Always solvable</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-section">
+    <div class="container">
+      <h2 class="s-h2">A knot puzzle with no dead ends.</h2>
+      <p class="s-section-lede">
+        Each board is built from a planar graph, so a crossing-free layout always exists. No luck —
+        just you and the tangle.
+      </p>
+      <div class="s-feature-grid">
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="6" cy="18" r="2"></circle><circle cx="18" cy="18" r="2"></circle><line x1="8" y1="6" x2="16" y2="6"></line><line x1="6" y1="8" x2="6" y2="16"></line><line x1="18" y1="8" x2="18" y2="16"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg></div>
+          <h4>Drag to untangle</h4>
+          <p>Move the dots until every line is clear. Satisfying, tactile, endless.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <h4>Always solvable</h4>
+          <p>Planar graphs only — a clean layout is guaranteed. No unfair boards.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+          <h4>Daily puzzle</h4>
+          <p>The same graph for everyone each day. Solve it, compare, come back tomorrow.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <h4>Calm &amp; private</h4>
+          <p>No noisy ads mid-puzzle. Progress stays on your device.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-final">
+    <div class="container-narrow">
+      <h2>Untangle today's knot.</h2>
+      <p>Free on the App Store for iPhone and iPad.</p>
+      <AppStoreButton href={appUrlCta} label="Download Untangle Dots on the App Store" />
+    </div>
+  </section>
+</AppShell>

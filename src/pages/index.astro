@@ -7,7 +7,7 @@ import { appStoreUrl, APP_IDS } from '../lib/seo';
 
 const title = 'Alpine Squad — privacy-first iOS apps for learning, play & pro work';
 const description =
-  'Privacy-first iOS apps for learning, play, and real work. Bible Blitz, Spelly, HamCram, and more — built with care, priced honestly, designed to respect your time.';
+  'Privacy-first iOS apps for learning, play, and real work. Bible Blitz, Spelly, HamCram, MusicQuest, Scratchy, and more — built with care, priced honestly, designed to respect your time.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 
@@ -55,15 +55,60 @@ const apps = [
     price: '9.99',
   },
   {
+    name: 'MusicQuest',
+    tagline: 'Learn to read sheet music.',
+    description:
+      'Note-recognition quizzes across treble, bass, and alto clefs, with per-note mastery stats. Build the instant recall that sight-reading demands.',
+    icon: '/images/musicquest-icon.png',
+    href: '/musicquest',
+    appStore: appStoreUrl(APP_IDS.musicQuest, 'web-home-musicquest'),
+    storeUrlClean: appStoreUrl(APP_IDS.musicQuest),
+    tags: ['Music education', 'Free'],
+    accent: '#14919B',
+    category: 'EducationApplication',
+    price: '0.00',
+  },
+  {
     name: 'Scratchy',
     tagline: 'Scratch, reveal, guess fast!',
     description:
       'Scratch away the cover, watch the picture appear, and guess before the clock runs out. Daily challenges, collections, achievements — fun for all ages.',
     icon: '/images/scratchy-icon.png',
     href: '/scratchy',
-    tags: ['Casual game'],
+    appStore: appStoreUrl(APP_IDS.scratchy, 'web-home-scratchy'),
+    storeUrlClean: appStoreUrl(APP_IDS.scratchy),
+    tags: ['Casual game', 'Free'],
     accent: '#D6467E',
     category: 'GameApplication',
+    price: '0.00',
+  },
+  {
+    name: 'Glide',
+    tagline: 'Ice path puzzles, no walls.',
+    description:
+      'One swipe and the ball flies until a block stops it — or it rolls off the edge. Reach the goal in as few glides as you can. Every board is solvable.',
+    icon: '/images/glide-icon.png',
+    href: '/glide',
+    appStore: appStoreUrl(APP_IDS.glide, 'web-home-glide'),
+    storeUrlClean: appStoreUrl(APP_IDS.glide),
+    tags: ['Puzzle', 'Free'],
+    accent: '#3D6FD9',
+    category: 'GameApplication',
+    price: '0.00',
+  },
+  {
+    name: 'Untangle Dots',
+    tagline: 'Calm knot puzzles.',
+    description:
+      'Drag the dots until no two lines cross. Every board is a planar graph — a clean layout always exists. Daily puzzle, no dead ends.',
+    icon: '/images/untangle-dots-icon.png',
+    href: '/untangle-dots',
+    appStore: appStoreUrl(APP_IDS.untangleDots, 'web-home-untangle-dots'),
+    storeUrlClean: appStoreUrl(APP_IDS.untangleDots),
+    tags: ['Puzzle', 'Free'],
+    accent: '#6B5CE7',
+    category: 'GameApplication',
+    price: '0.00',
   },
   {
     name: 'Pianotune',
@@ -77,17 +122,29 @@ const apps = [
     category: 'MusicApplication',
   },
   {
-    name: 'MusicQuest',
-    tagline: 'Learn to read sheet music.',
+    name: 'Word Trap',
+    tagline: 'Word puzzles with a twist.',
     description:
-      'Note-recognition quizzes across treble, bass, and alto clefs, with per-note mastery stats. Build the instant recall that sight-reading demands.',
-    icon: '/images/musicquest-icon.png',
-    href: '/musicquest',
-    tags: ['Music education'],
-    accent: '#14919B',
-    category: 'EducationApplication',
+      'A word puzzle from Alpine Squad — privacy-first and built for quick rounds. Details when it lands on the App Store.',
+    href: '/word-trap',
+    tags: ['Word game'],
+    accent: '#C45C26',
+    category: 'GameApplication',
+  },
+  {
+    name: 'Switch',
+    tagline: 'Lights puzzle.',
+    description:
+      'Flip switches, chase the pattern, clear the board. A lights puzzle in preparation for the App Store.',
+    href: '/switch',
+    tags: ['Puzzle'],
+    accent: '#F0B429',
+    category: 'GameApplication',
   },
 ];
+
+const liveCount = apps.filter((a) => a.appStore).length;
+const soonCount = apps.length - liveCount;
 
 // @graph links the brand entity to the apps it publishes — helps search
 // engines understand Alpine Squad and its app catalog as one connected entity.
@@ -110,7 +167,7 @@ const schema = {
       applicationCategory: app.category,
       operatingSystem: 'iOS',
       url: app.storeUrlClean ?? `${site}${app.href}`,
-      image: `${site}${app.icon}`,
+      ...(app.icon ? { image: `${site}${app.icon}` } : {}),
       publisher: { '@id': `${site}/#org` },
       ...(app.price ? { offers: { '@type': 'Offer', price: app.price, priceCurrency: 'USD' } } : {}),
     })),
@@ -130,9 +187,9 @@ const schema = {
         Privacy-first iOS apps for learning, play, and real work — built with care, priced
         honestly, designed to respect your time.
       </p>
-      <p class="hero-meta">Three live on the App Store · three more on the way.</p>
+      <p class="hero-meta">{liveCount} live on the App Store · {soonCount} more on the way.</p>
       <div class="hero-icons" aria-hidden="true">
-        {apps.map((app) => (
+        {apps.filter((a) => a.icon).map((app) => (
           <a href={app.href} tabindex="-1"><img src={app.icon} alt="" width="52" height="52" loading="eager" /></a>
         ))}
       </div>
@@ -147,7 +204,11 @@ const schema = {
         {apps.map((app) => (
           <article class="app-card" style={`--card-accent: ${app.accent}`}>
             <div class="app-head">
-              <img class="app-icon" src={app.icon} alt={`${app.name} app icon`} width="60" height="60" loading="lazy" />
+              {app.icon ? (
+                <img class="app-icon" src={app.icon} alt={`${app.name} app icon`} width="60" height="60" loading="lazy" />
+              ) : (
+                <div class="app-icon app-icon-placeholder" aria-hidden="true">{app.name.slice(0, 1)}</div>
+              )}
               <div>
                 <h3>{app.name}</h3>
                 <p class="app-tagline">{app.tagline}</p>
@@ -284,6 +345,16 @@ const schema = {
     border-radius: 14px;
     box-shadow: 0 4px 14px rgba(14, 20, 19, 0.14);
     flex-shrink: 0;
+  }
+  .app-icon-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--card-accent) 18%, #fff);
+    color: var(--card-accent);
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 600;
   }
   .app-card h3 {
     font-family: var(--serif);

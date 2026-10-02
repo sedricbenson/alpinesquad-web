@@ -4,12 +4,6 @@ import sitemap from '@astrojs/sitemap';
 // Alpine Squad's marketing site — umbrella for every app we ship.
 // One repo, one Vercel deploy, file-based routes per app.
 //
-// Routes today:
-//   /                          — Alpine Squad landing (lists every shipped app)
-//   /bible-blitz               — Bible Blitz product page
-//   /spelly + /spelly/*        — Spelly product page + keyword landing pages
-//   /{bible-blitz,spelly}/{privacy,terms} — redirect to the disclosures repo
-//
 // SEO is the headline feature here. Astro outputs static HTML, zero JS by
 // default, with sitemap + robots + structured data per page. Lighthouse
 // targets: 100/100/100/100.
@@ -23,6 +17,10 @@ const DISCLOSURE_APPS = {
   scratchy: 'scratchy',
   pianotune: 'pianotune',
   musicquest: 'musicquest',
+  glide: 'glide',
+  'untangle-dots': 'untangle',
+  'word-trap': 'wordtrap',
+  switch: 'switch',
 };
 const redirects = { '/bibleblitz': '/bible-blitz' };
 for (const [route, folder] of Object.entries(DISCLOSURE_APPS)) {
@@ -40,8 +38,16 @@ export default defineConfig({
       lastmod: new Date(),
       serialize(item) {
         const path = new URL(item.url).pathname;
-        const liveApps = ['/spelly/', '/bible-blitz/', '/hamcram/'];
-        const comingSoon = ['/scratchy/', '/pianotune/', '/musicquest/'];
+        const liveApps = [
+          '/spelly/',
+          '/bible-blitz/',
+          '/hamcram/',
+          '/musicquest/',
+          '/scratchy/',
+          '/glide/',
+          '/untangle-dots/',
+        ];
+        const comingSoon = ['/pianotune/', '/word-trap/', '/switch/'];
         if (path === '/') item.priority = 1.0;
         else if (liveApps.includes(path)) item.priority = 0.9;
         else if (comingSoon.includes(path)) item.priority = 0.8;

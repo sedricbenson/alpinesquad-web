@@ -1,18 +1,20 @@
 ---
 import AppShell from '../../layouts/AppShell.astro';
-import ComingSoonBadge from '../../components/ComingSoonBadge.astro';
-import { breadcrumbList } from '../../lib/seo';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 /**
- * MusicQuest — coming-soon page. Copy from music-quest/docs/release-notes-v1.0.md.
- * When it ships: add appId + appStoreUrl and swap the badge.
+ * MusicQuest — live App Store page.
+ * When copy changes: pull from App Store Connect / music-quest release notes.
  */
 
-const title = 'MusicQuest — Learn to Read Sheet Music | iPhone & iPad | Coming Soon';
+const title = 'MusicQuest — Learn to Read Sheet Music | Free on the App Store';
 const description =
-  'Master sight-reading with note-recognition quizzes across treble, bass, and alto clefs. Per-note mastery stats, progress trends, fully offline and private. Coming soon to the App Store.';
+  'Master sight-reading with note-recognition quizzes across treble, bass, and alto clefs. Per-note mastery stats, progress trends, fully offline and private. Free on the App Store for iPhone & iPad.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const appUrlClean = appStoreUrl(APP_IDS.musicQuest);
+const appUrlCta = appStoreUrl(APP_IDS.musicQuest, 'web-musicquest');
 
 const schema = {
   '@context': 'https://schema.org',
@@ -24,8 +26,14 @@ const schema = {
       applicationCategory: 'EducationApplication',
       applicationSubCategory: 'Music Education',
       description,
-      url: `${site}/musicquest`,
+      url: appUrlClean,
       image: `${site}/images/musicquest-icon.png`,
+      offers: {
+        '@type': 'Offer',
+        price: '0.00',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+      },
       publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
     },
     breadcrumbList(site, [
@@ -40,8 +48,11 @@ const schema = {
   {title}
   {description}
   {schema}
+  ogImage="/images/musicquest-og.png"
   appName="MusicQuest"
   appHref="/musicquest"
+  appId={APP_IDS.musicQuest}
+  appStoreUrl={appStoreUrl(APP_IDS.musicQuest, 'web-musicquest-nav')}
   accent="#14919B"
   accentPop="#3BB8C3"
   accentDeep="#0C6B73"
@@ -61,8 +72,8 @@ const schema = {
         sight-reading demands — with per-note stats that show you exactly what to practice next.
       </p>
       <div class="s-hero-cta">
-        <ComingSoonBadge />
-        <p class="s-hero-claims">Offline · Private · iPhone &amp; iPad</p>
+        <AppStoreButton href={appUrlCta} label="Download MusicQuest on the App Store" />
+        <p class="s-hero-claims">Free · Offline · Private · iPhone &amp; iPad</p>
       </div>
     </div>
   </section>
@@ -114,8 +125,8 @@ const schema = {
   <section class="s-final">
     <div class="container-narrow">
       <h2>Every fluent reader started with one note.</h2>
-      <p>MusicQuest is in final preparation for the App Store. Watch the <a href="/">Alpine Squad</a> homepage for launch.</p>
-      <ComingSoonBadge />
+      <p>Free on the App Store for iPhone and iPad.</p>
+      <AppStoreButton href={appUrlCta} label="Download MusicQuest on the App Store" />
     </div>
   </section>
 </AppShell>

@@ -10,8 +10,14 @@ export const APP_IDS = {
   spelly: '6757465281',
   bibleBlitz: '6771674002',
   hamCram: '6777842196',
-  // Not yet public — kept for the day they go live:
+  musicQuest: '6774342789',
+  scratchy: '6786076591',
+  glide: '6807579233',
+  untangleDots: '6807323625',
+  // Not yet public / not Ready for Distribution:
   pianotune: '6772577552',
+  wordTrap: '6809978528',
+  switchLights: '6807579427',
 } as const;
 
 /**
