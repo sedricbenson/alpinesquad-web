@@ -8,9 +8,9 @@ import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
  * Copy from App Store listing / scratchy APPSTORE_METADATA.
  */
 
-const title = 'Scratchy — Scratch & Guess Game for iPhone & iPad | Free on the App Store';
+const title = 'Scratchy — Scratch & Guess Game for iPhone & iPad | Available on the App Store';
 const description =
-  'Scratch away to reveal a hidden picture — then guess what it is before the clock runs out. Daily challenges, collections, achievements. A fast, satisfying guessing game for all ages. Free on the App Store.';
+  'Scratch away to reveal a hidden picture — then guess what it is before the clock runs out. Daily challenges, collections, achievements. A fast, satisfying guessing game for all ages. Available on the App Store.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.scratchy);
@@ -73,7 +73,7 @@ const schema = {
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download Scratchy on the App Store" />
-        <p class="s-hero-claims">Free to play · Family-friendly · Quick rounds</p>
+        <p class="s-hero-claims">Family-friendly · Quick rounds</p>
       </div>
     </div>
   </section>
@@ -115,7 +115,7 @@ const schema = {
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
           <h4>Kid-friendly by design</h4>
-          <p>Clean, colorful, and safe for all ages. Free to play — optional purchases, never required.</p>
+          <p>Clean, colorful, and safe for all ages. Optional purchases never required.</p>
         </div>
       </div>
     </div>
@@ -125,7 +125,7 @@ const schema = {
   <section class="s-final">
     <div class="container-narrow">
       <h2>How many can you guess?</h2>
-      <p>Free on the App Store for iPhone and iPad.</p>
+      <p>Available on the App Store for iPhone and iPad.</p>
       <AppStoreButton href={appUrlCta} label="Download Scratchy on the App Store" />
     </div>
   </section>

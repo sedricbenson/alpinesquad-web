@@ -3,9 +3,9 @@ import AppShell from '../../layouts/AppShell.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
-const title = 'Untangle Dots — Calm Knot Puzzle for iPhone & iPad | Free on the App Store';
+const title = 'Untangle Dots — Calm Knot Puzzle for iPhone & iPad | Available on the App Store';
 const description =
-  'A calm knot puzzle: drag the dots until no two lines cross. Every board is solvable. Daily puzzle, no ads pressure. Free on the App Store for iPhone & iPad.';
+  'A calm knot puzzle: drag the dots until no two lines cross. Every board is solvable. Daily puzzle, no ads pressure. Available on the App Store for iPhone & iPad.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.untangleDots);
@@ -67,7 +67,7 @@ const schema = {
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download Untangle Dots on the App Store" />
-        <p class="s-hero-claims">Free · Daily puzzle · Always solvable</p>
+        <p class="s-hero-claims">Daily puzzle · Always solvable</p>
       </div>
     </div>
   </section>
@@ -107,7 +107,7 @@ const schema = {
   <section class="s-final">
     <div class="container-narrow">
       <h2>Untangle today's knot.</h2>
-      <p>Free on the App Store for iPhone and iPad.</p>
+      <p>Available on the App Store for iPhone and iPad.</p>
       <AppStoreButton href={appUrlCta} label="Download Untangle Dots on the App Store" />
     </div>
   </section>

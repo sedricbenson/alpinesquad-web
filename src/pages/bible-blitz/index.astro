@@ -21,7 +21,7 @@ import { breadcrumbList } from '../../lib/seo';
  */
 
 const title = 'Bible Blitz — Bible trivia that teaches Scripture | iPhone & iPad';
-const description = 'Free Bible trivia app for iPhone and iPad. 10-question rounds across KJV, NKJV, and NIV. Every wrong answer reveals the verse and context — quiz becomes study. No ads, no tracking, no subscription.';
+const description = 'Bible trivia app for iPhone and iPad. 10-question rounds across KJV, NKJV, and NIV. Every wrong answer reveals the verse and context — quiz becomes study. No ads, no tracking, no subscription.';
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appStoreUrlCanonical = 'https://apps.apple.com/app/bible-blitz/id6771674002';
 const appStoreUrl = `${appStoreUrlCanonical}?ct=web-bibleblitz`;
@@ -29,7 +29,7 @@ const appStoreUrl = `${appStoreUrlCanonical}?ct=web-bibleblitz`;
 const faqs = [
   {
     q: 'Is Bible Blitz free?',
-    a: 'Yes — the core game is free. You get unlimited 10-question rounds, daily challenges, and the verse-of-the-day across KJV, NKJV, and NIV translations. A one-time $4.99 premium unlock adds Timed Blitz mode and Smart Review (which surfaces questions you previously missed). There is no subscription.',
+    a: 'Download on the App Store. A one-time $4.99 premium unlock adds Timed Blitz mode and Smart Review (which surfaces questions you previously missed). There is no subscription.',
   },
   {
     q: 'Which Bible translations are supported?',
@@ -175,10 +175,10 @@ const schema = {
   <section class="pricing">
     <div class="container-narrow">
       <p class="eyebrow">Pricing</p>
-      <h2>Free to play. <span class="accent-text">$4.99</span> if you want more.</h2>
+      <h2>Download on the App Store. <span class="accent-text">$4.99</span> premium unlock.</h2>
       <p class="pricing-sub">
-        The core game is free forever — no ads, no nags, no expiring trial. The one-time $4.99
-        unlock adds Timed Blitz and Smart Review. No subscription. Pay once or don't pay at all.
+        No ads, no nags, no subscription. The one-time $4.99 unlock adds Timed Blitz and Smart
+        Review.
       </p>
       <a href={appStoreUrl} class="appstore-btn appstore-btn-light" rel="noopener">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.04c0-2.05 1.68-3.04 1.76-3.09-.96-1.4-2.45-1.6-2.98-1.62-1.27-.13-2.48.75-3.12.75-.65 0-1.65-.74-2.72-.72-1.39.02-2.69.81-3.41 2.06-1.46 2.53-.37 6.26 1.04 8.31.69 1 1.5 2.13 2.57 2.09 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1.02 2.49-2.02.78-1.15 1.1-2.27 1.12-2.33-.02-.01-2.14-.82-2.16-3.27zM15.02 5.97c.56-.69.94-1.63.84-2.59-.81.04-1.81.54-2.39 1.22-.52.6-.98 1.57-.86 2.49.91.07 1.84-.46 2.41-1.12z"/></svg>

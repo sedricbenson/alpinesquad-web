@@ -8,9 +8,9 @@ import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
  * When copy changes: pull from App Store Connect / music-quest release notes.
  */
 
-const title = 'MusicQuest — Learn to Read Sheet Music | Free on the App Store';
+const title = 'MusicQuest — Learn to Read Sheet Music | Available on the App Store';
 const description =
-  'Master sight-reading with note-recognition quizzes across treble, bass, and alto clefs. Per-note mastery stats, progress trends, fully offline and private. Free on the App Store for iPhone & iPad.';
+  'Master sight-reading with note-recognition quizzes across treble, bass, and alto clefs. Per-note mastery stats, progress trends, fully offline and private. Available on the App Store for iPhone & iPad.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.musicQuest);
@@ -73,7 +73,7 @@ const schema = {
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download MusicQuest on the App Store" />
-        <p class="s-hero-claims">Free · Offline · Private · iPhone &amp; iPad</p>
+        <p class="s-hero-claims">Offline · Private · iPhone &amp; iPad</p>
       </div>
     </div>
   </section>
@@ -125,7 +125,7 @@ const schema = {
   <section class="s-final">
     <div class="container-narrow">
       <h2>Every fluent reader started with one note.</h2>
-      <p>Free on the App Store for iPhone and iPad.</p>
+      <p>Available on the App Store for iPhone and iPad.</p>
       <AppStoreButton href={appUrlCta} label="Download MusicQuest on the App Store" />
     </div>
   </section>

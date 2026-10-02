@@ -3,9 +3,9 @@ import SpellyLayout from '../../layouts/SpellyLayout.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
-const title = 'Spelling Bee Practice App — Free, Thousands of Words | Spelly';
+const title = 'Spelling Bee Practice App — Thousands of Words | Spelly';
 const description =
-  'Train for the spelling bee with Spelly. Two game modes, thousands of words, three difficulty tiers including SAT-grade hard words. Free on the App Store, no ads, no accounts.';
+  'Train for the spelling bee with Spelly. Two game modes, thousands of words, three difficulty tiers including SAT-grade hard words. Available on the App Store, no ads, no accounts.';
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlCta = appStoreUrl(APP_IDS.spelly, 'web-spelly-bee');
 const schema = {
@@ -26,7 +26,7 @@ const schema = {
       <h1>Train for the<br /><span class="s-hero-accent">spelling bee</span>.</h1>
       <p class="s-lede">
         Thousands of words across 23 categories. Three difficulty tiers — including SAT-grade hard
-        words. Two game modes. Free, no ads, no accounts.
+        words. Two game modes. No ads, no accounts.
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
@@ -65,8 +65,8 @@ const schema = {
         </div>
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg></div>
-          <h4>Free, no ads</h4>
-          <p>The basic game is genuinely free. Optional Pro unlocks every category and removes lives.</p>
+          <h4>No ads</h4>
+          <p>Optional Pro unlocks every category and removes lives.</p>
         </div>
       </div>
     </div>
@@ -75,7 +75,7 @@ const schema = {
   <section class="s-final">
     <div class="container-narrow">
       <h2>Ready to compete?</h2>
-      <p>Download Spelly and start practicing today. Free on the App Store.</p>
+      <p>Download Spelly and start practicing today. Available on the App Store.</p>
       <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
     </div>
   </section>

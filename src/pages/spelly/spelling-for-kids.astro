@@ -3,9 +3,9 @@ import SpellyLayout from '../../layouts/SpellyLayout.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
-const title = 'Spelling Games for Kids — Free, No Ads, Family-Friendly | Spelly';
+const title = 'Spelling Games for Kids — No Ads, Family-Friendly | Spelly';
 const description =
-  'A free spelling game your kids will actually want to play. Picture-based learning, two game modes, daily challenges, 23 categories. No ads, no accounts, every word reviewed for safety. iPhone and iPad.';
+  'A spelling game your kids will actually want to play. Picture-based learning, two game modes, daily challenges, 23 categories. No ads, no accounts, every word reviewed for safety. iPhone and iPad.';
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlCta = appStoreUrl(APP_IDS.spelly, 'web-spelly-kids');
 const schema = {
@@ -93,8 +93,8 @@ const schema = {
 
   <section class="s-final">
     <div class="container-narrow">
-      <h2>Free. Forever.</h2>
-      <p>Optional Pro tier unlocks every category and removes the lives system. Otherwise, the whole game is free.</p>
+      <h2>Available on the App Store.</h2>
+      <p>Optional Pro tier unlocks every category and removes the lives system.</p>
       <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
     </div>
   </section>

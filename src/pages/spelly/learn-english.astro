@@ -3,9 +3,9 @@ import SpellyLayout from '../../layouts/SpellyLayout.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
-const title = 'Spelly for English Learners — Learn English Spelling by Sight | Free ESL App';
+const title = 'Spelly for English Learners — Learn English Spelling by Sight | ESL App';
 const description =
-  'Learn English spelling visually with Spelly. Picture-to-word association is how the brain actually learns vocabulary — perfect for ESL students, IELTS/TOEFL prep, and anyone learning English. Free on the App Store.';
+  'Learn English spelling visually with Spelly. Picture-to-word association is how the brain actually learns vocabulary — perfect for ESL students, IELTS/TOEFL prep, and anyone learning English. Available on the App Store.';
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlCta = appStoreUrl(APP_IDS.spelly, 'web-spelly-esl');
 const schema = {
@@ -25,7 +25,7 @@ const schema = {
       <p class="s-eyebrow">For English learners</p>
       <h1>Learn English spelling<br />by <span class="s-hero-accent">sight</span>.</h1>
       <p class="s-lede">
-        Picture-to-word association is how the brain actually learns vocabulary. Spelly is free,
+        Picture-to-word association is how the brain actually learns vocabulary. Spelly is
         ad-free, and built with ESL students, IELTS/TOEFL prep, and immigrant learners in mind.
       </p>
       <div class="s-hero-cta">
@@ -77,7 +77,7 @@ const schema = {
 
   <section class="s-final">
     <div class="container-narrow">
-      <h2>Free. No ads. No accounts.</h2>
+      <h2>No ads. No accounts.</h2>
       <p>Everything stays on your device. Start spelling smarter today.</p>
       <AppStoreButton href={appUrlCta} label="Download Spelly on the App Store" />
     </div>

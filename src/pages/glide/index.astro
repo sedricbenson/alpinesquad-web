@@ -3,9 +3,9 @@ import AppShell from '../../layouts/AppShell.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
-const title = 'Glide — Ice Path Puzzle for iPhone & iPad | Free on the App Store';
+const title = 'Glide — Ice Path Puzzle for iPhone & iPad | Available on the App Store';
 const description =
-  'Ice-slide puzzles with no outer walls. One swipe and the ball flies until a block stops it — or it rolls off the edge. Reach the goal in as few glides as you can. Free on the App Store.';
+  'Ice-slide puzzles with no outer walls. One swipe and the ball flies until a block stops it — or it rolls off the edge. Reach the goal in as few glides as you can. Available on the App Store.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.glide);
@@ -67,7 +67,7 @@ const schema = {
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download Glide on the App Store" />
-        <p class="s-hero-claims">Free · Daily puzzle · Every board solvable</p>
+        <p class="s-hero-claims">Daily puzzle · Every board solvable</p>
       </div>
     </div>
   </section>
@@ -107,7 +107,7 @@ const schema = {
   <section class="s-final">
     <div class="container-narrow">
       <h2>How few glides can you take?</h2>
-      <p>Free on the App Store for iPhone and iPad.</p>
+      <p>Available on the App Store for iPhone and iPad.</p>
       <AppStoreButton href={appUrlCta} label="Download Glide on the App Store" />
     </div>
   </section>
