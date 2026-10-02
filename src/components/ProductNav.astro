@@ -27,7 +27,7 @@ const { appName, appHref, appStoreUrl, links = [] } = Astro.props;
     <nav class="p-nav-links" aria-label="Primary">
       {links.map((l) => <a class="p-nav-hide" href={l.href}>{l.label}</a>)}
       {appStoreUrl ? (
-        <a href={appStoreUrl} class="p-nav-cta" rel="noopener">Get on App Store</a>
+        <a href={appStoreUrl} class="p-nav-cta" target="_blank" rel="noopener noreferrer">Get on App Store</a>
       ) : (
         <span class="p-nav-soon">Coming soon</span>
       )}

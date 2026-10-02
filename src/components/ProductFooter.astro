@@ -28,7 +28,7 @@ const { appName, appHref, appStoreUrl, privacyPath, termsPath, contactEmail, tra
     </a>
     <nav class="p-footer-links" aria-label="Footer">
       <a href={appHref}>{appName}</a>
-      {appStoreUrl && <a href={appStoreUrl} rel="noopener">App Store</a>}
+      {appStoreUrl && <a href={appStoreUrl} target="_blank" rel="noopener noreferrer">App Store</a>}
       <a href={privacyPath}>Privacy</a>
       <a href={termsPath}>Terms</a>
       <a href={`mailto:${contactEmail}`}>Contact</a>
