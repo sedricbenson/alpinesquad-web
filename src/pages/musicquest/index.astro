@@ -8,11 +8,12 @@ import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
  * MusicQuest — dedicated product marketing page on the Alpine Squad hub.
  * Grounded in live App Store listing + itunes lookup (2026-10-07).
  * Do not invent ratings (0 public). Screenshots from live ASC iPhone set.
+ * Public App Store: Only for iPhone / 0 iPad screenshots — do not claim iPad.
  */
 
-const title = 'MusicQuest — Learn to Read Sheet Music | Treble, Bass & Alto';
+const title = 'MusicQuest — Learn to Read Sheet Music for iPhone | Treble, Bass & Alto';
 const description =
-  'Learn to read sheet music with MusicQuest. Free Name That Note forever (treble, bass & alto). Music Journey Learn→Drill→Quest — first 3 units free. Unlock Everything $2.99 one-time. No ads, no accounts, no subscription. Available on the App Store.';
+  'Learn to read sheet music with MusicQuest for iPhone. Free Name That Note forever (treble, bass & alto). Music Journey Learn→Drill→Quest — first 3 units free. Unlock Everything $2.99 one-time. No ads, no accounts, no subscription. Available on the App Store.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.musicQuest);
@@ -42,7 +43,7 @@ const faqs = [
   },
   {
     q: 'iPhone or iPad?',
-    a: 'Available on the App Store for iPhone and iPad (iOS 17+). Product screenshots on this page are from the live iPhone App Store set.',
+    a: 'Available on the App Store for iPhone (iOS 17+). The public listing is Only for iPhone; product screenshots on this page are from the live iPhone App Store set.',
   },
 ];
 
@@ -133,7 +134,7 @@ const schema = {
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
     <div class="container s-hero-inner">
       <img class="s-hero-icon" src="/images/musicquest-icon.png" alt="MusicQuest app icon" width="84" height="84" />
-      <p class="s-eyebrow">MusicQuest · Learn Music Theory</p>
+      <p class="s-eyebrow">MusicQuest · Learn Music Theory · iPhone</p>
       <h1>Read sheet music like you <span class="s-hero-accent">read words</span>.</h1>
       <p class="s-lede">
         Note recognition that sticks — Free Name That Note forever across treble, bass, and alto.
@@ -300,7 +301,7 @@ const schema = {
   <section class="s-final">
     <div class="container-narrow">
       <h2>Every fluent reader started with one note.</h2>
-      <p>Available on the App Store for iPhone and iPad. Free Name That Note forever — Unlock Everything $2.99 one-time.</p>
+      <p>Available on the App Store for iPhone. Free Name That Note forever — Unlock Everything $2.99 one-time.</p>
       <AppStoreButton href={appUrlCta} label="Download MusicQuest on the App Store" />
     </div>
   </section>

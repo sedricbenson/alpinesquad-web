@@ -11,6 +11,7 @@ import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
  * Do NOT claim CloudKit / multi-profile / iCloud until binary + privacy labels match.
  * Do NOT link hamcram.com (parked). Ratings 0 — no invented social proof.
  * Screenshots: live iPhone App Store set (iPad set also exists on store).
+ * OG: /images/hamcram-og.png (peers already ship dedicated cards).
  */
 
 const title = 'HamCram — Ham Radio Exam Prep for iPhone & iPad | Pass Your FCC License Test';
@@ -102,6 +103,7 @@ const schema = {
   {title}
   {description}
   {schema}
+  ogImage="/images/hamcram-og.png"
   appName="HamCram"
   appHref="/hamcram"
   appId={APP_IDS.hamCram}
