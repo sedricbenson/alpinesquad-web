@@ -5,39 +5,44 @@ import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 /**
- * MusicQuest — live App Store page.
- * When copy changes: pull from App Store Connect / music-quest release notes.
- * Do not say "Free" — freemium; Unlock Everything is a one-time IAP.
+ * MusicQuest — dedicated product marketing page on the Alpine Squad hub.
+ * Grounded in live App Store listing + itunes lookup (2026-10-07).
+ * Do not invent ratings (0 public). Screenshots from live ASC iPhone set.
  */
 
-const title = 'MusicQuest — Learn to Read Sheet Music | Treble, Bass & Alto Clefs';
+const title = 'MusicQuest — Learn to Read Sheet Music | Treble, Bass & Alto';
 const description =
-  'Note-recognition quizzes across treble, bass, and alto clefs with per-note mastery stats. Music Journey, key signatures, and note values — offline and private on iPhone & iPad. Available on the App Store.';
+  'Learn to read sheet music with MusicQuest. Free Name That Note forever (treble, bass & alto). Music Journey Learn→Drill→Quest — first 3 units free. Unlock Everything $2.99 one-time. No ads, no accounts, no subscription. Available on the App Store.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.musicQuest);
 const appUrlCta = appStoreUrl(APP_IDS.musicQuest, 'web-musicquest');
+const privacyUrl = 'https://sedricbenson.github.io/disclosures/musicquest/privacy.html';
 
 const faqs = [
   {
-    q: 'What does MusicQuest teach?',
-    a: 'Instant note recognition across treble, bass, and alto clefs — the foundation sight-reading demands. Name That Note drills recognition; Music Journey walks Learn → Drill → Quest; Unlock Everything adds Name That Key, Note Values, and later Journey units.',
+    q: 'What is free forever?',
+    a: 'Name That Note — see a note on the staff and identify it across treble, bass, and alto clefs (easy, medium, and hard). It stays included with the download forever.',
   },
   {
-    q: 'Which clefs are included?',
-    a: 'Treble, bass, and alto. Notation is crisp and professionally rendered on every question.',
+    q: 'What is Music Journey?',
+    a: 'A guided path that walks you through note reading one step at a time. Every unit uses the same loop: Learn (piano-style keyboard, no score pressure), Drill (instant-feedback flashcards), then Quest (a short round on what you just learned). The first 3 units are free; units 4+ unlock with Unlock Everything.',
   },
   {
     q: 'What is Unlock Everything?',
-    a: 'A one-time $2.99 in-app purchase (no subscription). It unlocks Name That Key, Note Values, and Music Journey units beyond the first three. Name That Note stays included with the download.',
+    a: 'A one-time $2.99 in-app purchase — never a subscription. It unlocks Name That Key, Note Values, and Music Journey units 4+. Name That Note stays free forever.',
   },
   {
-    q: 'Does it work offline? Is there an account?',
-    a: 'Yes — fully offline. No accounts, no tracking, no ads. Practice data and the Mastery Map stay on your device.',
+    q: 'What is the Mastery Map?',
+    a: 'A color-coded progress view across every note taught so far — built so parents and teachers can see where a student is strong or weak in about 30 seconds.',
+  },
+  {
+    q: 'Does it work offline? Are there ads or accounts?',
+    a: 'Fully offline after download. No accounts, no login, no data collection, no ads. Practice data stays on your device. Privacy policy: ' + privacyUrl,
   },
   {
     q: 'iPhone or iPad?',
-    a: 'Both. Available on the App Store for iPhone and iPad (iOS 17+).',
+    a: 'Available on the App Store for iPhone and iPad (iOS 17+). Product screenshots on this page are from the live iPhone App Store set.',
   },
 ];
 
@@ -47,19 +52,43 @@ const schema = {
     {
       '@type': 'MobileApplication',
       name: 'MusicQuest: Learn Music Theory',
-      operatingSystem: 'iOS',
+      operatingSystem: 'iOS 17+',
       applicationCategory: 'EducationApplication',
       applicationSubCategory: 'Music Education',
       description,
-      url: appUrlClean,
+      url: `${site}/musicquest`,
+      installUrl: appUrlClean,
+      downloadUrl: appUrlClean,
       image: `${site}/images/musicquest-icon.png`,
-      offers: {
-        '@type': 'Offer',
-        price: '0.00',
-        priceCurrency: 'USD',
-        availability: 'https://schema.org/InStock',
-      },
+      screenshot: [
+        `${site}/images/musicquest-home.webp`,
+        `${site}/images/musicquest-gameplay.webp`,
+        `${site}/images/musicquest-feedback.webp`,
+        `${site}/images/musicquest-journey-map.webp`,
+        `${site}/images/musicquest-settings.webp`,
+      ],
+      offers: [
+        {
+          '@type': 'Offer',
+          name: 'MusicQuest download',
+          price: '0.00',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
+          description:
+            'Download includes Name That Note (treble, bass & alto) forever and Music Journey units 1–3.',
+        },
+        {
+          '@type': 'Offer',
+          name: 'Unlock Everything',
+          price: '2.99',
+          priceCurrency: 'USD',
+          category: 'In-app purchase',
+          description:
+            'One-time purchase. Unlocks Name That Key, Note Values, and Music Journey units 4+. No subscription.',
+        },
+      ],
       publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+      privacyPolicy: privacyUrl,
     },
     {
       '@type': 'FAQPage',
@@ -92,78 +121,164 @@ const schema = {
   privacyPath="/musicquest/privacy"
   termsPath="/musicquest/terms"
   contactEmail="support@alpinesquad.com"
+  navLinks={[
+    { label: 'Screenshots', href: '#screenshots' },
+    { label: 'Journey', href: '#journey' },
+    { label: 'Pricing', href: '#pricing' },
+    { label: 'FAQ', href: '#faq' },
+  ]}
 >
   <!-- HERO ----------------------------------------------------------- -->
   <section class="s-hero">
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
     <div class="container s-hero-inner">
       <img class="s-hero-icon" src="/images/musicquest-icon.png" alt="MusicQuest app icon" width="84" height="84" />
-      <p class="s-eyebrow">MusicQuest · iPhone &amp; iPad</p>
+      <p class="s-eyebrow">MusicQuest · Learn Music Theory</p>
       <h1>Read sheet music like you <span class="s-hero-accent">read words</span>.</h1>
       <p class="s-lede">
-        Note-recognition quizzes across treble, bass, and alto clefs build the instant recall
-        sight-reading demands — with per-note mastery stats that show exactly what to practice next.
-        Offline, private, no ads.
+        Note recognition that sticks — Free Name That Note forever across treble, bass, and alto.
+        Music Journey guides Learn → Drill → Quest. Unlock Everything is <strong>$2.99 one-time</strong>
+        — no subscription, no ads, no accounts.
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download MusicQuest on the App Store" />
-        <p class="s-hero-claims">Offline · Private · One-time Unlock Everything</p>
+        <p class="s-hero-claims">Free Name That Note forever · Unlock Everything $2.99 once · Offline &amp; private</p>
       </div>
     </div>
   </section>
 
-  <!-- SCREENSHOTS ------------------------------------------------------ -->
+  <!-- SCREENSHOTS — live App Store iPhone set ------------------------ -->
   <ScreenshotSlots
     eyebrow="In the app"
-    heading="Sight-reading practice on your iPhone."
-    lede="Note quizzes, mastery maps, and progress trends — preview slots ready for App Store screenshots."
+    heading="Real screens from the App Store."
+    lede="Home, Name That Note, instant feedback, Music Journey / Mastery Map, and Settings — the live iPhone screenshot set."
     shots={[
-      { label: 'Note recognition quiz' },
-      { label: 'Per-note mastery' },
-      { label: 'Progress trends' },
+      {
+        src: '/images/musicquest-home.webp',
+        label: 'Home',
+        alt: 'MusicQuest home screen with practice modes',
+      },
+      {
+        src: '/images/musicquest-gameplay.webp',
+        label: 'Name That Note',
+        alt: 'MusicQuest Name That Note quiz with a note on the staff',
+      },
+      {
+        src: '/images/musicquest-feedback.webp',
+        label: 'Instant feedback',
+        alt: 'MusicQuest instant feedback after naming a note',
+      },
+      {
+        src: '/images/musicquest-journey-map.webp',
+        label: 'Journey & Mastery Map',
+        alt: 'MusicQuest Music Journey and Mastery Map progress view',
+      },
+      {
+        src: '/images/musicquest-settings.webp',
+        label: 'Settings',
+        alt: 'MusicQuest settings for appearance and sound',
+      },
     ]}
   />
 
-  <!-- FEATURES --------------------------------------------------------- -->
-  <section class="s-section">
+  <!-- JOURNEY ---------------------------------------------------------- -->
+  <section class="s-section" id="journey">
     <div class="container">
-      <h2 class="s-h2">Practice that knows where you're weak.</h2>
+      <p class="s-eyebrow">Music Journey</p>
+      <h2 class="s-h2">Learn. Drill. Quest.</h2>
       <p class="s-section-lede">
-        Sight-reading is instant recognition, and recognition is built by focused reps — not by
-        re-drilling the notes you already know.
+        Not sure where to start? Music Journey walks you through note reading one small step at a
+        time. Every unit uses the same loop — and the first 3 units are free.
+      </p>
+      <div class="s-modes-grid">
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></div>
+          <h3>Learn</h3>
+          <p>Each new note on a piano-style keyboard. Wrong taps gently point you to the right key — no score pressure.</p>
+        </div>
+        <div class="s-mode-card s-mode-b">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <h3>Drill</h3>
+          <p>Instant-feedback flashcards until it sticks. Hear warm piano samples on every note.</p>
+        </div>
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+          <h3>Quest</h3>
+          <p>A short round limited to what you just learned. Score 80% for a badge; beat Rapid for a bonus star.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THREE MODES + MASTERY -------------------------------------------- -->
+  <section class="s-section-alt">
+    <div class="container">
+      <h2 class="s-h2">Three practice modes. Progress parents can see.</h2>
+      <p class="s-section-lede">
+        Build the instant recall sight-reading demands — then check the Mastery Map when you want
+        the 30-second overview.
       </p>
       <div class="s-feature-grid">
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="18" r="3"></circle><path d="M11 18V4l8-2v13"></path><circle cx="16" cy="15" r="3"></circle></svg></div>
-          <h4>Three clefs</h4>
-          <p>Treble, bass, and alto — crisp, professionally rendered notation on every question.</p>
+          <h4>Name That Note — free forever</h4>
+          <p>See a note on the staff and identify it. Treble, bass, and alto; easy, medium, and hard. Included with the download forever.</p>
         </div>
         <div class="s-feature">
-          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <h4>Quiz-driven recognition</h4>
-          <p>See a note, name it, get instant feedback. Multiple choice keeps rounds fast and frictionless.</p>
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20"></path><path d="M8 6h8"></path><path d="M8 10h8"></path><path d="M8 14h5"></path></svg></div>
+          <h4>Name That Key</h4>
+          <p>Recognize key signatures — sharps and flats — at a glance. Unlocks with Unlock Everything.</p>
         </div>
         <div class="s-feature">
-          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
-          <h4>Per-note mastery</h4>
-          <p>See exactly which notes you've mastered and which need work — down to the individual note.</p>
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          <h4>Note Values</h4>
+          <p>Master note and rest durations: whole, half, quarter, eighth, sixteenth (plus dotted and 32nd as you advance).</p>
         </div>
         <div class="s-feature">
-          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
-          <h4>Progress trends</h4>
-          <p>Accuracy over time, session history, totals — watch the graph climb as recognition gets automatic.</p>
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg></div>
+          <h4>Mastery Map</h4>
+          <p>Color-coded progress across every note taught so far — for students, parents, and teachers.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></div>
+          <h4>Real piano samples</h4>
+          <p>Sound starts on — hear notes, keys, and durations. Listen on every Learn card. Mute anytime in Settings.</p>
         </div>
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
-          <h4>Private by design</h4>
-          <p>No accounts, no tracking. Your practice data stays on your device.</p>
-        </div>
-        <div class="s-feature">
-          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path><path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg></div>
-          <h4>Fully offline</h4>
-          <p>Practice on the bus, backstage, anywhere. No connection needed, ever.</p>
+          <h4>Privacy-first</h4>
+          <p>No account, no login, no data collection, no ads. Everything stays on your device.
+            <a href={privacyUrl}>Privacy policy</a> ·
+            <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a></p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- PRICING ---------------------------------------------------------- -->
+  <section class="s-section" id="pricing">
+    <div class="container-narrow">
+      <p class="s-eyebrow">Pricing</p>
+      <h2 class="s-h2">Honest freemium. One unlock. No subscription.</h2>
+      <p class="s-section-lede">
+        Download MusicQuest on the App Store. Name That Note is free forever. Music Journey’s first
+        3 units are free. When you’re ready for more, Unlock Everything is a single
+        <span class="s-price" style="font-size:1.15em;display:inline">$2.99</span> purchase.
+      </p>
+      <ul class="mq-price-list">
+        <li><strong>Included forever:</strong> Name That Note (treble, bass &amp; alto)</li>
+        <li><strong>Included:</strong> Music Journey units 1–3</li>
+        <li><strong>Unlock Everything — $2.99 once:</strong> Name That Key, Note Values, Journey units 4+</li>
+        <li><strong>Never:</strong> subscription, ads, or account wall</li>
+      </ul>
+      <div class="s-hero-cta" style="margin-top:28px">
+        <AppStoreButton href={appUrlCta} label="Download MusicQuest on the App Store" />
+      </div>
+      <p class="s-price-note" style="margin-top:16px">
+        Questions? <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a> ·
+        <a href={privacyUrl}>Privacy</a> ·
+        <a href="/musicquest/terms">Terms</a>
+      </p>
     </div>
   </section>
 
@@ -185,8 +300,21 @@ const schema = {
   <section class="s-final">
     <div class="container-narrow">
       <h2>Every fluent reader started with one note.</h2>
-      <p>Available on the App Store for iPhone and iPad.</p>
+      <p>Available on the App Store for iPhone and iPad. Free Name That Note forever — Unlock Everything $2.99 one-time.</p>
       <AppStoreButton href={appUrlCta} label="Download MusicQuest on the App Store" />
     </div>
   </section>
 </AppShell>
+
+<style>
+  .mq-price-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.7;
+    max-width: 52ch;
+  }
+  .mq-price-list li { margin: 0.35rem 0; }
+  .mq-price-list strong { color: var(--ink); font-weight: 600; }
+</style>
