@@ -4,9 +4,9 @@ import AppStoreButton from '../../components/AppStoreButton.astro';
 import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
-const title = 'Untangle Dots — Calm Knot Puzzle for iPhone & iPad | Available on the App Store';
+const title = 'Untangle Dots — Calm Knot Puzzle for iPhone | Available on the App Store';
 const description =
-  'A calm knot puzzle: drag the dots until no two lines cross. Every board is solvable. Daily puzzle, no ads pressure. Available on the App Store for iPhone & iPad.';
+  'A calm knot puzzle: drag the dots until no two lines cross. Every board is solvable. Daily puzzle, no ads pressure. Available on the App Store for iPhone.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.untangleDots);
@@ -60,7 +60,7 @@ const schema = {
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
     <div class="container s-hero-inner">
       <img class="s-hero-icon" src="/images/untangle-dots-icon.png" alt="Untangle Dots app icon" width="84" height="84" />
-      <p class="s-eyebrow">Untangle Dots · iPhone &amp; iPad</p>
+      <p class="s-eyebrow">Untangle Dots · iPhone</p>
       <h1>Drag the knots <span class="s-hero-accent">apart</span>.</h1>
       <p class="s-lede">
         Every board starts as a tangled web of dots and lines. Drag the dots until no two lines
@@ -77,12 +77,34 @@ const schema = {
   <!-- SCREENSHOTS ------------------------------------------------------ -->
   <ScreenshotSlots
     eyebrow="In the app"
-    heading="Calm knots, clear lines."
-    lede="Drag dots until nothing crosses — preview slots ready for App Store screenshots."
+    heading="Real screens from the App Store."
+    lede="Home, board, result, levels, and Settings — the live iPhone screenshot set."
     shots={[
-      { label: 'Tangled board' },
-      { label: 'Dragging dots' },
-      { label: 'Solved layout' },
+      {
+        src: '/images/untangle-dots-home.webp',
+        label: 'Home',
+        alt: 'Untangle Dots home screen',
+      },
+      {
+        src: '/images/untangle-dots-board.webp',
+        label: 'Board',
+        alt: 'Untangle Dots tangled board in play',
+      },
+      {
+        src: '/images/untangle-dots-result.webp',
+        label: 'Solved',
+        alt: 'Untangle Dots solved layout result',
+      },
+      {
+        src: '/images/untangle-dots-levels.webp',
+        label: 'Levels',
+        alt: 'Untangle Dots level path',
+      },
+      {
+        src: '/images/untangle-dots-settings.webp',
+        label: 'Settings',
+        alt: 'Untangle Dots settings',
+      },
     ]}
   />
 
@@ -121,7 +143,7 @@ const schema = {
   <section class="s-final">
     <div class="container-narrow">
       <h2>Untangle today's knot.</h2>
-      <p>Available on the App Store for iPhone and iPad.</p>
+      <p>Available on the App Store for iPhone.</p>
       <AppStoreButton href={appUrlCta} label="Download Untangle Dots on the App Store" />
     </div>
   </section>

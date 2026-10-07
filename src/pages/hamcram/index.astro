@@ -5,41 +5,47 @@ import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 /**
- * HamCram — marketing page. Copy sourced from ham-cram/fastlane/metadata.
- *
- * Maintenance contract:
- *   - Price change → search "$9.99"
- *   - New question pool → search "Technician (2026–2030)"
+ * HamCram — full product marketing page on the Alpine Squad hub.
+ * Grounded in live App Store listing + itunes lookup (2026-10-07).
+ * Public: paid $9.99 once, version 1.0.2, Data Not Collected, study data on device.
+ * Do NOT claim CloudKit / multi-profile / iCloud until binary + privacy labels match.
+ * Do NOT link hamcram.com (parked). Ratings 0 — no invented social proof.
+ * Screenshots: live iPhone App Store set (iPad set also exists on store).
  */
 
 const title = 'HamCram — Ham Radio Exam Prep for iPhone & iPad | Pass Your FCC License Test';
 const description =
-  'Pass your FCC amateur radio exam the first time. HamCram drills the real NCVEC question pools — Technician and General — with flashcards, quizzes, and full 35-question practice exams. $9.99 once, no ads, no subscriptions.';
+  'Pass your FCC amateur radio exam the first time. HamCram drills the real NCVEC question pools — Technician and General — with Learn, flashcards, quizzes, and full 35-question practice exams (pass at 26). $9.99 once, no ads, no accounts. Available on the App Store.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.hamCram);
 const appUrlCta = appStoreUrl(APP_IDS.hamCram, 'web-hamcram');
+const privacyUrl = 'https://sedricbenson.github.io/disclosures/hamcram/privacy.html';
 
 const faqs = [
   {
     q: 'Which license exams does HamCram cover?',
-    a: 'Technician (2026–2030 pool) and General (2023–2027 pool). Both are the complete, current NCVEC question pools — every question, every answer, every figure — parsed straight from the official source, so nothing on test day is a surprise.',
+    a: 'Technician (valid through June 2030) and General (valid through June 2027). Both are the complete, current NCVEC question pools — every question, every answer, every figure — parsed straight from the official source. Amateur Extra is planned for a future update (no date yet).',
   },
   {
     q: 'Are these the real exam questions?',
-    a: 'Yes. FCC amateur radio exams are built from published NCVEC question pools, and HamCram uses exactly those pools. The questions you drill are the questions you can be asked.',
+    a: 'Yes. FCC amateur radio exams are built from published NCVEC question pools, and HamCram uses exactly those pools. The questions you drill are the questions you can be asked. Pools are public domain via the NCVEC Question Pool Committee.',
   },
   {
     q: 'How do practice exams work?',
-    a: 'A full 35-question simulation drawn the same way the real exam is, scored just like the real thing — pass at 26. Quizzes come in 10, 25, 50, or 100-question sizes with instant feedback when you want shorter sessions.',
+    a: 'A full 35-question simulation scored just like the real exam — pass at 26. Quizzes come in 10, 25, 50, or 100-question sizes with instant feedback when you want shorter sessions. Weak-spot review surfaces the questions you keep missing; mastery tracking shows progress by subelement.',
   },
   {
-    q: 'Does it sync between devices?',
-    a: 'Yes — progress is CloudKit-synced across your devices, and multiple profiles are supported, so two people can study for different licenses on a shared iPad.',
+    q: 'Does my study data leave my device?',
+    a: 'No. No account required. No ads. Your study data stays on your device. Privacy nutrition label: Data Not Collected. Policy: ' + privacyUrl,
   },
   {
-    q: 'Is there a subscription?',
-    a: 'No. HamCram is $9.99 once. No ads, no subscription, no in-app purchases nagging you mid-study.',
+    q: 'Is there a subscription or in-app purchase?',
+    a: 'No. HamCram is a $9.99 one-time App Store purchase. No subscription, no IAP, no ads interrupting study.',
+  },
+  {
+    q: 'iPhone or iPad? What iOS version?',
+    a: 'Available on the App Store for iPhone and iPad (universal). Requires iOS / iPadOS 26.0+. Product screenshots on this page are from the live iPhone App Store set; iPad screenshots are also on the store listing.',
   },
 ];
 
@@ -49,19 +55,32 @@ const schema = {
     {
       '@type': 'MobileApplication',
       name: 'Ham Radio Exam Prep: HamCram',
-      operatingSystem: 'iOS',
+      operatingSystem: 'iOS 26+, iPadOS 26+',
       applicationCategory: 'EducationApplication',
       applicationSubCategory: 'Exam Preparation',
       description,
-      url: appUrlClean,
+      url: `${site}/hamcram`,
+      installUrl: appUrlClean,
+      downloadUrl: appUrlClean,
       image: `${site}/images/hamcram-icon.png`,
+      screenshot: [
+        `${site}/images/hamcram-home.webp`,
+        `${site}/images/hamcram-stats.webp`,
+        `${site}/images/hamcram-exam.webp`,
+        `${site}/images/hamcram-flashcards.webp`,
+        `${site}/images/hamcram-quiz.webp`,
+      ],
       offers: {
         '@type': 'Offer',
+        name: 'HamCram',
         price: '9.99',
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
+        description:
+          'One-time App Store purchase. Technician and General NCVEC pools, Learn, flashcards, quizzes, and 35-question practice exams. No subscription, no IAP, no ads.',
       },
       publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+      privacyPolicy: privacyUrl,
     },
     {
       '@type': 'FAQPage',
@@ -93,21 +112,28 @@ const schema = {
   privacyPath="/hamcram/privacy"
   termsPath="/hamcram/terms"
   contactEmail="support@alpinesquad.com"
+  navLinks={[
+    { label: 'Screenshots', href: '#screenshots' },
+    { label: 'Study modes', href: '#modes' },
+    { label: 'Pricing', href: '#pricing' },
+    { label: 'FAQ', href: '#faq' },
+  ]}
 >
   <!-- HERO ----------------------------------------------------------- -->
   <section class="s-hero">
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
     <div class="container s-hero-inner">
       <img class="s-hero-icon" src="/images/hamcram-icon.png" alt="HamCram app icon" width="84" height="84" />
-      <p class="s-eyebrow">HamCram · iPhone &amp; iPad</p>
+      <p class="s-eyebrow">HamCram · Ham Radio Exam Prep · iPhone &amp; iPad</p>
       <h1>Pass your ham radio exam, <span class="s-hero-accent">the first time</span>.</h1>
       <p class="s-lede">
         Drill the exact NCVEC question pools the real FCC exam is built from — Technician and
-        General. Flashcards, quizzes, and full practice exams scored just like test day.
+        General. Learn, flashcards, quizzes, and full practice exams scored just like test day.
+        <strong>$9.99 one-time</strong> — no subscription, no ads, no account.
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download HamCram on the App Store" />
-        <p class="s-hero-claims">$9.99 once · No ads · No subscription</p>
+        <p class="s-hero-claims">$9.99 once · No ads · No accounts · Study data on device</p>
       </div>
 
       <div class="s-stat-strip">
@@ -119,32 +145,54 @@ const schema = {
     </div>
   </section>
 
-
-  <!-- SCREENSHOTS ------------------------------------------------------ -->
+  <!-- SCREENSHOTS — live App Store iPhone set ------------------------ -->
   <ScreenshotSlots
     eyebrow="In the app"
-    heading="Study the real question pools."
-    lede="Flashcards, quizzes, and full practice exams — preview slots ready for App Store screenshots."
+    heading="Real screens from the App Store."
+    lede="Home, stats, practice exam, flashcards, and quiz — the live iPhone screenshot set. iPad screenshots are also on the App Store listing."
     shots={[
-      { label: 'Practice exam' },
-      { label: 'Flashcards' },
-      { label: 'Quiz feedback' },
+      {
+        src: '/images/hamcram-home.webp',
+        label: 'Home',
+        alt: 'HamCram home screen with Technician and General study options',
+      },
+      {
+        src: '/images/hamcram-stats.webp',
+        label: 'Stats & mastery',
+        alt: 'HamCram mastery tracking and study stats by subelement',
+      },
+      {
+        src: '/images/hamcram-exam.webp',
+        label: 'Practice exam',
+        alt: 'HamCram 35-question practice exam simulation',
+      },
+      {
+        src: '/images/hamcram-flashcards.webp',
+        label: 'Flashcards',
+        alt: 'HamCram flashcards for NCVEC question pools',
+      },
+      {
+        src: '/images/hamcram-quiz.webp',
+        label: 'Quiz',
+        alt: 'HamCram quiz with instant feedback',
+      },
     ]}
   />
 
-  <!-- WHY ------------------------------------------------------------- -->
-  <section class="s-section">
+  <!-- STUDY MODES ------------------------------------------------------ -->
+  <section class="s-section" id="modes">
     <div class="container">
+      <p class="s-eyebrow">Study modes</p>
       <h2 class="s-h2">Study the questions you'll actually be asked.</h2>
       <p class="s-section-lede">
-        FCC exams are built from published question pools. HamCram gives you exactly those pools —
+        FCC exams are built from published NCVEC pools. HamCram gives you exactly those pools —
         so every minute of studying counts toward test day.
       </p>
       <div class="s-feature-grid">
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
-          <h4>Real questions</h4>
-          <p>The complete, current NCVEC pools — Technician (2026–2030) and General (2023–2027) — every question, answer, and figure.</p>
+          <h4>Real NCVEC pools</h4>
+          <p>Technician (through June 2030) and General (through June 2027) — every question, answer, and figure from the official source.</p>
         </div>
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
@@ -167,23 +215,49 @@ const schema = {
           <p>A 35-question simulation scored exactly like the real thing — pass at 26. Know you're ready before you book the session.</p>
         </div>
         <div class="s-feature">
-          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-          <h4>Multi-profile + iCloud sync</h4>
-          <p>Progress syncs across your devices via CloudKit, and multiple profiles mean the whole family can study on one iPad.</p>
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg></div>
+          <h4>Weak spots &amp; mastery</h4>
+          <p>Surfaces the questions you keep missing and tracks progress by subelement so you know what's left.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></div>
+          <h4>iPhone &amp; iPad</h4>
+          <p>Portrait or landscape, light and dark. Universal app — screenshots above are the iPhone set; iPad set is on the store.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <h4>On-device &amp; private</h4>
+          <p>No account, no ads, no tracking. Study data stays on your device. Privacy: Data Not Collected.
+            <a href={privacyUrl}>Privacy policy</a> ·
+            <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PRICING ---------------------------------------------------------- -->
-  <section class="s-section-alt">
+  <section class="s-section-alt" id="pricing">
     <div class="container-narrow">
-      <p class="eyebrow" style="color: var(--s-accent-deep)">Pricing</p>
+      <p class="s-eyebrow">Pricing</p>
       <h2 class="s-h2">Pay once. Study until you pass.</h2>
       <p class="s-price">$9.99</p>
-      <p class="s-price-note">
-        One-time purchase — a fraction of an exam-session retake fee. No ads interrupting your
-        study, no subscription, nothing else to buy.
+      <p class="s-section-lede">
+        One-time App Store purchase — a fraction of an exam-session retake fee. No ads interrupting
+        your study, no subscription, no in-app purchases.
+      </p>
+      <ul class="mq-price-list">
+        <li><strong>Included:</strong> Technician + General NCVEC pools (complete)</li>
+        <li><strong>Included:</strong> Learn, flashcards, quizzes, 35-question practice exams</li>
+        <li><strong>Included:</strong> Weak-spot review and mastery by subelement</li>
+        <li><strong>Never:</strong> subscription, IAP, ads, or account wall</li>
+      </ul>
+      <div class="s-hero-cta" style="margin-top:28px">
+        <AppStoreButton href={appUrlCta} label="Download HamCram on the App Store" />
+      </div>
+      <p class="s-price-note" style="margin-top:16px">
+        Questions? <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a> ·
+        <a href={privacyUrl}>Privacy</a> ·
+        <a href="/hamcram/terms">Terms</a>
       </p>
     </div>
   </section>
@@ -191,7 +265,7 @@ const schema = {
   <!-- FAQ --------------------------------------------------------------- -->
   <section class="s-faq" id="faq">
     <div class="container-narrow">
-      <p class="eyebrow" style="color: var(--s-accent-deep)">Frequently asked</p>
+      <p class="s-eyebrow">Frequently asked</p>
       <h2 class="s-h2">The short answers.</h2>
       {faqs.map((f) => (
         <details class="s-faq-item">
@@ -206,8 +280,21 @@ const schema = {
   <section class="s-final">
     <div class="container-narrow">
       <h2>Your callsign is waiting.</h2>
-      <p>Study the real pools, pass the first time, get on the air.</p>
+      <p>Available on the App Store for iPhone and iPad. $9.99 once — study the real pools, pass the first time.</p>
       <AppStoreButton href={appUrlCta} label="Download HamCram on the App Store" />
     </div>
   </section>
 </AppShell>
+
+<style>
+  .mq-price-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.7;
+    max-width: 52ch;
+  }
+  .mq-price-list li { margin: 0.35rem 0; }
+  .mq-price-list strong { color: var(--ink); font-weight: 600; }
+</style>

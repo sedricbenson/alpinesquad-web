@@ -9,7 +9,7 @@ import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
  * Copy from App Store listing / scratchy APPSTORE_METADATA.
  */
 
-const title = 'Scratchy — Scratch & Guess Game for iPhone & iPad | Available on the App Store';
+const title = 'Scratchy — Scratch & Guess Game for iPhone | Available on the App Store';
 const description =
   'Scratch away to reveal a hidden picture — then guess what it is before the clock runs out. Daily challenges, collections, achievements. A fast, satisfying guessing game for all ages. Available on the App Store.';
 
@@ -66,7 +66,7 @@ const schema = {
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
     <div class="container s-hero-inner">
       <img class="s-hero-icon" src="/images/scratchy-icon.png" alt="Scratchy app icon" width="84" height="84" />
-      <p class="s-eyebrow">Scratchy · iPhone &amp; iPad</p>
+      <p class="s-eyebrow">Scratchy · iPhone</p>
       <h1>Scratch. Reveal. <span class="s-hero-accent">Guess.</span></h1>
       <p class="s-lede">
         Drag your finger to scratch off the cover, watch the picture appear, and lock in your
@@ -83,12 +83,39 @@ const schema = {
   <!-- SCREENSHOTS ------------------------------------------------------ -->
   <ScreenshotSlots
     eyebrow="In the app"
-    heading="Scratch, reveal, guess."
-    lede="Quick rounds of scratch-and-guess — preview slots ready for App Store screenshots."
+    heading="Real screens from the App Store."
+    lede="Gameplay, home, categories, result, daily puzzle, and unlock — the live iPhone screenshot set."
     shots={[
-      { label: 'Scratch to reveal' },
-      { label: 'Guess the picture' },
-      { label: 'Daily challenge' },
+      {
+        src: '/images/scratchy-gameplay.webp',
+        label: 'Scratch to reveal',
+        alt: 'Scratchy gameplay scratching to reveal a hidden picture',
+      },
+      {
+        src: '/images/scratchy-home.webp',
+        label: 'Home',
+        alt: 'Scratchy home screen',
+      },
+      {
+        src: '/images/scratchy-category.webp',
+        label: 'Categories',
+        alt: 'Scratchy category selection',
+      },
+      {
+        src: '/images/scratchy-result.webp',
+        label: 'Result',
+        alt: 'Scratchy round result screen',
+      },
+      {
+        src: '/images/scratchy-daily.webp',
+        label: 'Daily puzzle',
+        alt: 'Scratchy daily puzzle challenge',
+      },
+      {
+        src: '/images/scratchy-paywall.webp',
+        label: 'Unlock',
+        alt: 'Scratchy unlock options',
+      },
     ]}
   />
 
@@ -139,7 +166,7 @@ const schema = {
   <section class="s-final">
     <div class="container-narrow">
       <h2>How many can you guess?</h2>
-      <p>Available on the App Store for iPhone and iPad.</p>
+      <p>Available on the App Store for iPhone.</p>
       <AppStoreButton href={appUrlCta} label="Download Scratchy on the App Store" />
     </div>
   </section>

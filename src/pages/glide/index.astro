@@ -4,18 +4,26 @@ import AppStoreButton from '../../components/AppStoreButton.astro';
 import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
-const title = 'Glide — Ice Path Puzzle for iPhone & iPad | No Outer Walls';
+/**
+ * Glide — Ice Path Puzzle product marketing page on the Alpine Squad hub.
+ * Grounded in live App Store listing + itunes lookup (2026-10-07).
+ * Public App Store: Only for iPhone / 0 iPad screenshots — do not claim iPad.
+ * Ratings 0 — no invented social proof. Screenshots from live ASC iPhone set.
+ */
+
+const title = 'Glide — Ice Path Puzzle for iPhone | No Outer Walls';
 const description =
-  'Ice-slide path puzzles with no outer walls. Swipe to glide — the ball flies until a block stops it, or it rolls off the edge. Daily challenge; every board solvable. Available on the App Store.';
+  'Ice-slide puzzles with no outer walls. Swipe until a block stops you — or fall and cost a glide. Daily Puzzle always free. 200-level path; first 3 free. Unlock all levels $2.99 one-time. No ads, no accounts. Available on the App Store for iPhone.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.glide);
 const appUrlCta = appStoreUrl(APP_IDS.glide, 'web-glide');
+const privacyUrl = 'https://sedricbenson.github.io/disclosures/glide/privacy.html';
 
 const faqs = [
   {
     q: 'How does Glide work?',
-    a: 'Swipe to send the ball sliding on ice. It keeps moving until a block stops it — or it flies off the edge. Plan the path, then commit. Reach the goal in as few glides as you can.',
+    a: 'Swipe to send the ball sliding on ice. It keeps moving until a block stops it — or it flies off the edge and costs you a glide. Plan the path, then commit. Reach the goal in as few glides as you can.',
   },
   {
     q: 'Why no outer walls?',
@@ -23,15 +31,23 @@ const faqs = [
   },
   {
     q: 'Is every puzzle solvable?',
-    a: 'Yes. Each board has a guaranteed route to the goal. Stuck? Tap Undo — no forced restarts.',
+    a: 'Yes. Each board has a guaranteed route to the goal. Stuck? Tap Undo — no forced restarts, no dead ends you cannot escape.',
   },
   {
-    q: 'Is there a daily challenge?',
-    a: 'Yes. A fresh ice path every day — the same board for everyone. Private and offline; progress stays on your device.',
+    q: 'What is free?',
+    a: 'The Daily Puzzle is always free — a short 6×6 ice maze, the same board for everyone, with streak and a spoiler-free share card. The 200-level path’s first 3 levels are free. Unlock all levels is a $2.99 one-time in-app purchase (never a subscription).',
+  },
+  {
+    q: 'What is the 200-level path?',
+    a: 'Foothills → Ice Shelf → Summit → Sky — bigger boards and longer routes as you climb. First three levels free; unlock the rest with Unlock all levels ($2.99 once). The Daily Puzzle stays free either way.',
+  },
+  {
+    q: 'Does it work offline? Are there ads or accounts?',
+    a: 'Fully offline after download. No accounts, no login, no tracking, no data collection, no ads. Progress stays on your device. Privacy: ' + privacyUrl,
   },
   {
     q: 'iPhone or iPad?',
-    a: 'Both. Available on the App Store for iPhone and iPad.',
+    a: 'Available on the App Store for iPhone (iOS 17+). The public listing is iPhone-only; product screenshots on this page are from the live iPhone App Store set.',
   },
 ];
 
@@ -41,19 +57,43 @@ const schema = {
     {
       '@type': 'MobileApplication',
       name: 'Glide - Ice Path Puzzle',
-      operatingSystem: 'iOS',
+      operatingSystem: 'iOS 17+',
       applicationCategory: 'GameApplication',
       applicationSubCategory: 'Puzzle',
       description,
-      url: appUrlClean,
+      url: `${site}/glide`,
+      installUrl: appUrlClean,
+      downloadUrl: appUrlClean,
       image: `${site}/images/glide-icon.png`,
-      offers: {
-        '@type': 'Offer',
-        price: '0.00',
-        priceCurrency: 'USD',
-        availability: 'https://schema.org/InStock',
-      },
+      screenshot: [
+        `${site}/images/glide-home.webp`,
+        `${site}/images/glide-board.webp`,
+        `${site}/images/glide-mid-solve.webp`,
+        `${site}/images/glide-win.webp`,
+        `${site}/images/glide-settings.webp`,
+      ],
+      offers: [
+        {
+          '@type': 'Offer',
+          name: 'Glide download',
+          price: '0.00',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
+          description:
+            'Download includes Daily Puzzle (always free) and the first 3 levels of the 200-level path.',
+        },
+        {
+          '@type': 'Offer',
+          name: 'Unlock all levels',
+          price: '2.99',
+          priceCurrency: 'USD',
+          category: 'In-app purchase',
+          description:
+            'One-time purchase. Unlocks the full 200-level path (Foothills → Ice Shelf → Summit → Sky). Daily Puzzle stays free. No subscription.',
+        },
+      ],
       publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+      privacyPolicy: privacyUrl,
     },
     {
       '@type': 'FAQPage',
@@ -86,49 +126,80 @@ const schema = {
   privacyPath="/glide/privacy"
   termsPath="/glide/terms"
   contactEmail="support@alpinesquad.com"
+  navLinks={[
+    { label: 'Screenshots', href: '#screenshots' },
+    { label: 'Daily', href: '#daily' },
+    { label: 'Path', href: '#path' },
+    { label: 'Pricing', href: '#pricing' },
+    { label: 'FAQ', href: '#faq' },
+  ]}
 >
+  <!-- HERO ----------------------------------------------------------- -->
   <section class="s-hero">
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
     <div class="container s-hero-inner">
       <img class="s-hero-icon" src="/images/glide-icon.png" alt="Glide app icon" width="84" height="84" />
-      <p class="s-eyebrow">Glide · iPhone &amp; iPad</p>
+      <p class="s-eyebrow">Glide · Ice Path Puzzle · iPhone</p>
       <h1>Slide on ice. <span class="s-hero-accent">No walls.</span></h1>
       <p class="s-lede">
         One swipe and the ball flies until a block stops it — or it rolls off the edge, shatters,
-        and costs you a glide. Reach the goal in as few moves as you can. Daily challenge; every
-        board solvable.
+        and costs you a glide. Minimize your glide count. Daily Puzzle always free.
+        Unlock all levels is <strong>$2.99 one-time</strong> — no subscription, no ads, no accounts.
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download Glide on the App Store" />
-        <p class="s-hero-claims">Daily puzzle · Every board solvable · Offline</p>
+        <p class="s-hero-claims">Daily free · First 3 path levels free · Unlock all $2.99 once · Offline</p>
       </div>
     </div>
   </section>
 
-  <!-- SCREENSHOTS ------------------------------------------------------ -->
+  <!-- SCREENSHOTS — live App Store iPhone set ------------------------ -->
   <ScreenshotSlots
     eyebrow="In the app"
-    heading="Ice paths with real stakes."
-    lede="Plan the glide, dodge the edge, beat the daily board — preview slots ready for App Store screenshots."
+    heading="Real screens from the App Store."
+    lede="Home, ice board, mid-solve, win, and Settings — the live iPhone screenshot set."
     shots={[
-      { label: 'Ice path puzzle' },
-      { label: 'Daily challenge' },
-      { label: 'Goal in fewest glides' },
+      {
+        src: '/images/glide-home.webp',
+        label: 'Home',
+        alt: 'Glide home screen with Daily Puzzle and level path',
+      },
+      {
+        src: '/images/glide-board.webp',
+        label: 'Ice board',
+        alt: 'Glide ice path puzzle board with no outer walls',
+      },
+      {
+        src: '/images/glide-mid-solve.webp',
+        label: 'Mid-solve',
+        alt: 'Glide puzzle in progress mid-solve',
+      },
+      {
+        src: '/images/glide-win.webp',
+        label: 'Win',
+        alt: 'Glide puzzle completed with glide count',
+      },
+      {
+        src: '/images/glide-settings.webp',
+        label: 'Settings',
+        alt: 'Glide settings screen',
+      },
     ]}
   />
 
+  <!-- HOW IT PLAYS ----------------------------------------------------- -->
   <section class="s-section">
     <div class="container">
       <h2 class="s-h2">Calm ice puzzles with real stakes.</h2>
       <p class="s-section-lede">
         No outer walls means every glide can fly off the edge. Undo is always there — no restarts,
-        no dead ends you can't escape.
+        no dead ends you cannot escape. Every board is solvable.
       </p>
       <div class="s-feature-grid">
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg></div>
           <h4>Swipe to glide</h4>
-          <p>The ball keeps moving until something stops it. Plan the path, then commit.</p>
+          <p>The ball keeps moving until a block stops it — or it falls off. Plan the path, then commit.</p>
         </div>
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
@@ -136,16 +207,104 @@ const schema = {
           <p>Each board has a guaranteed route to the goal. Stuck in a corner? Tap Undo.</p>
         </div>
         <div class="s-feature">
-          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
-          <h4>Daily challenge</h4>
-          <p>A fresh ice path every day — the same board for everyone, everywhere.</p>
-        </div>
-        <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
           <h4>Private &amp; offline</h4>
-          <p>Play without accounts or trackers. Progress stays on your device.</p>
+          <p>No ads, no accounts, no tracking, no data collection. Plays fully offline.
+            <a href={privacyUrl}>Privacy</a> ·
+            <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a></p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          <h4>Minimize glides</h4>
+          <p>Reach the goal in as few moves as you can. Fall off the edge and that glide still counts.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- DAILY ------------------------------------------------------------ -->
+  <section class="s-section-alt" id="daily">
+    <div class="container">
+      <p class="s-eyebrow">Daily Puzzle</p>
+      <h2 class="s-h2">Same 6×6 for everyone. Always free.</h2>
+      <p class="s-section-lede">
+        A fresh short ice maze every day — the same board worldwide. Solve it in as few glides as
+        you can, build a streak, and share a spoiler-free card. The Daily stays free whether or not
+        you unlock the path.
+      </p>
+      <div class="s-modes-grid">
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+          <h3>Daily board</h3>
+          <p>One 6×6 ice maze per day. Same puzzle for everyone — compare glide counts without spoilers.</p>
+        </div>
+        <div class="s-mode-card s-mode-b">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg></div>
+          <h3>Streak</h3>
+          <p>Come back tomorrow. Keep the streak alive — no account wall, progress on device.</p>
+        </div>
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg></div>
+          <h3>Spoiler-free share</h3>
+          <p>Share a card that does not give away the path — brag about the glide count, not the solution.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 200-LEVEL PATH --------------------------------------------------- -->
+  <section class="s-section" id="path">
+    <div class="container">
+      <p class="s-eyebrow">200-level path</p>
+      <h2 class="s-h2">Foothills → Ice Shelf → Summit → Sky.</h2>
+      <p class="s-section-lede">
+        Bigger boards and longer routes as you climb. The first three levels are free; unlock the
+        rest with a single one-time purchase. The Daily Puzzle is always free either way.
+      </p>
+      <div class="s-modes-grid">
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18"></path><path d="M5 20V12l4-3 4 2 4-4 2 3v10"></path></svg></div>
+          <h3>Foothills</h3>
+          <p>Learn the no-walls feel on smaller ice. First three levels included with the download.</p>
+        </div>
+        <div class="s-mode-card s-mode-b">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"></polygon></svg></div>
+          <h3>Ice Shelf &amp; Summit</h3>
+          <p>Wider mazes, tighter corridors, longer routes — still always solvable with Undo.</p>
+        </div>
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg></div>
+          <h3>Sky</h3>
+          <p>The top of the path — the longest slides. Unlock all levels to climb the full 200.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING ---------------------------------------------------------- -->
+  <section class="s-section-alt" id="pricing">
+    <div class="container-narrow">
+      <p class="s-eyebrow">Pricing</p>
+      <h2 class="s-h2">Honest freemium. One unlock. No subscription.</h2>
+      <p class="s-section-lede">
+        Download Glide on the App Store. Daily Puzzle is always free. The path’s first 3 levels are
+        free. When you’re ready for the rest, Unlock all levels is a single
+        <span class="s-price" style="font-size:1.15em;display:inline">$2.99</span> purchase.
+      </p>
+      <ul class="mq-price-list">
+        <li><strong>Always free:</strong> Daily Puzzle (6×6, streak, spoiler-free share)</li>
+        <li><strong>Included:</strong> First 3 levels of the 200-level path</li>
+        <li><strong>Unlock all levels — $2.99 once:</strong> Full path (Foothills → Ice Shelf → Summit → Sky)</li>
+        <li><strong>Never:</strong> subscription, ads, or account wall</li>
+      </ul>
+      <div class="s-hero-cta" style="margin-top:28px">
+        <AppStoreButton href={appUrlCta} label="Download Glide on the App Store" />
+      </div>
+      <p class="s-price-note" style="margin-top:16px">
+        Questions? <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a> ·
+        <a href={privacyUrl}>Privacy</a> ·
+        <a href="/glide/terms">Terms</a>
+      </p>
     </div>
   </section>
 
@@ -163,11 +322,25 @@ const schema = {
     </div>
   </section>
 
+  <!-- FINAL ------------------------------------------------------------- -->
   <section class="s-final">
     <div class="container-narrow">
       <h2>How few glides can you take?</h2>
-      <p>Available on the App Store for iPhone and iPad.</p>
+      <p>Available on the App Store for iPhone. Daily Puzzle always free — Unlock all levels $2.99 one-time.</p>
       <AppStoreButton href={appUrlCta} label="Download Glide on the App Store" />
     </div>
   </section>
 </AppShell>
+
+<style>
+  .mq-price-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.7;
+    max-width: 52ch;
+  }
+  .mq-price-list li { margin: 0.35rem 0; }
+  .mq-price-list strong { color: var(--ink); font-weight: 600; }
+</style>
