@@ -4,15 +4,40 @@ import ComingSoonBadge from '../../components/ComingSoonBadge.astro';
 import { breadcrumbList } from '../../lib/seo';
 
 /**
- * Pianotune — coming-soon page. Copy from piano-tuner/fastlane/metadata.
+ * Pianotune — coming-soon page. Copy grounded in piano-tuner/fastlane/metadata.
  * When it ships: add appId="6772577552" + appStoreUrl and swap the badge.
+ * Differentiate from unrelated tuner apps (e.g. Pianoscope) — do not 1:1 match competitors.
+ * No Download CTA until Ready.
  */
 
 const title = 'Pianotune — Pro Piano Tuner for iPhone & iPad | Coming Soon';
 const description =
-  'Professional-grade piano tuning on iOS: full 88-key inharmonicity sampling, Railsback stretch curves, pitch-raise overpull, 76 historical temperaments, strobe + cents needle, and per-piano history. Built for working tuners and serious players. Coming soon to the App Store — not yet available for download.';
+  'Pianotune is Alpine Squad’s upcoming pro piano tuner for iPhone & iPad: 88-key inharmonicity sampling, Railsback stretch, pitch-raise overpull, 76 temperaments, strobe + cents needle, per-piano history. Coming soon — not yet on the App Store. Official page: alpinesquad.com/pianotune.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const faqs = [
+  {
+    q: 'Is Pianotune on the App Store yet?',
+    a: 'Not yet. Pianotune is in final preparation for the App Store. This hub page is the official Alpine Squad preview — there is no download button until the listing is Ready.',
+  },
+  {
+    q: 'Is Pianotune the same as other piano tuner apps?',
+    a: 'No. Pianotune is Alpine Squad’s own upcoming tuner — built around full 88-key inharmonicity sampling, Railsback stretch from the piano in front of you, pitch-raise overpull, historical temperaments, and per-piano history. It is not affiliated with other tuner brands or apps (including products such as Pianoscope).',
+  },
+  {
+    q: 'Who is Pianotune for?',
+    a: 'Working piano technicians and serious players who want concert-grade measurement on iPhone and iPad — not a casual “close enough” tuner.',
+  },
+  {
+    q: 'What will ship at launch?',
+    a: 'Planned highlights include real-time cents + strobe display, Learn-My-Piano chromatic sampling, Railsback stretch curves, pitch-raise overpull modelling, 76 historical temperaments, and per-piano / client history. Final store copy lands with the public listing.',
+  },
+  {
+    q: 'Where is the official page?',
+    a: 'alpinesquad.com/pianotune — Alpine Squad’s owned marketing surface. Contact: support@alpinesquad.com.',
+  },
+];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -27,6 +52,14 @@ const schema = {
       url: `${site}/pianotune`,
       image: `${site}/images/pianotune-icon.png`,
       publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
     },
     breadcrumbList(site, [
       { name: 'Alpine Squad', path: '/' },
@@ -48,6 +81,10 @@ const schema = {
   privacyPath="/pianotune/privacy"
   termsPath="/pianotune/terms"
   contactEmail="support@alpinesquad.com"
+  navLinks={[
+    { label: 'Features', href: '#features' },
+    { label: 'FAQ', href: '#faq' },
+  ]}
 >
   <!-- HERO ----------------------------------------------------------- -->
   <section class="s-hero">
@@ -57,9 +94,9 @@ const schema = {
       <p class="s-eyebrow">Pianotune · iPhone &amp; iPad</p>
       <h1>Concert-grade tuning, <span class="s-hero-accent">in your pocket</span>.</h1>
       <p class="s-lede">
-        The scientific rigor working tuners trust over their own ears — full 88-key inharmonicity
-        sampling, Railsback stretch curves, pitch-raise overpull — in a modern iOS interface with
-        per-piano history and sync.
+        Alpine Squad’s upcoming pro piano tuner — full 88-key inharmonicity sampling, Railsback
+        stretch from the instrument in front of you, pitch-raise overpull, and per-piano history.
+        Coming soon to the App Store. Not available for download yet.
       </p>
       <div class="s-hero-cta">
         <ComingSoonBadge />
@@ -76,12 +113,12 @@ const schema = {
   </section>
 
   <!-- FEATURES --------------------------------------------------------- -->
-  <section class="s-section">
+  <section class="s-section" id="features">
     <div class="container">
       <h2 class="s-h2">Tune one piano — or a hundred.</h2>
       <p class="s-section-lede">
         Pianotune remembers every measurement, so every return visit starts where the last one
-        ended.
+        ended. Built by Alpine Squad — not a rebrand of other tuner apps.
       </p>
       <div class="s-feature-grid">
         <div class="s-feature">
@@ -118,11 +155,29 @@ const schema = {
     </div>
   </section>
 
+  <section class="s-faq" id="faq">
+    <div class="container-narrow">
+      <h2 class="s-h2">FAQ</h2>
+      <div>
+        {faqs.map((f) => (
+          <details class="s-faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- FINAL ------------------------------------------------------------- -->
   <section class="s-final">
     <div class="container-narrow">
       <h2>The tuner your ears will trust.</h2>
-      <p>Pianotune is in final preparation for the App Store. Watch the <a href="/">Alpine Squad</a> homepage for launch.</p>
+      <p>
+        Pianotune is in final preparation for the App Store. Watch the
+        <a href="/">Alpine Squad</a> homepage for launch — Download appears here only when the
+        public listing is live.
+      </p>
       <ComingSoonBadge />
     </div>
   </section>

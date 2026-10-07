@@ -6,13 +6,34 @@ import { breadcrumbList } from '../../lib/seo';
 /**
  * Word Trap — coming soon (App Store listing not public yet).
  * App id reserved: 6809978528. Flip to live when the listing is Ready.
+ * Honesty: wordtrap.app is an unrelated product — name only, never link.
+ * No Download CTA / no App Store badge until Ready.
  */
 
 const title = 'Word Trap — A–Z Word Puzzle for iPhone & iPad | Coming Soon';
 const description =
-  'Word Trap is an A–Z word guessing puzzle from Alpine Squad for iPhone and iPad. Privacy-first, built for quick rounds. Coming soon to the App Store — not yet available for download.';
+  'Word Trap is an A–Z word guessing puzzle from Alpine Squad for iPhone and iPad. Privacy-first, built for quick rounds. Coming soon to the App Store — not yet available for download. Official page: alpinesquad.com/word-trap.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const faqs = [
+  {
+    q: 'Is Word Trap available on the App Store yet?',
+    a: 'Not yet. Word Trap is in preparation for the App Store. This page is the official Alpine Squad preview — there is no download button until the listing is Ready.',
+  },
+  {
+    q: 'Is alpinesquad.com/word-trap the official Word Trap page?',
+    a: 'Yes. alpinesquad.com/word-trap is Alpine Squad’s owned marketing surface for this upcoming app (reserved App Store id 6809978528). An unrelated product that uses the wordtrap.app name is not this app and is not affiliated with Alpine Squad.',
+  },
+  {
+    q: 'What kind of game is Word Trap?',
+    a: 'An A–Z word guessing puzzle built for quick rounds — privacy-first, Alpine Squad style. Full feature details land with the App Store listing.',
+  },
+  {
+    q: 'Who makes Word Trap?',
+    a: 'Alpine Squad — the same indie iOS studio behind Spelly, Glide, Untangle Dots, and the rest of the hub. Contact: support@alpinesquad.com.',
+  },
+];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -26,6 +47,14 @@ const schema = {
       description,
       url: `${site}/word-trap`,
       publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
     },
     breadcrumbList(site, [
       { name: 'Alpine Squad', path: '/' },
@@ -47,6 +76,10 @@ const schema = {
   privacyPath="/word-trap/privacy"
   termsPath="/word-trap/terms"
   contactEmail="support@alpinesquad.com"
+  navLinks={[
+    { label: 'About', href: '#about' },
+    { label: 'FAQ', href: '#faq' },
+  ]}
 >
   <section class="s-hero">
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
@@ -54,8 +87,8 @@ const schema = {
       <p class="s-eyebrow">Word Trap · iPhone &amp; iPad</p>
       <h1>Words with a <span class="s-hero-accent">trap</span>.</h1>
       <p class="s-lede">
-        A word puzzle from Alpine Squad — privacy-first, built for quick rounds. Details when it
-        lands on the App Store.
+        An A–Z word guessing puzzle from Alpine Squad — privacy-first, built for quick rounds.
+        Coming soon to the App Store. Not available for download yet.
       </p>
       <div class="s-hero-cta">
         <ComingSoonBadge />
@@ -64,10 +97,56 @@ const schema = {
     </div>
   </section>
 
+  <section class="s-section" id="about">
+    <div class="container">
+      <h2 class="s-h2">Official Alpine Squad preview.</h2>
+      <p class="s-section-lede">
+        This hub page at <strong>alpinesquad.com/word-trap</strong> is the owned surface for Alpine
+        Squad’s upcoming Word Trap. An unrelated product that uses the <strong>wordtrap.app</strong>
+        name is not this app and is not affiliated with Alpine Squad — we name it only so searchers
+        are not confused; we do not link it.
+      </p>
+      <div class="s-feature-grid">
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
+          <h4>A–Z word puzzle</h4>
+          <p>Quick guessing rounds aimed at word lovers — full rules when the App Store listing ships.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <h4>Privacy-first</h4>
+          <p>Built in the same Alpine Squad lane as our Ready apps: on-device focus, no fake download buttons here.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          <h4>Coming soon</h4>
+          <p>Reserved App Store id 6809978528. When the listing is Ready, this page gains a real Download CTA.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-faq" id="faq">
+    <div class="container-narrow">
+      <h2 class="s-h2">FAQ</h2>
+      <div>
+        {faqs.map((f) => (
+          <details class="s-faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="s-final">
     <div class="container-narrow">
       <h2>Watch this space.</h2>
-      <p>Word Trap is in preparation. Check the <a href="/">Alpine Squad</a> homepage when it ships.</p>
+      <p>
+        Word Trap is in preparation. Check the <a href="/">Alpine Squad</a> homepage when it ships —
+        download will appear here only when the App Store listing is live.
+      </p>
       <ComingSoonBadge />
     </div>
   </section>

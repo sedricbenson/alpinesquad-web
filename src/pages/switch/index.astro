@@ -4,15 +4,35 @@ import ComingSoonBadge from '../../components/ComingSoonBadge.astro';
 import { breadcrumbList } from '../../lib/seo';
 
 /**
- * Switch - Lights Puzzle — coming soon (App Store Rejected; hide from live).
- * App id reserved: 6807579427. Flip to live when Ready for Distribution.
+ * Switch - Lights Puzzle — coming soon (not Ready for Distribution).
+ * App id reserved: 6807579427. Flip to live when Ready.
+ * Do not invent public review/rejection details. No Download CTA.
  */
 
 const title = 'Switch — Lights Out Puzzle for iPhone & iPad | Coming Soon';
 const description =
-  'Switch is a lights-out style puzzle from Alpine Squad for iPhone and iPad. Flip switches, chase the pattern, clear the board. Coming soon to the App Store — not yet available for download.';
+  'Switch is a lights-out style puzzle from Alpine Squad for iPhone and iPad. Flip switches, chase the pattern, clear the board. Coming soon to the App Store — not yet available for download. Official page: alpinesquad.com/switch.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const faqs = [
+  {
+    q: 'Is Switch available on the App Store yet?',
+    a: 'Not yet. Switch is in preparation for the App Store. This page is the official Alpine Squad preview — there is no download until the listing is Ready for Distribution.',
+  },
+  {
+    q: 'What is Switch?',
+    a: 'A lights-out style puzzle: tap switches, chase the lit pattern, and clear the board. Calm, skill-based, built for short sessions on iPhone and iPad.',
+  },
+  {
+    q: 'Who makes Switch?',
+    a: 'Alpine Squad — indie iOS studio behind Glide, Untangle Dots, Scratchy, and more. Contact: support@alpinesquad.com.',
+  },
+  {
+    q: 'Where should I look for launch?',
+    a: 'This hub page (alpinesquad.com/switch) and the Alpine Squad homepage. We will add a real App Store Download button only when the public listing is live.',
+  },
+];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -27,6 +47,14 @@ const schema = {
       url: `${site}/switch`,
       image: `${site}/images/switch-icon.png`,
       publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
     },
     breadcrumbList(site, [
       { name: 'Alpine Squad', path: '/' },
@@ -48,6 +76,10 @@ const schema = {
   privacyPath="/switch/privacy"
   termsPath="/switch/terms"
   contactEmail="support@alpinesquad.com"
+  navLinks={[
+    { label: 'About', href: '#about' },
+    { label: 'FAQ', href: '#faq' },
+  ]}
 >
   <section class="s-hero">
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
@@ -56,8 +88,8 @@ const schema = {
       <p class="s-eyebrow">Switch · iPhone &amp; iPad</p>
       <h1>Flip the lights. <span class="s-hero-accent">Clear the board.</span></h1>
       <p class="s-lede">
-        A lights puzzle from Alpine Squad — tap switches, chase the pattern, finish the grid.
-        Coming soon to the App Store.
+        A lights-out style puzzle from Alpine Squad — tap switches, chase the pattern, finish the
+        grid. Coming soon to the App Store. Not available for download yet.
       </p>
       <div class="s-hero-cta">
         <ComingSoonBadge />
@@ -66,10 +98,55 @@ const schema = {
     </div>
   </section>
 
+  <section class="s-section" id="about">
+    <div class="container">
+      <h2 class="s-h2">Lights. Pattern. Solve.</h2>
+      <p class="s-section-lede">
+        Switch is a classic lights puzzle rebuilt for modern iOS: flip switches, watch neighbors
+        react, and clear every lit cell. Built for short, satisfying rounds — full App Store
+        details when it ships.
+      </p>
+      <div class="s-feature-grid">
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></div>
+          <h4>Grid puzzles</h4>
+          <p>Tap a switch; neighbors flip with it. Plan the sequence until the board goes dark.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></div>
+          <h4>Chase the pattern</h4>
+          <p>Every board is a logic puzzle — no timers required, just the next correct flip.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <h4>Alpine Squad puzzle lane</h4>
+          <p>Same indie studio as Glide and Untangle Dots. Official preview lives only on this hub.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-faq" id="faq">
+    <div class="container-narrow">
+      <h2 class="s-h2">FAQ</h2>
+      <div>
+        {faqs.map((f) => (
+          <details class="s-faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="s-final">
     <div class="container-narrow">
       <h2>Almost ready.</h2>
-      <p>Switch is in preparation. Watch the <a href="/">Alpine Squad</a> homepage for launch.</p>
+      <p>
+        Switch is in preparation. Watch the <a href="/">Alpine Squad</a> homepage for launch — a
+        Download button will appear here only when the public App Store listing is live.
+      </p>
       <ComingSoonBadge />
     </div>
   </section>
