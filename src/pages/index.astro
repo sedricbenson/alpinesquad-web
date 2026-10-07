@@ -7,7 +7,7 @@ import { appStoreUrl, APP_IDS } from '../lib/seo';
 
 const title = 'Alpine Squad — privacy-first iOS apps for learning, play & pro work';
 const description =
-  'Privacy-first iOS apps for learning, play, and real work. Bible Blitz, Spelly, HamCram, MusicQuest, Scratchy, and more — built with care, priced honestly, designed to respect your time.';
+  'Privacy-first iOS apps for learning, play, and real work. MusicQuest, Glide, Bible Blitz, Spelly, HamCram, and more — Ready on the App Store, built with care, priced honestly.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 
@@ -197,12 +197,24 @@ const schema = {
     </div>
   </section>
 
+  <!-- CROSS-LINK ------------------------------------------------------- -->
+  <section class="cross-link" aria-label="Also by Alpine Squad">
+    <div class="container">
+      <p>
+        Also by us, on its own site:
+        <a href="https://currentcharts.app" rel="noopener">Current Charts</a>
+        — Salish Sea tidal currents for boaters (iPhone &amp; iPad).
+      </p>
+    </div>
+  </section>
+
   <!-- APPS ------------------------------------------------------------- -->
   <section class="apps-section" id="apps">
     <div class="container">
-      <h2 class="section-title">The apps</h2>
+      <h2 class="section-title">Ready on the App Store</h2>
+      <p class="section-lede">Live listings you can download today.</p>
       <div class="apps-grid reveal">
-        {apps.map((app) => (
+        {apps.filter((a) => a.appStore).map((app) => (
           <article class="app-card" style={`--card-accent: ${app.accent}`}>
             <div class="app-head">
               {app.icon ? (
@@ -218,15 +230,40 @@ const schema = {
             <p class="app-desc">{app.description}</p>
             <div class="app-tags">
               {app.tags.map((t) => <span class="tag">{t}</span>)}
-              {!app.appStore && <span class="tag tag-soon">Coming soon</span>}
             </div>
             <div class="app-actions">
               <a href={app.href} class="app-link">Learn more →</a>
-              {app.appStore && (
-                <span class="app-store-wrap">
-                  <AppStoreButton href={app.appStore} label={`Download ${app.name} on the App Store`} height={36} />
-                </span>
+              <span class="app-store-wrap">
+                <AppStoreButton href={app.appStore} label={`Download ${app.name} on the App Store`} height={36} />
+              </span>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <h2 class="section-title section-title-soon">Coming soon</h2>
+      <p class="section-lede">In preparation — no Download CTA until they ship.</p>
+      <div class="apps-grid reveal">
+        {apps.filter((a) => !a.appStore).map((app) => (
+          <article class="app-card app-card-soon" style={`--card-accent: ${app.accent}`}>
+            <div class="app-head">
+              {app.icon ? (
+                <img class="app-icon" src={app.icon} alt={`${app.name} app icon`} width="60" height="60" loading="lazy" />
+              ) : (
+                <div class="app-icon app-icon-placeholder" aria-hidden="true">{app.name.slice(0, 1)}</div>
               )}
+              <div>
+                <h3>{app.name}</h3>
+                <p class="app-tagline">{app.tagline}</p>
+              </div>
+            </div>
+            <p class="app-desc">{app.description}</p>
+            <div class="app-tags">
+              {app.tags.map((t) => <span class="tag">{t}</span>)}
+              <span class="tag tag-soon">Coming soon</span>
+            </div>
+            <div class="app-actions">
+              <a href={app.href} class="app-link">Learn more →</a>
             </div>
           </article>
         ))}
@@ -399,5 +436,29 @@ const schema = {
   .app-link::after { content: ''; position: absolute; inset: 0; }
   /* App Store button sits above the stretched link so it stays separately clickable. */
   .app-store-wrap { position: relative; z-index: 1; }
+
+  .cross-link {
+    padding: 22px 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .cross-link p {
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+  .cross-link a {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .cross-link a:hover { color: var(--ink); }
+  .section-lede {
+    font-size: 15.5px;
+    color: var(--ink-soft);
+    margin: -12px 0 24px;
+  }
+  .section-title-soon { margin-top: 56px; }
+  .app-card-soon { opacity: 0.92; }
 
 </style>

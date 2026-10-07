@@ -7,15 +7,39 @@ import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 /**
  * MusicQuest — live App Store page.
  * When copy changes: pull from App Store Connect / music-quest release notes.
+ * Do not say "Free" — freemium; Unlock Everything is a one-time IAP.
  */
 
-const title = 'MusicQuest — Learn to Read Sheet Music (Treble, Bass & Alto) | App Store';
+const title = 'MusicQuest — Learn to Read Sheet Music | Treble, Bass & Alto Clefs';
 const description =
-  'Learn to read sheet music with note-recognition quizzes across treble, bass, and alto clefs. Per-note mastery stats and progress trends — offline and private. Available on the App Store for iPhone & iPad.';
+  'Note-recognition quizzes across treble, bass, and alto clefs with per-note mastery stats. Music Journey, key signatures, and note values — offline and private on iPhone & iPad. Available on the App Store.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.musicQuest);
 const appUrlCta = appStoreUrl(APP_IDS.musicQuest, 'web-musicquest');
+
+const faqs = [
+  {
+    q: 'What does MusicQuest teach?',
+    a: 'Instant note recognition across treble, bass, and alto clefs — the foundation sight-reading demands. Name That Note drills recognition; Music Journey walks Learn → Drill → Quest; Unlock Everything adds Name That Key, Note Values, and later Journey units.',
+  },
+  {
+    q: 'Which clefs are included?',
+    a: 'Treble, bass, and alto. Notation is crisp and professionally rendered on every question.',
+  },
+  {
+    q: 'What is Unlock Everything?',
+    a: 'A one-time $2.99 in-app purchase (no subscription). It unlocks Name That Key, Note Values, and Music Journey units beyond the first three. Name That Note stays included with the download.',
+  },
+  {
+    q: 'Does it work offline? Is there an account?',
+    a: 'Yes — fully offline. No accounts, no tracking, no ads. Practice data and the Mastery Map stay on your device.',
+  },
+  {
+    q: 'iPhone or iPad?',
+    a: 'Both. Available on the App Store for iPhone and iPad (iOS 17+).',
+  },
+];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -36,6 +60,14 @@ const schema = {
         availability: 'https://schema.org/InStock',
       },
       publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
     },
     breadcrumbList(site, [
       { name: 'Alpine Squad', path: '/' },
@@ -67,18 +99,18 @@ const schema = {
     <div class="container s-hero-inner">
       <img class="s-hero-icon" src="/images/musicquest-icon.png" alt="MusicQuest app icon" width="84" height="84" />
       <p class="s-eyebrow">MusicQuest · iPhone &amp; iPad</p>
-      <h1>Read music like you <span class="s-hero-accent">read words</span>.</h1>
+      <h1>Read sheet music like you <span class="s-hero-accent">read words</span>.</h1>
       <p class="s-lede">
         Note-recognition quizzes across treble, bass, and alto clefs build the instant recall
-        sight-reading demands — with per-note stats that show you exactly what to practice next.
+        sight-reading demands — with per-note mastery stats that show exactly what to practice next.
+        Offline, private, no ads.
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download MusicQuest on the App Store" />
-        <p class="s-hero-claims">Offline · Private · iPhone &amp; iPad</p>
+        <p class="s-hero-claims">Offline · Private · One-time Unlock Everything</p>
       </div>
     </div>
   </section>
-
 
   <!-- SCREENSHOTS ------------------------------------------------------ -->
   <ScreenshotSlots
@@ -132,6 +164,20 @@ const schema = {
           <p>Practice on the bus, backstage, anywhere. No connection needed, ever.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- FAQ --------------------------------------------------------------- -->
+  <section class="s-faq" id="faq">
+    <div class="container-narrow">
+      <p class="s-eyebrow">Frequently asked</p>
+      <h2 class="s-h2">The short answers.</h2>
+      {faqs.map((f) => (
+        <details class="s-faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
     </div>
   </section>
 

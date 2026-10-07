@@ -4,13 +4,36 @@ import AppStoreButton from '../../components/AppStoreButton.astro';
 import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
-const title = 'Glide — Ice Path Puzzle (No Walls) for iPhone & iPad | App Store';
+const title = 'Glide — Ice Path Puzzle for iPhone & iPad | No Outer Walls';
 const description =
-  'Ice-slide path puzzles with no outer walls. Swipe to glide — the ball flies until a block stops it, or it rolls off the edge. Daily challenge, every board solvable. Available on the App Store.';
+  'Ice-slide path puzzles with no outer walls. Swipe to glide — the ball flies until a block stops it, or it rolls off the edge. Daily challenge; every board solvable. Available on the App Store.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.glide);
 const appUrlCta = appStoreUrl(APP_IDS.glide, 'web-glide');
+
+const faqs = [
+  {
+    q: 'How does Glide work?',
+    a: 'Swipe to send the ball sliding on ice. It keeps moving until a block stops it — or it flies off the edge. Plan the path, then commit. Reach the goal in as few glides as you can.',
+  },
+  {
+    q: 'Why no outer walls?',
+    a: 'Most ice puzzles fence you in. Glide removes the fence: every glide can roll off the edge and cost you a move. That raises the stakes without timers or aggression.',
+  },
+  {
+    q: 'Is every puzzle solvable?',
+    a: 'Yes. Each board has a guaranteed route to the goal. Stuck? Tap Undo — no forced restarts.',
+  },
+  {
+    q: 'Is there a daily challenge?',
+    a: 'Yes. A fresh ice path every day — the same board for everyone. Private and offline; progress stays on your device.',
+  },
+  {
+    q: 'iPhone or iPad?',
+    a: 'Both. Available on the App Store for iPhone and iPad.',
+  },
+];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -31,6 +54,14 @@ const schema = {
         availability: 'https://schema.org/InStock',
       },
       publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
     },
     breadcrumbList(site, [
       { name: 'Alpine Squad', path: '/' },
@@ -64,15 +95,15 @@ const schema = {
       <h1>Slide on ice. <span class="s-hero-accent">No walls.</span></h1>
       <p class="s-lede">
         One swipe and the ball flies until a block stops it — or it rolls off the edge, shatters,
-        and costs you a glide. Reach the goal in as few moves as you can.
+        and costs you a glide. Reach the goal in as few moves as you can. Daily challenge; every
+        board solvable.
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download Glide on the App Store" />
-        <p class="s-hero-claims">Daily puzzle · Every board solvable</p>
+        <p class="s-hero-claims">Daily puzzle · Every board solvable · Offline</p>
       </div>
     </div>
   </section>
-
 
   <!-- SCREENSHOTS ------------------------------------------------------ -->
   <ScreenshotSlots
@@ -115,6 +146,20 @@ const schema = {
           <p>Play without accounts or trackers. Progress stays on your device.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- FAQ --------------------------------------------------------------- -->
+  <section class="s-faq" id="faq">
+    <div class="container-narrow">
+      <p class="s-eyebrow">Frequently asked</p>
+      <h2 class="s-h2">The short answers.</h2>
+      {faqs.map((f) => (
+        <details class="s-faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
     </div>
   </section>
 
