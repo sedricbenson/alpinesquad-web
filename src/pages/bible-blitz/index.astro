@@ -16,14 +16,14 @@ import { breadcrumbList, appStoreUrl, APP_IDS } from '../../lib/seo';
  *
  * Maintenance contract — when you update the app:
  *   - Price change → search for "$4.99" (one place in copy, one in schema)
- *   - New translation → search for "KJV · NKJV · NIV"
+ *   - Translation claims → quiz = KJV; Verse Memory = KJV · NKJV · NIV (Settings)
  *   - New hero screenshot → drop new PNG at /images/bibleblitz-hero-screen.png
  *   - New FAQ → add an entry to the `faqs` array below
  * That's it. Everything else is structural.
  */
 
 const title = 'Bible Blitz — Bible trivia that teaches Scripture | iPhone & iPad';
-const description = 'Bible trivia app for iPhone and iPad. 10-question rounds across KJV, NKJV, and NIV. Every wrong answer reveals the verse and context — quiz becomes study. No ads, no tracking, no subscription.';
+const description = 'Bible trivia app for iPhone and iPad. Quick Play quizzes use KJV; Verse Memory supports KJV, NKJV, and NIV. Every wrong answer reveals the verse and context — quiz becomes study. No ads, no tracking, no subscription.';
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.bibleBlitz);
 const appUrlCta = appStoreUrl(APP_IDS.bibleBlitz, 'web-bibleblitz');
@@ -35,7 +35,7 @@ const faqs = [
   },
   {
     q: 'Which Bible translations are supported?',
-    a: 'King James Version (KJV), New King James Version (NKJV), and New International Version (NIV). You can switch translations in Settings at any time — the verses shown in question explanations update to match.',
+    a: 'Quiz questions use the King James Version (KJV). Verse Memory supports KJV, New King James Version (NKJV), and New International Version (NIV) — pick your preferred translation in Settings.',
   },
   {
     q: 'Does Bible Blitz work offline?',
@@ -112,8 +112,9 @@ const schema = {
         <p class="eyebrow">Bible Blitz · iPhone &amp; iPad</p>
         <h1>Bible trivia that <span class="hero-accent">teaches</span> you Scripture.</h1>
         <p class="hero-lede">
-          Fast-paced Scripture trivia across KJV, NKJV, and NIV. Every wrong answer reveals the
-          verse and its context — so each round is a quick Bible study, not just a test.
+          Fast-paced Scripture trivia with KJV quizzes and Verse Memory in KJV, NKJV, or NIV.
+          Every wrong answer reveals the verse and its context — so each round is a quick Bible
+          study, not just a test.
         </p>
         <div class="hero-cta">
           <AppStoreButton href={appUrlCta} label="Download Bible Blitz on the App Store" />
@@ -160,7 +161,7 @@ const schema = {
 
       <div class="feat">
         <h3>Daily Challenge</h3>
-        <p>A new 5-question round every day with bonus XP. Builds a streak you'll want to protect.</p>
+        <p>A fresh set of questions every day with bonus XP. Builds a streak you'll want to protect.</p>
       </div>
       <div class="feat">
         <h3>Categories</h3>
