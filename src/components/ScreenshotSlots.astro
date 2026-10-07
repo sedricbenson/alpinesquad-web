@@ -1,0 +1,181 @@
+---
+/**
+ * Device-preview / screenshot strip for product pages.
+ *
+ * Prefer real App Store screenshots under /public/images when available.
+ * When assets are missing, pass shots without `src` — labeled placeholders
+ * beat fake UI or empty space. Drop PNGs later; the figure labels stay.
+ */
+export interface Shot {
+  /** Path under /public, e.g. /images/spelly-picture-spell.png. Omit for placeholder. */
+  src?: string;
+  /** Short caption under the frame (and shown inside placeholder). */
+  label: string;
+  /** Img alt; defaults to label. */
+  alt?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  lede?: string;
+  shots: Shot[];
+  /** Optional id for in-page anchors */
+  id?: string;
+}
+
+const {
+  eyebrow = 'Screenshots',
+  heading = 'See it on iPhone.',
+  lede,
+  shots,
+  id = 'screenshots',
+} = Astro.props;
+---
+
+<section class="shots" id={id}>
+  <div class="container">
+    <p class="shots-eyebrow">{eyebrow}</p>
+    <h2 class="shots-h2">{heading}</h2>
+    {lede && <p class="shots-lede">{lede}</p>}
+    <div class="shots-row">
+      {shots.map((shot) => (
+        <figure class="shot">
+          <div class="shot-frame">
+            {shot.src ? (
+              <img
+                src={shot.src}
+                alt={shot.alt ?? shot.label}
+                width="390"
+                height="844"
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <div class="shot-placeholder" role="img" aria-label={`${shot.label} — screenshot slot reserved`}>
+                <span class="shot-ph-label">{shot.label}</span>
+                <span class="shot-ph-hint">Screenshot slot — drop App Store asset here</span>
+              </div>
+            )}
+          </div>
+          <figcaption>{shot.label}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .shots {
+    padding: 88px 0;
+    background: var(--bg-deep, #F5F5F7);
+    border-top: 1px solid var(--border, rgba(29, 29, 31, 0.09));
+  }
+  .shots-eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--s-accent-deep, var(--accent, #109657));
+    margin-bottom: 16px;
+  }
+  .shots-h2 {
+    font-family: var(--serif, ui-serif, Georgia, serif);
+    font-size: clamp(30px, 3.6vw, 40px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    color: var(--ink, #1D1D1F);
+    margin-bottom: 16px;
+    text-wrap: balance;
+  }
+  .shots-lede {
+    font-size: 17px;
+    color: var(--ink-soft, #515154);
+    line-height: 1.6;
+    max-width: 60ch;
+    margin-bottom: 40px;
+  }
+  .shots-row {
+    display: flex;
+    gap: 28px;
+    overflow-x: auto;
+    padding: 8px 4px 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .shot {
+    flex: 0 0 auto;
+    width: min(220px, 68vw);
+    scroll-snap-align: start;
+    margin: 0;
+  }
+  .shot-frame {
+    aspect-ratio: 9 / 19.5;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #1d1d1f;
+    box-shadow:
+      0 0 0 1px rgba(29, 29, 31, 0.08),
+      0 12px 40px rgba(29, 29, 31, 0.14);
+    position: relative;
+  }
+  .shot-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+  .shot-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 24px 18px;
+    text-align: center;
+    background:
+      linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--s-accent, var(--accent, #109657)) 18%, #1d1d1f) 0%,
+        #1d1d1f 55%,
+        #111113 100%
+      );
+    border: 1px dashed rgba(255, 255, 255, 0.22);
+    border-radius: 28px;
+  }
+  .shot-ph-label {
+    font-family: var(--serif, ui-serif, Georgia, serif);
+    font-size: 17px;
+    font-weight: 600;
+    color: #f5f5f7;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+  .shot-ph-hint {
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: rgba(245, 245, 247, 0.55);
+    letter-spacing: 0.2px;
+    max-width: 16ch;
+  }
+  .shot figcaption {
+    margin-top: 14px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink-soft, #515154);
+    text-align: center;
+  }
+  @media (min-width: 900px) {
+    .shots-row {
+      justify-content: flex-start;
+      overflow: visible;
+    }
+    .shot {
+      width: 220px;
+    }
+  }
+</style>

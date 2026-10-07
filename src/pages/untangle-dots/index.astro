@@ -1,6 +1,7 @@
 ---
 import AppShell from '../../layouts/AppShell.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
+import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 const title = 'Untangle Dots — Calm Knot Puzzle for iPhone & iPad | Available on the App Store';
@@ -71,6 +72,19 @@ const schema = {
       </div>
     </div>
   </section>
+
+
+  <!-- SCREENSHOTS ------------------------------------------------------ -->
+  <ScreenshotSlots
+    eyebrow="In the app"
+    heading="Calm knots, clear lines."
+    lede="Drag dots until nothing crosses — preview slots ready for App Store screenshots."
+    shots={[
+      { label: 'Tangled board' },
+      { label: 'Dragging dots' },
+      { label: 'Solved layout' },
+    ]}
+  />
 
   <section class="s-section">
     <div class="container">

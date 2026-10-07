@@ -1,11 +1,12 @@
 ---
 import AppShell from '../../layouts/AppShell.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
+import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
-const title = 'Glide — Ice Path Puzzle for iPhone & iPad | Available on the App Store';
+const title = 'Glide — Ice Path Puzzle (No Walls) for iPhone & iPad | App Store';
 const description =
-  'Ice-slide puzzles with no outer walls. One swipe and the ball flies until a block stops it — or it rolls off the edge. Reach the goal in as few glides as you can. Available on the App Store.';
+  'Ice-slide path puzzles with no outer walls. Swipe to glide — the ball flies until a block stops it, or it rolls off the edge. Daily challenge, every board solvable. Available on the App Store.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.glide);
@@ -71,6 +72,19 @@ const schema = {
       </div>
     </div>
   </section>
+
+
+  <!-- SCREENSHOTS ------------------------------------------------------ -->
+  <ScreenshotSlots
+    eyebrow="In the app"
+    heading="Ice paths with real stakes."
+    lede="Plan the glide, dodge the edge, beat the daily board — preview slots ready for App Store screenshots."
+    shots={[
+      { label: 'Ice path puzzle' },
+      { label: 'Daily challenge' },
+      { label: 'Goal in fewest glides' },
+    ]}
+  />
 
   <section class="s-section">
     <div class="container">

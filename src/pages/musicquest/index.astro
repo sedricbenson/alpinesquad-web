@@ -1,6 +1,7 @@
 ---
 import AppShell from '../../layouts/AppShell.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
+import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 /**
@@ -8,9 +9,9 @@ import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
  * When copy changes: pull from App Store Connect / music-quest release notes.
  */
 
-const title = 'MusicQuest — Learn to Read Sheet Music | Available on the App Store';
+const title = 'MusicQuest — Learn to Read Sheet Music (Treble, Bass & Alto) | App Store';
 const description =
-  'Master sight-reading with note-recognition quizzes across treble, bass, and alto clefs. Per-note mastery stats, progress trends, fully offline and private. Available on the App Store for iPhone & iPad.';
+  'Learn to read sheet music with note-recognition quizzes across treble, bass, and alto clefs. Per-note mastery stats and progress trends — offline and private. Available on the App Store for iPhone & iPad.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.musicQuest);
@@ -77,6 +78,19 @@ const schema = {
       </div>
     </div>
   </section>
+
+
+  <!-- SCREENSHOTS ------------------------------------------------------ -->
+  <ScreenshotSlots
+    eyebrow="In the app"
+    heading="Sight-reading practice on your iPhone."
+    lede="Note quizzes, mastery maps, and progress trends — preview slots ready for App Store screenshots."
+    shots={[
+      { label: 'Note recognition quiz' },
+      { label: 'Per-note mastery' },
+      { label: 'Progress trends' },
+    ]}
+  />
 
   <!-- FEATURES --------------------------------------------------------- -->
   <section class="s-section">

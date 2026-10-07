@@ -1,6 +1,7 @@
 ---
 import SpellyLayout from '../../layouts/SpellyLayout.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
+import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 /**
@@ -152,6 +153,19 @@ const schema = {
       </div>
     </div>
   </section>
+
+
+  <!-- SCREENSHOTS ------------------------------------------------------ -->
+  <ScreenshotSlots
+    eyebrow="In the app"
+    heading="Two modes. Thousands of words."
+    lede="Picture Spell for calm learning, Word Blitz for arcade speed — real screens from the App Store build."
+    shots={[
+      { src: '/images/spelly-picture-spell.png', label: 'Picture Spell', alt: 'Spelly Picture Spell mode on iPhone' },
+      { src: '/images/spelly-word-blitz.png', label: 'Word Blitz', alt: 'Spelly Word Blitz arcade mode on iPhone' },
+      { src: '/images/spelly-categories.png', label: 'Categories', alt: 'Spelly category and difficulty picker on iPhone' },
+    ]}
+  />
 
   <!-- TWO MODES ------------------------------------------------------ -->
   <section class="s-section">

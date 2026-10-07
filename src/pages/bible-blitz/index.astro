@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductNav from '../../components/ProductNav.astro';
 import ProductFooter from '../../components/ProductFooter.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
+import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { breadcrumbList, appStoreUrl, APP_IDS } from '../../lib/seo';
 
 /**
@@ -121,6 +122,20 @@ const schema = {
       </div>
     </div>
   </section>
+
+
+  <!-- SCREENSHOTS ------------------------------------------------------ -->
+  <ScreenshotSlots
+    eyebrow="In the app"
+    heading="Trivia that becomes study."
+    lede="Daily rounds, verse explanations, and memorize mode — screens from the live App Store build."
+    shots={[
+      { src: '/images/bibleblitz-hero-screen.png', label: 'Quiz in progress', alt: 'Bible Blitz quiz round on iPhone' },
+      { src: '/images/bibleblitz-quiz-answered.png', label: 'Verse revealed', alt: 'Bible Blitz answer with verse context' },
+      { src: '/images/bibleblitz-memorize.png', label: 'Memorize', alt: 'Bible Blitz verse memorize mode' },
+      { src: '/images/bibleblitz-results.png', label: 'Results', alt: 'Bible Blitz round results screen' },
+    ]}
+  />
 
   <!-- PREMISE -------------------------------------------------------- -->
   <section class="premise">

@@ -1,6 +1,7 @@
 ---
 import AppShell from '../../layouts/AppShell.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
+import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 /**
@@ -117,6 +118,19 @@ const schema = {
       </div>
     </div>
   </section>
+
+
+  <!-- SCREENSHOTS ------------------------------------------------------ -->
+  <ScreenshotSlots
+    eyebrow="In the app"
+    heading="Study the real question pools."
+    lede="Flashcards, quizzes, and full practice exams — preview slots ready for App Store screenshots."
+    shots={[
+      { label: 'Practice exam' },
+      { label: 'Flashcards' },
+      { label: 'Quiz feedback' },
+    ]}
+  />
 
   <!-- WHY ------------------------------------------------------------- -->
   <section class="s-section">
