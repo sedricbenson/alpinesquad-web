@@ -5,37 +5,138 @@ import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
 /**
- * Scratchy (ScratchGuess) — live App Store page.
- * Copy from App Store listing / scratchy APPSTORE_METADATA.
+ * Scratchy - Scratch & Guess — hub product page.
+ * Grounded in live App Store + itunes lookup (2026-10-07 PT).
+ * Free to play with ads; optional Premium Unlock $4.99; coin packs $0.99–$14.99.
+ * Public: Only for iPhone / 0 iPad shots; version 1.1 public (1.1.1 Prepare — do not market as Ready).
+ * Ratings 0 — no invented social proof. Do not claim unrelated scratchy.* domains.
+ * Screenshots from live ASC iPhone set (commit 5caed38).
  */
 
-const title = 'Scratchy — Scratch & Guess Game for iPhone | Available on the App Store';
+const title = 'Scratchy — Scratch & Guess Game for iPhone | Reveal Emoji Pictures';
 const description =
-  'Scratch away to reveal a hidden picture — then guess what it is before the clock runs out. Daily challenges, collections, achievements. A fast, satisfying guessing game for all ages. Available on the App Store.';
+  'Scratch the overlay to reveal hidden emoji images, then guess — less scratch means more points. 250+ items across 7 categories, daily challenges, power-ups, and themes. Free to play with ads; optional Premium Unlock $4.99 and coin packs. Available on the App Store for iPhone.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.scratchy);
 const appUrlCta = appStoreUrl(APP_IDS.scratchy, 'web-scratchy');
+const privacyUrl = 'https://sedricbenson.github.io/disclosures/scratchy/privacy.html';
+
+const faqs = [
+  {
+    q: 'How does Scratchy work?',
+    a: 'Scratch away the shiny overlay to reveal a hidden emoji image underneath. You have a limited scratch budget — reveal just enough to guess, then pick from the answer options. The less you scratch, the more points you earn.',
+  },
+  {
+    q: 'How many items and categories are there?',
+    a: 'Over 250 items across 7 categories: Animals, Food, Objects, Vehicles, Sports, Nature, and Shapes. Four difficulty levels adapt as you improve.',
+  },
+  {
+    q: 'What are daily challenges?',
+    a: 'Each day brings a new category focus with special bonus rewards. Build your daily streak for bigger coin bonuses.',
+  },
+  {
+    q: 'What power-ups and extras are in the game?',
+    a: 'Four power-ups: Hint (eliminate wrong answers), Reveal (a free peek without using scratch budget), Extra Life, and Time Freeze. Plus 20+ achievements, 7 scratch overlay themes, coins and rewards, and offline play. No account required.',
+  },
+  {
+    q: 'Is Scratchy free? What are the in-app purchases?',
+    a: 'Scratchy is free to play with ads. Optional purchases: Premium Unlock ($4.99 one-time), and coin packs — 500 Coins ($0.99), 1,500 Coins ($2.99), 5,000 Coins ($7.99), 12,000 Coins ($14.99). All purchases are behind a parents-only gate. Purchases are never required to try the core scratch-and-guess loop.',
+  },
+  {
+    q: 'Does it work offline? Do I need an account?',
+    a: 'Offline play is supported. No account required. Privacy policy: ' + privacyUrl,
+  },
+  {
+    q: 'iPhone or iPad?',
+    a: 'Available on the App Store for iPhone (iOS 17+). The public listing is Only for iPhone; product screenshots on this page are from the live iPhone App Store set.',
+  },
+  {
+    q: 'Is this the official Alpine Squad Scratchy?',
+    a: 'Yes — Scratchy - Scratch & Guess by Sedric Benson / Alpine Squad on the App Store (id 6786076591). This hub page at alpinesquad.com/scratchy is the owned marketing surface. Unrelated sites that reuse the “Scratchy” name are not this app.',
+  },
+];
 
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'MobileApplication',
-      name: 'Scratchy — Scratch & Guess',
-      operatingSystem: 'iOS',
+      name: 'Scratchy - Scratch & Guess',
+      operatingSystem: 'iOS 17+',
       applicationCategory: 'GameApplication',
-      applicationSubCategory: 'Puzzle',
+      applicationSubCategory: 'Trivia',
       description,
-      url: appUrlClean,
+      url: `${site}/scratchy`,
+      installUrl: appUrlClean,
+      downloadUrl: appUrlClean,
       image: `${site}/images/scratchy-icon.png`,
-      offers: {
-        '@type': 'Offer',
-        price: '0.00',
-        priceCurrency: 'USD',
-        availability: 'https://schema.org/InStock',
-      },
+      screenshot: [
+        `${site}/images/scratchy-gameplay.webp`,
+        `${site}/images/scratchy-home.webp`,
+        `${site}/images/scratchy-category.webp`,
+        `${site}/images/scratchy-result.webp`,
+        `${site}/images/scratchy-daily.webp`,
+        `${site}/images/scratchy-paywall.webp`,
+      ],
+      offers: [
+        {
+          '@type': 'Offer',
+          name: 'Scratchy download',
+          price: '0.00',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
+          description:
+            'Free to play with ads. Core scratch-and-guess loop included. Optional Premium Unlock and coin packs available via in-app purchase.',
+        },
+        {
+          '@type': 'Offer',
+          name: 'Premium Unlock',
+          price: '4.99',
+          priceCurrency: 'USD',
+          category: 'In-app purchase',
+          description:
+            'Optional one-time Premium Unlock. Separate optional coin packs also available. Parents-only purchase gate.',
+        },
+        {
+          '@type': 'Offer',
+          name: '500 Coins',
+          price: '0.99',
+          priceCurrency: 'USD',
+          category: 'In-app purchase',
+        },
+        {
+          '@type': 'Offer',
+          name: '1,500 Coins',
+          price: '2.99',
+          priceCurrency: 'USD',
+          category: 'In-app purchase',
+        },
+        {
+          '@type': 'Offer',
+          name: '5,000 Coins',
+          price: '7.99',
+          priceCurrency: 'USD',
+          category: 'In-app purchase',
+        },
+        {
+          '@type': 'Offer',
+          name: '12,000 Coins',
+          price: '14.99',
+          priceCurrency: 'USD',
+          category: 'In-app purchase',
+        },
+      ],
       publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+      privacyPolicy: privacyUrl,
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
     },
     breadcrumbList(site, [
       { name: 'Alpine Squad', path: '/' },
@@ -60,27 +161,35 @@ const schema = {
   privacyPath="/scratchy/privacy"
   termsPath="/scratchy/terms"
   contactEmail="support@alpinesquad.com"
+  navLinks={[
+    { label: 'Screenshots', href: '#screenshots' },
+    { label: 'Play', href: '#play' },
+    { label: 'Discover', href: '#discover' },
+    { label: 'Pricing', href: '#pricing' },
+    { label: 'FAQ', href: '#faq' },
+  ]}
 >
   <!-- HERO ----------------------------------------------------------- -->
   <section class="s-hero">
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
     <div class="container s-hero-inner">
       <img class="s-hero-icon" src="/images/scratchy-icon.png" alt="Scratchy app icon" width="84" height="84" />
-      <p class="s-eyebrow">Scratchy · iPhone</p>
+      <p class="s-eyebrow">Scratchy · Scratch &amp; Guess · iPhone</p>
       <h1>Scratch. Reveal. <span class="s-hero-accent">Guess.</span></h1>
       <p class="s-lede">
-        Drag your finger to scratch off the cover, watch the picture appear, and lock in your
-        answer before the clock runs out. The less you scratch, the higher your score.
+        Scratch away the shiny overlay to reveal a hidden emoji image — but watch your scratch
+        budget. Reveal just enough to guess, then lock in your answer. The less you scratch, the
+        more points you earn. <strong>Free to play with ads</strong>; optional Premium Unlock
+        <strong>$4.99</strong> and coin packs.
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download Scratchy on the App Store" />
-        <p class="s-hero-claims">Family-friendly · Quick rounds</p>
+        <p class="s-hero-claims">Free with ads · 250+ items · Daily challenges · Parents-only IAP gate</p>
       </div>
     </div>
   </section>
 
-
-  <!-- SCREENSHOTS ------------------------------------------------------ -->
+  <!-- SCREENSHOTS — live App Store iPhone set ------------------------ -->
   <ScreenshotSlots
     eyebrow="In the app"
     heading="Real screens from the App Store."
@@ -89,7 +198,7 @@ const schema = {
       {
         src: '/images/scratchy-gameplay.webp',
         label: 'Scratch to reveal',
-        alt: 'Scratchy gameplay scratching to reveal a hidden picture',
+        alt: 'Scratchy gameplay scratching to reveal a hidden emoji image',
       },
       {
         src: '/images/scratchy-home.webp',
@@ -99,75 +208,150 @@ const schema = {
       {
         src: '/images/scratchy-category.webp',
         label: 'Categories',
-        alt: 'Scratchy category selection',
+        alt: 'Scratchy category selection across seven categories',
       },
       {
         src: '/images/scratchy-result.webp',
         label: 'Result',
-        alt: 'Scratchy round result screen',
+        alt: 'Scratchy round result with score',
       },
       {
         src: '/images/scratchy-daily.webp',
-        label: 'Daily puzzle',
-        alt: 'Scratchy daily puzzle challenge',
+        label: 'Daily challenge',
+        alt: 'Scratchy daily challenge screen',
       },
       {
         src: '/images/scratchy-paywall.webp',
         label: 'Unlock',
-        alt: 'Scratchy unlock options',
+        alt: 'Scratchy optional Premium and coin unlock options',
       },
     ]}
   />
 
-  <!-- FEATURES --------------------------------------------------------- -->
-  <section class="s-section">
+  <!-- HOW IT PLAYS ----------------------------------------------------- -->
+  <section class="s-section" id="play">
     <div class="container">
-      <h2 class="s-h2">A guessing game you can't put down.</h2>
+      <h2 class="s-h2">Scratch less. Score more.</h2>
       <p class="s-section-lede">
-        Fast, satisfying rounds for all ages — perfect for a spare minute, dangerous for a spare
-        hour.
+        A limited scratch budget turns every reveal into a risk–reward choice. Guess from the
+        answer options when you think you know — precision pays.
       </p>
       <div class="s-feature-grid">
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="M21 15l-5-5L5 21"></path></svg></div>
-          <h4>Hundreds of items to discover</h4>
-          <p>Fun categories full of hidden pictures — reveal them one scratch at a time.</p>
-        </div>
-        <div class="s-feature">
-          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg></div>
-          <h4>Daily challenges &amp; streaks</h4>
-          <p>A fresh challenge every day with streak rewards — come back and keep it alive.</p>
-        </div>
-        <div class="s-feature">
-          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8v13H3V8"></path><path d="M1 3h22v5H1z"></path><line x1="10" y1="12" x2="14" y2="12"></line></svg></div>
-          <h4>Build your collection</h4>
-          <p>Every item you reveal joins your collection. Complete categories, chase the full set.</p>
-        </div>
-        <div class="s-feature">
-          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg></div>
-          <h4>Achievements &amp; level-ups</h4>
-          <p>Scores climb with how little you scratch — precision pays. Level up and unlock more.</p>
+          <h4>Scratch the overlay</h4>
+          <p>Drag to wipe the shiny cover and peek at the emoji image underneath.</p>
         </div>
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
-          <h4>Quick, relaxing rounds</h4>
-          <p>Each round fits in a spare minute. No pressure, no grind — just one more guess.</p>
+          <h4>Budget your scratches</h4>
+          <p>Limited scratch budget — reveal just enough, then guess. Less scratch = more points.</p>
         </div>
         <div class="s-feature">
-          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-          <h4>Kid-friendly by design</h4>
-          <p>Clean, colorful, and safe for all ages. Optional purchases never required.</p>
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <h4>Family-friendly</h4>
+          <p>4+ rating. Clean, colorful rounds. Optional purchases sit behind a parents-only gate.
+            <a href={privacyUrl}>Privacy</a> ·
+            <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a></p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg></div>
+          <h4>Power-ups when stuck</h4>
+          <p>Hint, Reveal, Extra Life, and Time Freeze — use them when the picture is too tricky.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- DISCOVER --------------------------------------------------------- -->
+  <section class="s-section-alt" id="discover">
+    <div class="container">
+      <p class="s-eyebrow">Discover</p>
+      <h2 class="s-h2">250+ items. 7 categories. Daily challenges.</h2>
+      <p class="s-section-lede">
+        Animals, Food, Objects, Vehicles, Sports, Nature, and Shapes — plus streaks, achievements,
+        themes, and a difficulty system that adapts as you improve.
+      </p>
+      <div class="s-modes-grid">
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8v13H3V8"></path><path d="M1 3h22v5H1z"></path><line x1="10" y1="12" x2="14" y2="12"></line></svg></div>
+          <h3>Categories</h3>
+          <p>From cute pets and tasty treats to vehicles, sports gear, nature, and shapes.</p>
+        </div>
+        <div class="s-mode-card s-mode-b">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+          <h3>Daily challenges</h3>
+          <p>A new category focus each day with bonus rewards. Keep the streak alive for bigger coin bonuses.</p>
+        </div>
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"></polygon></svg></div>
+          <h3>Themes &amp; achievements</h3>
+          <p>Seven scratch overlays (Silver, Ice, Clouds, Gift Wrap, Bubbles, Gold, Holographic) and 20+ achievements for speed, efficiency, streaks, and mastery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING ---------------------------------------------------------- -->
+  <section class="s-section" id="pricing">
+    <div class="container-narrow">
+      <p class="s-eyebrow">Pricing</p>
+      <h2 class="s-h2">Free to play with ads. Optional unlocks.</h2>
+      <p class="s-section-lede">
+        Download Scratchy on the App Store. Play the core scratch-and-guess loop free — ads
+        support that. When you want more, optional in-app purchases are listed on the live App
+        Store page (prices in USD; may vary by region).
+      </p>
+      <ul class="mq-price-list">
+        <li><strong>Download:</strong> Free to play with ads</li>
+        <li><strong>Premium Unlock — $4.99 once:</strong> Optional premium unlock (parents-only gate)</li>
+        <li><strong>Coin packs (optional):</strong> 500 ($0.99) · 1,500 ($2.99) · 5,000 ($7.99) · 12,000 ($14.99)</li>
+        <li><strong>Also:</strong> Offline play supported · No account required · Purchases never required to try the core loop</li>
+      </ul>
+      <div class="s-hero-cta" style="margin-top:28px">
+        <AppStoreButton href={appUrlCta} label="Download Scratchy on the App Store" />
+      </div>
+      <p class="s-price-note" style="margin-top:16px">
+        Questions? <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a> ·
+        <a href={privacyUrl}>Privacy</a> ·
+        <a href="/scratchy/terms">Terms</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ --------------------------------------------------------------- -->
+  <section class="s-faq" id="faq">
+    <div class="container-narrow">
+      <p class="s-eyebrow">Frequently asked</p>
+      <h2 class="s-h2">The short answers.</h2>
+      {faqs.map((f) => (
+        <details class="s-faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
     </div>
   </section>
 
   <!-- FINAL ------------------------------------------------------------- -->
   <section class="s-final">
     <div class="container-narrow">
-      <h2>How many can you guess?</h2>
-      <p>Available on the App Store for iPhone.</p>
+      <h2>How little can you scratch?</h2>
+      <p>Available on the App Store for iPhone. Free to play with ads — optional Premium Unlock $4.99.</p>
       <AppStoreButton href={appUrlCta} label="Download Scratchy on the App Store" />
     </div>
   </section>
 </AppShell>
+
+<style>
+  .mq-price-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.7;
+    max-width: 56ch;
+  }
+  .mq-price-list li { margin: 0.35rem 0; }
+  .mq-price-list strong { color: var(--ink); font-weight: 600; }
+</style>

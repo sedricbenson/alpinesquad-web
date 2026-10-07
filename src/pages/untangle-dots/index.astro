@@ -4,13 +4,53 @@ import AppStoreButton from '../../components/AppStoreButton.astro';
 import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
 import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
 
-const title = 'Untangle Dots — Calm Knot Puzzle for iPhone | Available on the App Store';
+/**
+ * Untangle Dots — hub product page.
+ * Grounded in live App Store + itunes lookup + alpine-squad-marketing/untangle-dots pack (2026-10-07 PT).
+ * Public: Free + Unlock all levels $2.99 one-time; Daily always free; planar/solvable;
+ * Only for iPhone / 0 iPad shots; version 1.0 public (1.0.1 Prepare — do not market as Ready).
+ * Ratings 0 — no invented social proof. Screenshots from live ASC iPhone set (commit 5caed38).
+ */
+
+const title = 'Untangle Dots — Calm Knot Puzzle for iPhone | Drag Until No Lines Cross';
 const description =
-  'A calm knot puzzle: drag the dots until no two lines cross. Every board is solvable. Daily puzzle, no ads pressure. Available on the App Store for iPhone.';
+  'Calm knot puzzles for iPhone. Drag dots until no lines cross — every board is a planar graph, so a clean layout always exists. Daily Puzzle always free. 200-level campaign; first 3 free. Unlock all levels $2.99 one-time. No ads, no accounts. Available on the App Store.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const appUrlClean = appStoreUrl(APP_IDS.untangleDots);
 const appUrlCta = appStoreUrl(APP_IDS.untangleDots, 'web-untangle-dots');
+const privacyUrl = 'https://sedricbenson.github.io/disclosures/untangle/privacy.html';
+
+const faqs = [
+  {
+    q: 'How does Untangle Dots work?',
+    a: 'Every board starts as a tangled web of dots and lines. Drag the dots until no two lines cross — that is the whole game. Calm, tactile, and skill-based.',
+  },
+  {
+    q: 'Is every puzzle solvable?',
+    a: 'Yes. Each board is built from a planar graph, so a crossing-free layout always exists. No dead ends, no luck — just you and the tangle.',
+  },
+  {
+    q: 'What is free?',
+    a: 'The Daily Puzzle is always free — the same graph for everyone, with fewest-moves challenge, streak, and a spoiler-free emoji share card. The 200-level campaign’s first 3 levels are free. Unlock all levels is a $2.99 one-time in-app purchase (never a subscription).',
+  },
+  {
+    q: 'What is the 200-level campaign?',
+    a: 'Bronze → Silver → Gold → Sapphire — 200 levels that get trickier as you climb. First three levels free; unlock the rest with Unlock all levels ($2.99 once). The Daily Puzzle stays free either way.',
+  },
+  {
+    q: 'What does beat par mean?',
+    a: 'Anyone can untangle a board eventually. The real game is doing it in fewer moves than par — a genuine skill ceiling for puzzle lovers.',
+  },
+  {
+    q: 'Does it work offline? Are there ads or accounts?',
+    a: 'Fully offline after download. No ads, no accounts, no tracking, no data collection. One optional one-time unlock — never a subscription. Progress stays on your device. Privacy: ' + privacyUrl,
+  },
+  {
+    q: 'iPhone or iPad?',
+    a: 'Available on the App Store for iPhone (iOS 17+). The public listing is Only for iPhone; product screenshots on this page are from the live iPhone App Store set.',
+  },
+];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -18,19 +58,51 @@ const schema = {
     {
       '@type': 'MobileApplication',
       name: 'Untangle Dots',
-      operatingSystem: 'iOS',
+      operatingSystem: 'iOS 17+',
       applicationCategory: 'GameApplication',
       applicationSubCategory: 'Puzzle',
       description,
-      url: appUrlClean,
+      url: `${site}/untangle-dots`,
+      installUrl: appUrlClean,
+      downloadUrl: appUrlClean,
       image: `${site}/images/untangle-dots-icon.png`,
-      offers: {
-        '@type': 'Offer',
-        price: '0.00',
-        priceCurrency: 'USD',
-        availability: 'https://schema.org/InStock',
-      },
+      screenshot: [
+        `${site}/images/untangle-dots-home.webp`,
+        `${site}/images/untangle-dots-board.webp`,
+        `${site}/images/untangle-dots-result.webp`,
+        `${site}/images/untangle-dots-levels.webp`,
+        `${site}/images/untangle-dots-settings.webp`,
+      ],
+      offers: [
+        {
+          '@type': 'Offer',
+          name: 'Untangle Dots download',
+          price: '0.00',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
+          description:
+            'Download includes Daily Puzzle (always free) and the first 3 levels of the 200-level campaign.',
+        },
+        {
+          '@type': 'Offer',
+          name: 'Unlock all levels',
+          price: '2.99',
+          priceCurrency: 'USD',
+          category: 'In-app purchase',
+          description:
+            'One-time purchase. Unlocks the full 200-level campaign (Bronze → Silver → Gold → Sapphire). Daily Puzzle stays free. No subscription.',
+        },
+      ],
       publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+      privacyPolicy: privacyUrl,
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
     },
     breadcrumbList(site, [
       { name: 'Alpine Squad', path: '/' },
@@ -55,26 +127,34 @@ const schema = {
   privacyPath="/untangle-dots/privacy"
   termsPath="/untangle-dots/terms"
   contactEmail="support@alpinesquad.com"
+  navLinks={[
+    { label: 'Screenshots', href: '#screenshots' },
+    { label: 'Daily', href: '#daily' },
+    { label: 'Campaign', href: '#campaign' },
+    { label: 'Pricing', href: '#pricing' },
+    { label: 'FAQ', href: '#faq' },
+  ]}
 >
+  <!-- HERO ----------------------------------------------------------- -->
   <section class="s-hero">
     <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
     <div class="container s-hero-inner">
       <img class="s-hero-icon" src="/images/untangle-dots-icon.png" alt="Untangle Dots app icon" width="84" height="84" />
-      <p class="s-eyebrow">Untangle Dots · iPhone</p>
+      <p class="s-eyebrow">Untangle Dots · Knot Puzzle · iPhone</p>
       <h1>Drag the knots <span class="s-hero-accent">apart</span>.</h1>
       <p class="s-lede">
         Every board starts as a tangled web of dots and lines. Drag the dots until no two lines
-        cross — that is the whole game.
+        cross — that is the whole game. Every board is solvable. Daily Puzzle always free.
+        Unlock all levels is <strong>$2.99 one-time</strong> — no subscription, no ads, no accounts.
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download Untangle Dots on the App Store" />
-        <p class="s-hero-claims">Daily puzzle · Always solvable</p>
+        <p class="s-hero-claims">Daily free · First 3 levels free · Unlock all $2.99 once · Offline</p>
       </div>
     </div>
   </section>
 
-
-  <!-- SCREENSHOTS ------------------------------------------------------ -->
+  <!-- SCREENSHOTS — live App Store iPhone set ------------------------ -->
   <ScreenshotSlots
     eyebrow="In the app"
     heading="Real screens from the App Store."
@@ -83,7 +163,7 @@ const schema = {
       {
         src: '/images/untangle-dots-home.webp',
         label: 'Home',
-        alt: 'Untangle Dots home screen',
+        alt: 'Untangle Dots home screen with Daily Puzzle and campaign',
       },
       {
         src: '/images/untangle-dots-board.webp',
@@ -93,58 +173,175 @@ const schema = {
       {
         src: '/images/untangle-dots-result.webp',
         label: 'Solved',
-        alt: 'Untangle Dots solved layout result',
+        alt: 'Untangle Dots solved layout result with move count',
       },
       {
         src: '/images/untangle-dots-levels.webp',
         label: 'Levels',
-        alt: 'Untangle Dots level path',
+        alt: 'Untangle Dots 200-level campaign map',
       },
       {
         src: '/images/untangle-dots-settings.webp',
         label: 'Settings',
-        alt: 'Untangle Dots settings',
+        alt: 'Untangle Dots settings screen',
       },
     ]}
   />
 
+  <!-- HOW IT PLAYS ----------------------------------------------------- -->
   <section class="s-section">
     <div class="container">
-      <h2 class="s-h2">A knot puzzle with no dead ends.</h2>
+      <h2 class="s-h2">A calm knot puzzle with no dead ends.</h2>
       <p class="s-section-lede">
         Each board is built from a planar graph, so a crossing-free layout always exists. No luck —
-        just you and the tangle.
+        just you and the tangle. Beat par for the real skill ceiling.
       </p>
       <div class="s-feature-grid">
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="6" cy="18" r="2"></circle><circle cx="18" cy="18" r="2"></circle><line x1="8" y1="6" x2="16" y2="6"></line><line x1="6" y1="8" x2="6" y2="16"></line><line x1="18" y1="8" x2="18" y2="16"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg></div>
           <h4>Drag to untangle</h4>
-          <p>Move the dots until every line is clear. Satisfying, tactile, endless.</p>
+          <p>Move the dots until every line is clear. Satisfying, tactile, and fair.</p>
         </div>
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
           <h4>Always solvable</h4>
-          <p>Planar graphs only — a clean layout is guaranteed. No unfair boards.</p>
-        </div>
-        <div class="s-feature">
-          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
-          <h4>Daily puzzle</h4>
-          <p>The same graph for everyone each day. Solve it, compare, come back tomorrow.</p>
+          <p>Planar graphs only — a clean layout is guaranteed. No unfair boards, no dead ends.</p>
         </div>
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
-          <h4>Calm &amp; private</h4>
-          <p>No noisy ads mid-puzzle. Progress stays on your device.</p>
+          <h4>Private &amp; offline</h4>
+          <p>No ads, no accounts, no tracking, no data collection. Plays fully offline.
+            <a href={privacyUrl}>Privacy</a> ·
+            <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a></p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          <h4>Beat par</h4>
+          <p>Anyone can clear a board eventually. The real game is fewer moves than par.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- DAILY ------------------------------------------------------------ -->
+  <section class="s-section-alt" id="daily">
+    <div class="container">
+      <p class="s-eyebrow">Daily Puzzle</p>
+      <h2 class="s-h2">Same graph for everyone. Always free.</h2>
+      <p class="s-section-lede">
+        A fresh tangle every day — the same board worldwide. Solve it in as few moves as you can,
+        build a streak, and share a spoiler-free emoji card. The Daily stays free whether or not
+        you unlock the campaign.
+      </p>
+      <div class="s-modes-grid">
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+          <h3>Daily board</h3>
+          <p>One graph per day. Same puzzle for everyone — compare move counts without spoilers.</p>
+        </div>
+        <div class="s-mode-card s-mode-b">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg></div>
+          <h3>Streak</h3>
+          <p>Come back tomorrow. Keep the streak alive — no account wall, progress on device.</p>
+        </div>
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg></div>
+          <h3>Spoiler-free share</h3>
+          <p>Share an emoji card that does not give away the layout — brag about the moves, not the solution.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 200-LEVEL CAMPAIGN ----------------------------------------------- -->
+  <section class="s-section" id="campaign">
+    <div class="container">
+      <p class="s-eyebrow">200-level campaign</p>
+      <h2 class="s-h2">Bronze → Silver → Gold → Sapphire.</h2>
+      <p class="s-section-lede">
+        Trickier tangles as you climb. The first three levels are free; unlock the rest with a
+        single one-time purchase. The Daily Puzzle is always free either way.
+      </p>
+      <div class="s-modes-grid">
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18"></path><path d="M5 20V12l4-3 4 2 4-4 2 3v10"></path></svg></div>
+          <h3>Bronze</h3>
+          <p>Learn the feel on gentler webs. First three levels included with the download.</p>
+        </div>
+        <div class="s-mode-card s-mode-b">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"></polygon></svg></div>
+          <h3>Silver &amp; Gold</h3>
+          <p>Denser graphs, tighter crossings — still always solvable, still beat-par focused.</p>
+        </div>
+        <div class="s-mode-card s-mode-a">
+          <div class="s-mode-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg></div>
+          <h3>Sapphire</h3>
+          <p>The top of the climb — the densest tangles. Unlock all levels for the full 200.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING ---------------------------------------------------------- -->
+  <section class="s-section-alt" id="pricing">
+    <div class="container-narrow">
+      <p class="s-eyebrow">Pricing</p>
+      <h2 class="s-h2">Honest freemium. One unlock. No subscription.</h2>
+      <p class="s-section-lede">
+        Download Untangle Dots on the App Store. Daily Puzzle is always free. The campaign’s first
+        3 levels are free. When you’re ready for the rest, Unlock all levels is a single
+        <span class="s-price" style="font-size:1.15em;display:inline">$2.99</span> purchase.
+      </p>
+      <ul class="mq-price-list">
+        <li><strong>Always free:</strong> Daily Puzzle (same graph, streak, spoiler-free emoji share)</li>
+        <li><strong>Included:</strong> First 3 levels of the 200-level campaign</li>
+        <li><strong>Unlock all levels — $2.99 once:</strong> Full campaign (Bronze → Silver → Gold → Sapphire)</li>
+        <li><strong>Never:</strong> subscription, ads, or account wall</li>
+      </ul>
+      <div class="s-hero-cta" style="margin-top:28px">
+        <AppStoreButton href={appUrlCta} label="Download Untangle Dots on the App Store" />
+      </div>
+      <p class="s-price-note" style="margin-top:16px">
+        Questions? <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a> ·
+        <a href={privacyUrl}>Privacy</a> ·
+        <a href="/untangle-dots/terms">Terms</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ --------------------------------------------------------------- -->
+  <section class="s-faq" id="faq">
+    <div class="container-narrow">
+      <p class="s-eyebrow">Frequently asked</p>
+      <h2 class="s-h2">The short answers.</h2>
+      {faqs.map((f) => (
+        <details class="s-faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- FINAL ------------------------------------------------------------- -->
   <section class="s-final">
     <div class="container-narrow">
       <h2>Untangle today's knot.</h2>
-      <p>Available on the App Store for iPhone.</p>
+      <p>Available on the App Store for iPhone. Daily Puzzle always free — Unlock all levels $2.99 one-time.</p>
       <AppStoreButton href={appUrlCta} label="Download Untangle Dots on the App Store" />
     </div>
   </section>
 </AppShell>
+
+<style>
+  .mq-price-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.7;
+    max-width: 52ch;
+  }
+  .mq-price-list li { margin: 0.35rem 0; }
+  .mq-price-list strong { color: var(--ink); font-weight: 600; }
+</style>
