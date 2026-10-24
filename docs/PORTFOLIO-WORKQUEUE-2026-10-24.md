@@ -8,16 +8,18 @@ the order to work them in and what is blocked on what.
 
 | Repo | Branch | What is on it | PR |
 |---|---|---|---|
-| bible-blitz | `fable/polish-2026-10` | 5 P0 bugs, 9 P1 polish items, dead code removed, framer + re-framed panels, support URL | see repo |
-| music-quest | `fable/polish-2026-10` | 5 P0 bugs, 9 P1 polish items, metadata, support URL | see repo |
-| scratchy | `fable/polish-2026-10` | 5 P0 bugs, 7 P1 items, age-rating fix (ads), framer + re-framed panels, support URL | see repo |
-| spelling-game | `fable/polish-2026-10` | 4 P0 bugs, 12 P1 items, emoji dedupe, honest metadata, docs archive, framer, support URL | see repo |
-| current-atlas | `fable/polish-2026-10` | 3 P0 bugs, 11 P1 items, metadata, WORKQUEUE | see repo |
-| alpinesquad-web | `fable/polish-2026-10` | honest Scratchy + Bible Blitz copy, `/support` page | #2 |
+| bible-blitz | `fable/polish-2026-10` → `fable/next-2026-10` | 5 P0 bugs, 9 P1 polish items, dead code removed, framer + re-framed panels, support URL; then Siri Shortcuts, reminder time + settings link, native share | [#18](https://github.com/sedricbenson/bible-blitz/pull/18), [#19](https://github.com/sedricbenson/bible-blitz/pull/19) (stacked) |
+| music-quest | `fable/polish-2026-10` → `fable/next-2026-10` | 5 P0 bugs, 9 P1 polish items, metadata, support URL; then system appearance, VoiceOver staff placement, Rapid pause during feedback | [#2](https://github.com/sedricbenson/music-quest/pull/2), [#3](https://github.com/sedricbenson/music-quest/pull/3) (stacked) |
+| scratchy | `fable/polish-2026-10` → `fable/next-2026-10` | 5 P0 bugs, 7 P1 items, age-rating fix (ads), framer + re-framed panels, support URL; then share-card image, `scratchy://daily`, load guard | [#1](https://github.com/sedricbenson/scratchy/pull/1), [#2](https://github.com/sedricbenson/scratchy/pull/2) (stacked) |
+| spelling-game | `fable/polish-2026-10` → `fable/next-2026-10` | 4 P0 bugs, 12 P1 items, emoji dedupe, honest metadata, docs archive, framer, support URL; then hear the word, spell after a miss, practice missed words | [#11](https://github.com/sedricbenson/spelling-game/pull/11), [#12](https://github.com/sedricbenson/spelling-game/pull/12) (stacked) |
+| current-atlas | `fable/polish-2026-10` → `fable/next-2026-10` | 3 P0 bugs, 11 P1 items, metadata, WORKQUEUE; then Siri next-slack intent, open-a-pass shortcut, share a plan | [#14](https://github.com/sedricbenson/current-atlas/pull/14), [#15](https://github.com/sedricbenson/current-atlas/pull/15) (stacked) |
+| alpinesquad-web | `fable/polish-2026-10` | honest Scratchy + Bible Blitz copy, `/support` page, this file | [#2](https://github.com/sedricbenson/alpinesquad-web/pull/2) |
 | affiliate-website | main | empty repo (README only) | none |
 
 Every Swift change was written and then reviewed a second time without a
-compiler. Nothing was built, tested, or run on a simulator. The cloud
+compiler (one review pass per branch, polish and next). The stacked `next`
+PRs target the `polish` branch, so each diff reads on its own; merge
+`polish` first, then retarget or merge `next`. Nothing was built, tested, or run on a simulator. The cloud
 environment has no Xcode, no DNS, and its network policy blocks the npm
 registry. Treat every branch as **unverified until a Mac build passes**.
 
@@ -32,7 +34,7 @@ Do these in order; each step unblocks the next.
 1. **alpinesquad-web PR #2** — check the Vercel preview (`/support`,
    `/scratchy`, `/bible-blitz`), merge. The app listings' `support_url.txt`
    now point at `/support`, so this goes first.
-2. **Build each app branch.** Open the project, build, fix anything the
+2. **Build each app branch** (`polish` first, then `next`). Open the project, build, fix anything the
    compiler catches. The handoffs name the APIs the agents were least sure
    of; start there. Expected: a handful of small signature fixes per repo,
    not rewrites.
