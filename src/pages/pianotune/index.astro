@@ -12,7 +12,7 @@ import { breadcrumbList } from '../../lib/seo';
 
 const title = 'Pianotune — Pro Piano Tuner for iPhone & iPad | Coming Soon';
 const description =
-  'Pianotune is Alpine Squad’s upcoming pro piano tuner for iPhone & iPad: 88-key inharmonicity sampling, Railsback stretch, pitch-raise overpull, 76 temperaments, strobe + cents needle, per-piano history. Coming soon — not yet on the App Store. Official page: alpinesquad.com/pianotune.';
+  'Pianotune is Alpine Squad’s upcoming pro piano tuner for iPhone & iPad: chromatic inharmonicity sampling, Railsback stretch, pitch-raise overpull, historical temperaments, strobe + cents needle, per-piano history. Coming soon — not yet on the App Store. Official page: alpinesquad.com/pianotune.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 
@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: 'Is Pianotune the same as other piano tuner apps?',
-    a: 'No. Pianotune is Alpine Squad’s own upcoming tuner — built around full 88-key inharmonicity sampling, Railsback stretch from the piano in front of you, pitch-raise overpull, historical temperaments, and per-piano history. It is not affiliated with other tuner brands or apps (including products such as Pianoscope).',
+    a: 'No. Pianotune is Alpine Squad’s own upcoming tuner — built around chromatic inharmonicity sampling (A0 to C7), Railsback stretch from the piano in front of you, pitch-raise overpull, historical temperaments, and per-piano history. It is not affiliated with other tuner brands or apps (including products such as Pianoscope).',
   },
   {
     q: 'Who is Pianotune for?',
@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: 'What will ship at launch?',
-    a: 'Planned highlights include real-time cents + strobe display, Learn-My-Piano chromatic sampling, Railsback stretch curves, pitch-raise overpull modelling, 76 historical temperaments, and per-piano / client history. Final store copy lands with the public listing.',
+    a: 'Planned highlights include real-time cents + strobe display, Learn-My-Piano chromatic sampling, Railsback stretch curves, pitch-raise overpull modeling, historical temperaments, and per-piano / client history. Final store copy lands with the public listing.',
   },
   {
     q: 'Where is the official page?',
@@ -94,7 +94,7 @@ const schema = {
       <p class="s-eyebrow">Pianotune · iPhone &amp; iPad</p>
       <h1>Concert-grade tuning, <span class="s-hero-accent">in your pocket</span>.</h1>
       <p class="s-lede">
-        Alpine Squad’s upcoming pro piano tuner — full 88-key inharmonicity sampling, Railsback
+        Alpine Squad’s upcoming pro piano tuner — chromatic inharmonicity sampling, Railsback
         stretch from the instrument in front of you, pitch-raise overpull, and per-piano history.
         Coming soon to the App Store. Not available for download yet.
       </p>
@@ -104,8 +104,8 @@ const schema = {
       </div>
 
       <div class="s-stat-strip">
-        <div class="s-stat"><span class="s-stat-value"><span class="accent">88</span></span><span class="s-stat-label">Keys sampled per piano</span></div>
-        <div class="s-stat"><span class="s-stat-value"><span class="accent">76</span></span><span class="s-stat-label">Historical temperaments</span></div>
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">A0–C7</span></span><span class="s-stat-label">Sampled per piano</span></div>
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">Werckmeister→Young</span></span><span class="s-stat-label">Historical temperaments</span></div>
         <div class="s-stat"><span class="s-stat-value"><span class="accent">±0.1¢</span></span><span class="s-stat-label">Cents-accurate needle</span></div>
         <div class="s-stat"><span class="s-stat-value"><span class="accent">∞</span></span><span class="s-stat-label">Pianos remembered</span></div>
       </div>
@@ -139,11 +139,11 @@ const schema = {
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"></path><polyline points="5 12 12 5 19 12"></polyline></svg></div>
           <h4>Pitch-raise overpull</h4>
-          <p>Overpull modelling for pianos far off pitch — get there in one pass instead of three.</p>
+          <p>Overpull modeling for pianos far off pitch — get there in one pass instead of three.</p>
         </div>
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
-          <h4>76 temperaments</h4>
+          <h4>Historical temperaments</h4>
           <p>From equal to Werckmeister to Kirnberger — historical temperaments for period-accurate work.</p>
         </div>
         <div class="s-feature">
