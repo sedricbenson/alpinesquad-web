@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { breadcrumbList } from '../../lib/seo';
+import { GUIDES } from '../../lib/guides';
+
+/**
+ * Guides index. Each guide is a long-form answer to one search phrase,
+ * tied to one app. The list itself lives in src/lib/guides.ts.
+ */
+
+const title = 'Guides — Alpine Squad';
+const description =
+  'Practical guides from the people who build Spelly, HamCram, and Bible Blitz: a two-week Technician exam plan, spaced review for spelling, and Bible trivia questions by book.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      name: 'Guides',
+      url: `${site}/guides`,
+      description,
+      publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+      hasPart: GUIDES.map((g) => ({
+        '@type': 'Article',
+        headline: g.title,
+        url: `${site}${g.path}`,
+        datePublished: g.datePublished,
+      })),
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Guides', path: '/guides' },
+    ]),
+  ],
+};
+
+const fmt = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+---
+
+<BaseLayout {title} {description} {schema}>
+  <SiteNav />
+
+  <section class="guides-hero">
+    <div class="container-narrow">
+      <p class="eyebrow">Guides</p>
+      <h1>Written by the people who built the apps.</h1>
+      <p class="lede">
+        Each guide answers one real question in plain language and stands on its own. The app
+        it mentions is at the end, not in the way.
+      </p>
+    </div>
+  </section>
+
+  <section class="guides">
+    <div class="container-narrow">
+      <ul class="guide-list">
+        {GUIDES.map((g) => (
+          <li class="guide-card">
+            <a href={g.path} class="guide-link">
+              <img src={g.icon} alt="" width="56" height="56" loading="lazy" class="guide-icon" />
+              <div class="guide-text">
+                <p class="guide-app">{g.app} · {g.readingMinutes} min read</p>
+                <h2>{g.title}</h2>
+                <p class="guide-desc">{g.description}</p>
+                <p class="guide-date"><time datetime={g.datePublished}>{fmt(g.datePublished)}</time></p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .guides-hero {
+    padding: 88px 0 40px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, #ffffff) 0%, #ffffff 85%);
+    text-align: center;
+  }
+  @media (max-width: 720px) {
+    .guides-hero { padding: 60px 0 32px; }
+  }
+  .guides-hero .eyebrow {
+    letter-spacing: 2.5px;
+    color: var(--accent-warm);
+    margin-bottom: 14px;
+  }
+  .guides-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(34px, 5.6vw, 56px);
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 18px;
+    text-wrap: balance;
+  }
+  .lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0 auto;
+  }
+
+  .guides { padding: 24px 0 80px; }
+  .guide-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .guide-link {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    background: #fff;
+    color: var(--ink);
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+  .guide-link:hover {
+    color: var(--ink);
+    border-color: rgba(29, 29, 31, 0.2);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+  }
+  .guide-icon { border-radius: 13px; flex: none; }
+  .guide-text { min-width: 0; }
+  .guide-app {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin-bottom: 6px;
+  }
+  .guide-card h2 {
+    font-family: var(--serif);
+    font-size: 23px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.25;
+    margin-bottom: 8px;
+    text-wrap: balance;
+  }
+  .guide-desc { color: var(--ink-soft); font-size: 15.5px; line-height: 1.6; margin-bottom: 8px; }
+  .guide-date { color: var(--ink-muted); font-size: 14px; }
+  @media (max-width: 560px) {
+    .guide-link { flex-direction: column; }
+  }
+</style>

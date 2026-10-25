@@ -79,6 +79,11 @@ cards. That is the foundation; the plan below is what sits on top.
   spelling tests fail and what spaced review does instead" (Spelly), "Bible
   trivia questions by book" (Bible Blitz; the 2,000-question bank is the
   content), "Salish Sea slack-water planning" (Current Charts).
+  **Status 2026-10-25:** the first three are live at `/guides/` (branch
+  `fable/articles-2026-10`): `technician-exam-two-weeks`,
+  `spelling-spaced-review`, `bible-trivia-30-questions`, each with Article
+  JSON-LD and its own `ct=web-article-*` store link. Current Charts post
+  still open.
 
 ### 3.3 In the apps (code, each repo; queued as wave 5)
 - **"More from Alpine Squad" row** in every Settings screen: icon + one

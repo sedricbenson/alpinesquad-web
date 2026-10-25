@@ -1,0 +1,206 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import { appStoreUrl, APP_IDS } from '../../lib/seo';
+import { GUIDES } from '../../lib/guides';
+
+/**
+ * Bible Blitz guide: 30 trivia questions grouped by book.
+ * Every answer is checkable in the King James Version at the reference
+ * given; wording of names follows KJV spelling. Keep the set at 30 and
+ * keep a reference on every answer. Bible Blitz facts match the product
+ * page: 2,000 KJV questions in ten categories, verse shown after every
+ * answer, five categories free, $4.99 Premium adds the rest.
+ */
+const guide = GUIDES.find((g) => g.path === '/guides/bible-trivia-30-questions')!;
+const storeUrl = appStoreUrl(APP_IDS.bibleBlitz, 'web-article-bible-trivia-30');
+
+type QA = { q: string; a: string; ref: string };
+const sections: { book: string; items: QA[] }[] = [
+  {
+    book: 'Genesis',
+    items: [
+      { q: 'What did God set in the cloud as the sign of his covenant with Noah?', a: 'A bow, the rainbow.', ref: 'Genesis 9:13' },
+      { q: 'How old was Abraham when his son Isaac was born?', a: 'One hundred years old.', ref: 'Genesis 21:5' },
+      { q: 'Which of Jacob’s sons was sold by his brothers and carried to Egypt?', a: 'Joseph.', ref: 'Genesis 37:28' },
+    ],
+  },
+  {
+    book: 'Exodus',
+    items: [
+      { q: 'What was the first of the ten plagues on Egypt?', a: 'The waters of the river turned to blood.', ref: 'Exodus 7:20' },
+      { q: 'What did the Israelites call the bread that fell in the wilderness?', a: 'Manna.', ref: 'Exodus 16:15, 31' },
+      { q: 'On which mountain did the LORD give Moses the Ten Commandments?', a: 'Mount Sinai.', ref: 'Exodus 19:20; 31:18' },
+    ],
+  },
+  {
+    book: 'Judges',
+    items: [
+      { q: 'Which judge laid out a fleece of wool to test whether God would deliver Israel by his hand?', a: 'Gideon.', ref: 'Judges 6:37–40' },
+      { q: 'Which judge’s strength was tied to his uncut hair?', a: 'Samson.', ref: 'Judges 16:17' },
+    ],
+  },
+  {
+    book: 'Ruth',
+    items: [
+      { q: 'In whose field did Ruth glean?', a: 'The field of Boaz.', ref: 'Ruth 2:3' },
+    ],
+  },
+  {
+    book: '1 Samuel',
+    items: [
+      { q: 'Which prophet anointed both Saul and David as king?', a: 'Samuel.', ref: '1 Samuel 10:1; 16:13' },
+      { q: 'How many smooth stones did David choose from the brook before facing Goliath?', a: 'Five.', ref: '1 Samuel 17:40' },
+    ],
+  },
+  {
+    book: '1 Kings',
+    items: [
+      { q: 'Which king asked God for an understanding heart and later built the temple in Jerusalem?', a: 'Solomon.', ref: '1 Kings 3:9; 6:1' },
+      { q: 'Which prophet was fed bread and flesh by ravens beside the brook Cherith?', a: 'Elijah.', ref: '1 Kings 17:4–6' },
+    ],
+  },
+  {
+    book: 'Esther',
+    items: [
+      { q: 'Which Persian king made Esther his queen?', a: 'Ahasuerus.', ref: 'Esther 2:16–17' },
+    ],
+  },
+  {
+    book: 'Psalms',
+    items: [
+      { q: 'Which psalm begins “The LORD is my shepherd; I shall not want”?', a: 'Psalm 23.', ref: 'Psalm 23:1' },
+    ],
+  },
+  {
+    book: 'Daniel',
+    items: [
+      { q: 'Name the three men thrown into the burning fiery furnace by Nebuchadnezzar.', a: 'Shadrach, Meshach, and Abednego.', ref: 'Daniel 3:20–23' },
+      { q: 'Where was Daniel cast for continuing to pray to God?', a: 'Into the den of lions.', ref: 'Daniel 6:16' },
+    ],
+  },
+  {
+    book: 'Jonah',
+    items: [
+      { q: 'To which great city was Jonah sent to preach?', a: 'Nineveh.', ref: 'Jonah 1:2' },
+      { q: 'How long was Jonah in the belly of the fish?', a: 'Three days and three nights.', ref: 'Jonah 1:17' },
+    ],
+  },
+  {
+    book: 'Matthew',
+    items: [
+      { q: 'Who baptized Jesus in the Jordan?', a: 'John the Baptist.', ref: 'Matthew 3:13–16' },
+      { q: 'Finish the beatitude: “Blessed are the meek: for they shall…”', a: '“…inherit the earth.”', ref: 'Matthew 5:5' },
+      { q: 'How many loaves and fishes did Jesus use to feed about five thousand men?', a: 'Five loaves and two fishes.', ref: 'Matthew 14:17–21' },
+    ],
+  },
+  {
+    book: 'Luke',
+    items: [
+      { q: 'In which city was Jesus born?', a: 'Bethlehem.', ref: 'Luke 2:4–7' },
+      { q: 'Which chief publican climbed a sycomore tree to see Jesus pass through Jericho?', a: 'Zacchaeus.', ref: 'Luke 19:2–4' },
+    ],
+  },
+  {
+    book: 'John',
+    items: [
+      { q: 'What was the first miracle Jesus performed, at a wedding in Cana?', a: 'He turned water into wine.', ref: 'John 2:1–11' },
+      { q: 'Whom did Jesus raise from the dead after he had been in the grave four days?', a: 'Lazarus.', ref: 'John 11:17, 43–44' },
+    ],
+  },
+  {
+    book: 'Acts',
+    items: [
+      { q: 'On which day did the Holy Ghost come on the disciples with cloven tongues like as of fire?', a: 'The day of Pentecost.', ref: 'Acts 2:1–4' },
+      { q: 'Near which city was Saul struck down by a light from heaven?', a: 'Damascus.', ref: 'Acts 9:3' },
+    ],
+  },
+  {
+    book: 'Revelation',
+    items: [
+      { q: 'On which island was John when he received the Revelation?', a: 'Patmos.', ref: 'Revelation 1:9' },
+      { q: 'How many churches in Asia receive letters in Revelation?', a: 'Seven.', ref: 'Revelation 1:4, 11' },
+    ],
+  },
+];
+
+const total = sections.reduce((n, s) => n + s.items.length, 0);
+if (total !== 30) throw new Error(`Expected 30 questions, found ${total}`);
+---
+
+<GuideLayout
+  title={guide.title}
+  description={guide.description}
+  datePublished={guide.datePublished}
+  eyebrow="Bible Blitz guide"
+  readingMinutes={guide.readingMinutes}
+  ogImage="/images/bibleblitz-og.png"
+  app={{
+    name: 'Bible Blitz',
+    icon: '/images/bibleblitz-icon.png',
+    href: '/bible-blitz',
+    id: APP_IDS.bibleBlitz,
+    storeUrl,
+    pitch:
+      'Bible trivia for iPhone and iPad with 2,000 KJV questions in ten categories. Every answer shows the verse behind it. Quick Play, a Daily Challenge, Verse Memory, and five categories are free.',
+    price: 'Free on the App Store. A one-time $4.99 Premium unlock adds Timed Blitz, Smart Review, and the other five categories. No ads, no account.',
+  }}
+>
+  <p>
+    Thirty questions, grouped by book in Bible order, each with its answer and the verse that
+    settles it. They are written to be read aloud, so a leader can run them from a phone in a
+    youth group, a Sabbath School or Sunday School class, or at the table after dinner. Every
+    answer is checkable in the King James Version at the reference given; names follow KJV
+    spelling, so Zacchaeus climbs a sycomore tree.
+  </p>
+
+  <h2>How to run them</h2>
+  <ul>
+    <li>
+      <strong>Teams, not individuals.</strong> Two or three teams, a question to each in turn.
+      People who would never answer alone will argue happily inside a team.
+    </li>
+    <li>
+      <strong>Read the reference after the answer, not before.</strong> Then have someone look it
+      up and read the verse. The lookup is where the trivia turns into a Bible study, and it
+      takes thirty seconds.
+    </li>
+    <li>
+      <strong>Steal rule.</strong> A missed question passes to the next team for half credit.
+      It keeps every team listening to every question.
+    </li>
+    <li>
+      <strong>Mix the difficulty.</strong> The set below runs from questions most children in a
+      church school can answer (Bethlehem, Jonah) to ones adults will reach for (Ahasuerus, the
+      brook Cherith). Do not sort by difficulty; the easy ones are the rest between the hard ones.
+    </li>
+  </ul>
+
+  {sections.map((s) => (
+    <section>
+      <h2>{s.book}</h2>
+      <ol class="qa">
+        {s.items.map((it) => (
+          <li>
+            <p class="q">{it.q}</p>
+            <p class="a">{it.a} <span class="ref">({it.ref})</span></p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  ))}
+
+  <h2>Want more than thirty?</h2>
+  <p>
+    The question bank behind Bible Blitz, our trivia app, holds 2,000 questions written against
+    the King James Version and sorted into ten categories, among them the Gospels, Psalms,
+    parables, miracles, Acts and the early church, the Epistles, Revelation, and the people and
+    geography of the Bible. Every answer in the app shows the verse behind it, the same way the
+    references above do, so a wrong answer is a short Bible study rather than a lost point.
+    Quick Play, the Daily Challenge (ten questions, the same set for every player that day),
+    Verse Memory, and five of the ten categories are free; a one-time $4.99 Premium unlock adds
+    Timed Blitz, Smart Review, and the other five categories. There are no ads and no account.
+  </p>
+  <p>
+    If you only need a game night, the thirty above are yours to print, copy, and read aloud.
+  </p>
+</GuideLayout>
