@@ -1,0 +1,181 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import { appStoreUrl, APP_IDS } from '../../lib/seo';
+import { GUIDES } from '../../lib/guides';
+
+/**
+ * Spelly guide: the spacing effect, applied to weekly spelling lists.
+ * Research is named (Ebbinghaus; Cepeda et al. 2006; Roediger and
+ * Karpicke 2006; Dunlosky et al. 2013) without invented percentages.
+ * Spelly is described exactly as the product page describes it: two
+ * recognition-based games, categories tiered by age, a daily challenge,
+ * and a review that resurfaces missed words. It is not a dictation tool
+ * and the copy says so.
+ */
+const guide = GUIDES.find((g) => g.path === '/guides/spelling-spaced-review')!;
+const storeUrl = appStoreUrl(APP_IDS.spelly, 'web-article-spelling-spaced-review');
+
+const week = [
+  ['Monday', 'Pretest the new list before any studying. Say each word, the child writes it, you mark it. Keep the misses; those are the week’s real list.'],
+  ['Tuesday', 'Five minutes: the missed words only. Say, write, check, fix. Add last week’s misses to the end.'],
+  ['Wednesday', 'Five minutes: everything missed on Monday or Tuesday, plus three words from two weeks ago chosen at random.'],
+  ['Thursday', 'Full list once, as a test. Anything missed gets written correctly twice, then spoken aloud letter by letter.'],
+  ['Friday', 'The school test. No extra study the night before; the week already did the work.'],
+  ['Weekend', 'Nothing formal. If a word from the week shows up in a book or a sign, point at it.'],
+];
+---
+
+<GuideLayout
+  title={guide.title}
+  description={guide.description}
+  datePublished={guide.datePublished}
+  eyebrow="Spelly guide"
+  readingMinutes={guide.readingMinutes}
+  ogImage="/images/spelly-og.png"
+  app={{
+    name: 'Spelly',
+    icon: '/images/spelly-icon.png',
+    href: '/spelly',
+    id: APP_IDS.spelly,
+    storeUrl,
+    pitch:
+      'Two spelling games for kids, families, and English learners: Picture Spell to learn by sight at your own pace, Word Blitz to race the clock. 14,000 words in 23 categories, tiered by age, with a daily challenge and a review that brings back missed words.',
+    price: 'Free on the App Store. Spelly Pro is a one-time $3.99 unlock. No ads, no account.',
+  }}
+>
+  <p>
+    The weekly spelling test has a familiar rhythm. A list comes home Monday, there is a scramble
+    Thursday night, the test is Friday, and by the following Wednesday half the words are gone
+    again. Parents notice it, teachers notice it, and the child notices it most of all, because
+    the same word keeps coming back as a mistake. The test is not the problem. The schedule is.
+  </p>
+
+  <h2>What the Friday test actually measures</h2>
+  <p>
+    A test given a few hours after the last study session measures how much is still in
+    short-term reach, which for most children after a Thursday-night cram is quite a lot. That
+    is why the Friday score can look fine while the spelling in Tuesday’s writing assignment
+    does not. The two situations are measuring different things: one is recall right after
+    study, the other is recall after a gap with no study at all. Only the second one is
+    spelling.
+  </p>
+  <p>
+    Cramming is not useless. It is just front-loaded. All the effort lands in one block, the
+    memory peaks on the test, and then it fades at the usual rate because nothing happened
+    afterward to interrupt the fading.
+  </p>
+
+  <h2>The spacing effect, briefly</h2>
+  <p>
+    The observation goes back to Hermann Ebbinghaus in the 1880s, who tested his own memory for
+    lists of syllables and found two things that have held up ever since: memory for new
+    material falls away quickly at first and more slowly later, and relearning the material
+    after a gap takes less effort each time. Spreading study sessions out over time, rather
+    than massing them together, produces memories that last longer. Psychologists call this the
+    <strong>spacing effect</strong>, and it is one of the most replicated findings in the study
+    of learning.
+  </p>
+  <p>
+    Two later threads matter for spelling in particular. A large review of distributed-practice
+    studies by Nicholas Cepeda and colleagues in 2006 found the advantage of spaced study over
+    massed study across many kinds of material and many age groups, and found that the best gap
+    between sessions grows as the time until the test grows. Separately, work by Henry Roediger
+    and Jeffrey Karpicke in 2006 showed that trying to recall material, even without feedback,
+    strengthens memory more than rereading it for the same amount of time. That is the
+    <strong>testing effect</strong>. A 2013 review for the Association for Psychological Science
+    led by John Dunlosky rated both distributed practice and practice testing as having high
+    utility for learners, while rating rereading and highlighting low.
+  </p>
+  <p>
+    None of this says how much better a particular child will do on a particular test. It says
+    that if the goal is spelling that survives past Friday, spread the practice out and make
+    the child produce the word rather than look at it.
+  </p>
+
+  <h2>Why spelling is a good fit for spacing</h2>
+  <p>
+    Spelling words are small, separable, and easy to test. You do not need a worksheet or a
+    curriculum to review a word; you need to say it and have the child write it. That makes
+    spelling one of the easiest subjects to run on a spaced schedule at home, in sessions short
+    enough that nobody resists them.
+  </p>
+  <p>
+    It also helps that spelling errors are specific. A child does not misspell “because” in
+    general; they drop the a, or write it with an s. Spaced review lets that one word come back
+    on its own schedule instead of being buried in a list of nineteen words the child already
+    knows.
+  </p>
+
+  <h2>A week that uses the list you already have</h2>
+  <p>
+    You do not need to replace the school’s list or argue with the Friday test. You need to
+    change what happens on Monday through Thursday. Each session below is about five minutes.
+  </p>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Day</th><th>Five minutes</th></tr>
+      </thead>
+      <tbody>
+        {week.map(([day, what]) => (
+          <tr><td>{day}</td><td>{what}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p>Three details carry most of the weight:</p>
+  <ul>
+    <li>
+      <strong>Pretest on Monday.</strong> Most lists contain words the child can already spell.
+      Finding out which ones on day one means the week’s effort goes to the five or six words
+      that need it instead of being spread evenly over twenty.
+    </li>
+    <li>
+      <strong>Write, do not look.</strong> Copying a word five times is rereading with a pencil.
+      Hearing the word and producing it from memory, then checking, is a test, and the test is
+      what strengthens the memory. Getting it wrong and fixing it counts.
+    </li>
+    <li>
+      <strong>Keep a running list of old misses.</strong> A word missed three weeks ago that
+      comes back once this week and once next week is being spaced. That is the whole method.
+      An index card or a note on your phone is enough.
+    </li>
+  </ul>
+
+  <div class="note">
+    <p>
+      <strong>If the child hates it,</strong> shorten it. Three words for two minutes, done
+      consistently, beats fifteen words for fifteen minutes done twice and then abandoned. The
+      method depends on the sessions happening, not on their length.
+    </p>
+  </div>
+
+  <h2>Where an app helps, and where it does not</h2>
+  <p>
+    Be clear-eyed about what a phone can do here. The Friday test is a dictation test: the child
+    hears the word and writes it. Most spelling apps, ours included, are
+    <strong>recognition</strong> games: the child sees a picture or hears a word and chooses the
+    correct spelling from options. Recognition is real practice. Seeing the correct form of a
+    word repeatedly, spaced over days, builds the familiarity that makes a wrong spelling look
+    wrong on the page. But it is not the same skill as producing the word from nothing, and an
+    app should not be the only thing a child does with a list.
+  </p>
+  <p>
+    What an app does well is the part parents find hardest to sustain: showing up every day with
+    something short, varied, and not a chore. Spelly is built around that. Picture Spell shows a
+    picture and four spellings, with no timer, so a child can work through a category at their
+    own pace; Word Blitz is the fast version, where correctly and incorrectly spelled words fall
+    down the screen and only the right ones should be tapped. Its 14,000 words are sorted into 23
+    categories and three tiers by age, from beginning spellers to adult vocabulary, so a six-year-old
+    and a parent are not seeing the same words. A daily challenge gives a reason to open it for a
+    few minutes each day, and the app resurfaces words the player keeps missing rather than
+    letting them disappear into the pile.
+  </p>
+  <p>
+    Use it for the daily exposure. Use the kitchen table and a pencil for the pretest and the
+    weekly dictation. The school list stays the school list; the difference is that by Friday
+    the child has met the hard words on four separate days instead of one.
+  </p>
+</GuideLayout>
