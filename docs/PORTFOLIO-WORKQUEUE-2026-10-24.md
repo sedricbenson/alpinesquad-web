@@ -8,10 +8,10 @@ the order to work them in and what is blocked on what.
 
 | Repo | Branch | What is on it | PR |
 |---|---|---|---|
-| bible-blitz | `fable/polish-2026-10` → `fable/next-2026-10`, `fable/content-2026-10` | 5 P0 bugs, 9 P1 polish items, dead code removed, framer + re-framed panels, support URL; then Siri Shortcuts, reminder time + settings link, native share, verses due for review, iPad keyboard; content: all 2,000 questions fact-checked against the KJV, seeder syncs corrections to existing installs | [#18](https://github.com/sedricbenson/bible-blitz/pull/18), [#19](https://github.com/sedricbenson/bible-blitz/pull/19) (stacked), [#20](https://github.com/sedricbenson/bible-blitz/pull/20) (content) |
-| music-quest | `fable/polish-2026-10` → `fable/next-2026-10` | 5 P0 bugs, 9 P1 polish items, metadata, support URL; then system appearance, VoiceOver staff placement, Rapid pause during feedback, practice reminder, colour-blind Mastery Map | [#2](https://github.com/sedricbenson/music-quest/pull/2), [#3](https://github.com/sedricbenson/music-quest/pull/3) (stacked) |
+| bible-blitz | `fable/polish-2026-10` → `fable/next-2026-10`, `fable/content-2026-10` | 5 P0 bugs, 9 P1 polish items, dead code removed, framer + re-framed panels, support URL; then Siri Shortcuts, reminder time + settings link, native share, verses due for review, iPad keyboard; content: all 2,000 questions fact-checked against the KJV, seeder syncs corrections to existing installs, NIV attribution wording | [#18](https://github.com/sedricbenson/bible-blitz/pull/18), [#19](https://github.com/sedricbenson/bible-blitz/pull/19) (stacked), [#20](https://github.com/sedricbenson/bible-blitz/pull/20) (content) |
+| music-quest | `fable/polish-2026-10` → `fable/next-2026-10`, `fable/content-2026-10` | 5 P0 bugs, 9 P1 polish items, metadata, support URL; then system appearance, VoiceOver staff placement, Rapid pause during feedback, practice reminder, colour-blind Mastery Map; content: eight music-theory corrections (Help, unit subtitles, bass F♭ position, ledger-line count) | [#2](https://github.com/sedricbenson/music-quest/pull/2), [#3](https://github.com/sedricbenson/music-quest/pull/3) (stacked), [#4](https://github.com/sedricbenson/music-quest/pull/4) (content) |
 | scratchy | `fable/polish-2026-10` → `fable/next-2026-10`, `fable/content-2026-10` | 5 P0 bugs, 7 P1 items, age-rating fix (ads), framer + re-framed panels, support URL; then share-card image, `scratchy://daily`, load guard, per-theme haptic texture, daily share card; content: eleven items whose wrong answers were a kind of the right answer | [#1](https://github.com/sedricbenson/scratchy/pull/1), [#2](https://github.com/sedricbenson/scratchy/pull/2) (stacked), [#3](https://github.com/sedricbenson/scratchy/pull/3) (content) |
-| spelling-game | `fable/polish-2026-10` → `fable/next-2026-10`, `fable/content-2026-10` | 4 P0 bugs, 12 P1 items, emoji dedupe, honest metadata, docs archive, framer, support URL; then hear the word, spell after a miss, practice missed words, trial-aware paywall, daily reminder; content: every distractor reviewed (2,191 entries fixed, 141 removed) | [#11](https://github.com/sedricbenson/spelling-game/pull/11), [#12](https://github.com/sedricbenson/spelling-game/pull/12) (stacked), [#13](https://github.com/sedricbenson/spelling-game/pull/13) (content) |
+| spelling-game | `fable/polish-2026-10` → `fable/next-2026-10`, `fable/content-2026-10` | 4 P0 bugs, 12 P1 items, emoji dedupe, honest metadata, docs archive, framer, support URL; then hear the word, spell after a miss, practice missed words, trial-aware paywall, daily reminder; content: every distractor reviewed (2,191 entries fixed, 141 removed), 3,007 words re-tiered so Easy is ages 6-10 | [#11](https://github.com/sedricbenson/spelling-game/pull/11), [#12](https://github.com/sedricbenson/spelling-game/pull/12) (stacked), [#13](https://github.com/sedricbenson/spelling-game/pull/13) (content) |
 | current-atlas | `fable/polish-2026-10` → `fable/next-2026-10` | 3 P0 bugs, 11 P1 items, metadata, WORKQUEUE; then Siri next-slack intent, open-a-pass shortcut, share a plan, iPad side panel, cockpit glance | [#14](https://github.com/sedricbenson/current-atlas/pull/14), [#15](https://github.com/sedricbenson/current-atlas/pull/15) (stacked) |
 | alpinesquad-web | `fable/polish-2026-10` | honest Scratchy + Bible Blitz copy, `/support` page, this file | [#2](https://github.com/sedricbenson/alpinesquad-web/pull/2) |
 | affiliate-website | main | empty repo (README only) | none |
@@ -27,6 +27,11 @@ Each audit is checked in at `docs/audits/2026-10-24-hig-audit.md` in its
 repo. Items the audit raised but the branch did not take are listed there
 and in the repo's handoff, with the reason.
 
+App Review notes (`fastlane/metadata/review_information/notes.txt`) are on
+the polish branches of Bible Blitz, MusicQuest, Scratchy, and Spelly, so
+`deliver` uploads them with the version. Current Charts keeps its notes in
+`attach_build_and_review.rb`.
+
 ## Order of work on the Mac
 
 Do these in order; each step unblocks the next.
@@ -38,7 +43,7 @@ Do these in order; each step unblocks the next.
    compiler catches. The handoffs name the APIs the agents were least sure
    of; start there. Expected: a handful of small signature fixes per repo,
    not rewrites.
-3. **Content PRs** (#20 Bible Blitz, #13 Spelly, #3 Scratchy) are data only and can
+3. **Content PRs** (#20 Bible Blitz, #13 Spelly, #3 Scratchy, #4 MusicQuest) are data plus small model fixes and can
    merge the moment the polish PR is in; they fix wrong trivia answers and
    real-word "misspellings" that players could not avoid.
 4. **Run the test suites.** Bible Blitz (Swift Testing + UI), MusicQuest
