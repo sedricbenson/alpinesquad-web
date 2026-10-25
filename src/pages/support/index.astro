@@ -1,0 +1,266 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { breadcrumbList } from '../../lib/seo';
+
+/**
+ * Support — the one URL every App Store listing can point at.
+ *
+ * App Store Connect requires a support URL per app. This page answers the
+ * questions people actually write in about (purchases, restore, data,
+ * deleting), then routes to the per-app FAQ and the support inbox.
+ * Keep it short and plain; it is read by someone who is already annoyed.
+ */
+
+const title = 'Support — Alpine Squad apps';
+const description =
+  'Help for Bible Blitz, Spelly, MusicQuest, Scratchy, HamCram, Glide, and Untangle Dots: restoring a purchase, ads, your data, deleting the app, and how to reach us.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const email = 'support@alpinesquad.com';
+
+const apps = [
+  { name: 'Bible Blitz', href: '/bible-blitz#faq', privacy: '/bible-blitz/privacy', model: 'Free download. One optional one-time Premium unlock. No ads.' },
+  { name: 'Spelly', href: '/spelly#faq', privacy: '/spelly/privacy', model: 'Free download. One optional one-time Spelly Pro unlock. No ads.' },
+  { name: 'MusicQuest', href: '/musicquest#faq', privacy: '/musicquest/privacy', model: 'Free download. One optional one-time Unlock Everything. No ads.' },
+  { name: 'Scratchy', href: '/scratchy#faq', privacy: '/scratchy/privacy', model: 'Free with ads. Optional Premium Unlock removes ads; optional coin packs.' },
+  { name: 'HamCram', href: '/hamcram#faq', privacy: '/hamcram/privacy', model: 'Paid once up front. No ads, no in-app purchases.' },
+  { name: 'Glide', href: '/glide#faq', privacy: '/glide/privacy', model: 'Free download.' },
+  { name: 'Untangle Dots', href: '/untangle-dots#faq', privacy: '/untangle-dots/privacy', model: 'Free download.' },
+];
+
+const faqs = [
+  {
+    q: 'I paid for an unlock but the app still shows it locked.',
+    a: 'Open the app’s Settings or the unlock screen and tap Restore Purchases. Make sure you are signed in to the App Store with the same Apple Account you bought with. If it still does not unlock, email us with the app name and the order number from your Apple receipt email. We cannot see your payment details and will never ask for them.',
+  },
+  {
+    q: 'How do I get a refund?',
+    a: 'Apple handles every purchase and every refund. Go to reportaproblem.apple.com, sign in, find the purchase, and choose “Request a refund”. We cannot issue refunds ourselves.',
+  },
+  {
+    q: 'Which of your apps have ads?',
+    a: 'Only Scratchy. It is free with ads, and its optional Premium Unlock removes them. Bible Blitz, Spelly, MusicQuest, HamCram, Glide, and Untangle Dots have no ads.',
+  },
+  {
+    q: 'Is any of my data sent to you?',
+    a: 'No. Scores, streaks, progress, and settings stay on your device. None of our apps has an account or a login, and none of them sends gameplay data to us. Purchases go through Apple. Each app’s privacy policy is linked below.',
+  },
+  {
+    q: 'What happens to my progress if I delete the app?',
+    a: 'Progress is stored on the device, so deleting the app deletes the progress. A one-time purchase is tied to your Apple Account, not the install, so you can reinstall and tap Restore Purchases to get it back.',
+  },
+  {
+    q: 'Something is wrong. How do I report a bug?',
+    a: 'Email us. Say which app, which iPhone or iPad and iOS version, and what you tapped right before it went wrong. A screenshot helps. We read every message.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      email,
+      availableLanguage: 'English',
+      url: `${site}/support`,
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Support', path: '/support' },
+    ]),
+  ],
+};
+---
+
+<BaseLayout {title} {description} {schema}>
+  <SiteNav />
+
+  <section class="support-hero">
+    <div class="container-narrow">
+      <p class="eyebrow">Support</p>
+      <h1>We answer our own email.</h1>
+      <p class="lede">
+        Alpine Squad is a small studio. Write to
+        <a href={`mailto:${email}`}>{email}</a> and a person replies, usually within a day or two.
+        The answers below cover most of what people ask.
+      </p>
+      <a href={`mailto:${email}`} class="cta">Email support</a>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="container-narrow">
+      <h2>Common questions</h2>
+      <div class="faq-list">
+        {faqs.map((f) => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="apps" id="apps">
+    <div class="container-narrow">
+      <h2>Help by app</h2>
+      <p class="apps-lede">Each app page has its own FAQ and privacy policy.</p>
+      <ul class="app-list">
+        {apps.map((app) => (
+          <li class="app-row">
+            <div>
+              <h3>{app.name}</h3>
+              <p>{app.model}</p>
+            </div>
+            <div class="app-links">
+              <a href={app.href}>FAQ</a>
+              <a href={app.privacy}>Privacy</a>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="apps-note">
+        Current Charts has its own site: <a href="https://currentcharts.app" rel="noopener">currentcharts.app</a>.
+      </p>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .support-hero {
+    padding: 88px 0 56px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, #ffffff) 0%, #ffffff 85%);
+    text-align: center;
+  }
+  @media (max-width: 720px) {
+    .support-hero { padding: 60px 0 40px; }
+  }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin-bottom: 14px;
+  }
+  .support-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 6vw, 60px);
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 18px;
+    text-wrap: balance;
+  }
+  .lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0 auto 28px;
+  }
+  .lede a { color: var(--ink); font-weight: 600; }
+  .cta {
+    display: inline-block;
+    background: var(--ink);
+    color: #fff;
+    padding: 13px 26px;
+    border-radius: var(--r-pill);
+    font-weight: 600;
+    min-height: 44px;
+    line-height: 18px;
+  }
+  .cta:hover { background: var(--accent); }
+
+  .faq { padding: 48px 0 24px; }
+  .faq h2, .apps h2 {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.6vw, 34px);
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 22px;
+  }
+  .faq-list { display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #fff;
+    padding: 0 18px;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16.5px;
+    color: var(--ink);
+    padding: 16px 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    font-size: 22px;
+    line-height: 1;
+    color: var(--ink-muted);
+    flex: none;
+  }
+  .faq-item[open] summary::after { content: '–'; }
+  .faq-item p {
+    color: var(--ink-soft);
+    line-height: 1.65;
+    padding: 0 0 18px;
+    font-size: 15.5px;
+  }
+
+  .apps { padding: 32px 0 80px; }
+  .apps-lede { color: var(--ink-soft); margin: -10px 0 22px; }
+  .app-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .app-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    background: #fff;
+  }
+  .app-row h3 { font-size: 16.5px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .app-row p { font-size: 14.5px; color: var(--ink-soft); }
+  .app-links { display: flex; gap: 8px; flex: none; }
+  .app-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .app-links a:hover { border-color: var(--ink); }
+  @media (max-width: 560px) {
+    .app-row { flex-direction: column; align-items: flex-start; }
+  }
+  .apps-note { margin-top: 22px; font-size: 14.5px; color: var(--ink-muted); }
+  .apps-note a { color: var(--ink-soft); text-decoration: underline; }
+</style>

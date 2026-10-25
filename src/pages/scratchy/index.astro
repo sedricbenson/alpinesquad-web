@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     q: 'Is Scratchy free? What are the in-app purchases?',
-    a: 'Scratchy is free to play with ads. Optional purchases: Premium Unlock ($4.99 one-time), and coin packs — 500 Coins ($0.99), 1,500 Coins ($2.99), 5,000 Coins ($7.99), 12,000 Coins ($14.99). All purchases are behind a parents-only gate. Purchases are never required to try the core scratch-and-guess loop.',
+    a: 'Scratchy is free to play with ads. Optional purchases: Premium Unlock ($4.99 one-time), and coin packs — 500 Coins ($0.99), 1,500 Coins ($2.99), 5,000 Coins ($7.99), 12,000 Coins ($14.99). The shop and Premium live in the Grown-ups area, and every purchase goes through Apple’s App Store purchase sheet. Purchases are never required to try the core scratch-and-guess loop.',
   },
   {
     q: 'Does it work offline? Do I need an account?',
@@ -96,7 +96,7 @@ const schema = {
           priceCurrency: 'USD',
           category: 'In-app purchase',
           description:
-            'Optional one-time Premium Unlock. Separate optional coin packs also available. Parents-only purchase gate.',
+            'Optional one-time Premium Unlock. Separate optional coin packs also available. Purchased through Apple’s App Store purchase sheet.',
         },
         {
           '@type': 'Offer',
@@ -184,7 +184,7 @@ const schema = {
       </p>
       <div class="s-hero-cta">
         <AppStoreButton href={appUrlCta} label="Download Scratchy on the App Store" />
-        <p class="s-hero-claims">Free with ads · 250+ items · Daily challenges · Parents-only IAP gate</p>
+        <p class="s-hero-claims">Free with ads · 250+ items · Daily puzzle · Shop under Grown-ups</p>
       </div>
     </div>
   </section>
@@ -250,7 +250,7 @@ const schema = {
         <div class="s-feature">
           <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
           <h4>Family-friendly</h4>
-          <p>4+ rating. Clean, colorful rounds. Optional purchases sit behind a parents-only gate.
+          <p>4+ rating. Clean, colorful rounds. The shop, stats, and settings sit in a Grown-ups area, and purchases go through Apple’s own purchase sheet.
             <a href={privacyUrl}>Privacy</a> ·
             <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a></p>
         </div>
@@ -304,7 +304,7 @@ const schema = {
       </p>
       <ul class="mq-price-list">
         <li><strong>Download:</strong> Free to play with ads</li>
-        <li><strong>Premium Unlock — $4.99 once:</strong> Optional premium unlock (parents-only gate)</li>
+        <li><strong>Premium Unlock — $4.99 once:</strong> Removes ads (found under Grown-ups)</li>
         <li><strong>Coin packs (optional):</strong> 500 ($0.99) · 1,500 ($2.99) · 5,000 ($7.99) · 12,000 ($14.99)</li>
         <li><strong>Also:</strong> Offline play supported · No account required · Purchases never required to try the core loop</li>
       </ul>

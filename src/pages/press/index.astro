@@ -1,0 +1,289 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
+
+/**
+ * Press kit — everything a newsletter writer or reviewer needs to link us
+ * without emailing first: one paragraph per app, the icon, the share image,
+ * the store link, and the studio facts. Every store link carries a `ct`
+ * token so coverage installs are attributable in App Analytics.
+ */
+
+const title = 'Press kit — Alpine Squad';
+const description =
+  'Facts, icons, screenshots, and store links for Alpine Squad’s iPhone and iPad apps: Bible Blitz, Spelly, MusicQuest, Scratchy, HamCram, Glide, Untangle Dots, and Current Charts.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const email = 'support@alpinesquad.com';
+
+const apps = [
+  {
+    name: 'Bible Blitz',
+    oneLiner: 'Bible trivia that teaches Scripture.',
+    blurb:
+      'Bible Blitz is a trivia quiz for iPhone and iPad with 2,000 questions in ten categories. Every answer shows the verse behind it, and missed questions come back through spaced review. Quick Play, a Daily Challenge, and five categories are free; a one-time Premium unlock opens Timed Blitz, Smart Review, and all ten categories. No ads, no account.',
+    audience: 'Christians who quiz, youth groups, Sabbath School and Sunday School leaders.',
+    href: '/bible-blitz',
+    icon: '/images/bibleblitz-icon.png',
+    og: '/images/bibleblitz-og.png',
+    store: appStoreUrl(APP_IDS.bibleBlitz, 'press'),
+  },
+  {
+    name: 'Spelly',
+    oneLiner: 'Spelling games for kids, families, and English learners.',
+    blurb:
+      'Spelly turns spelling practice into a game: Picture Spell to learn by sight, Word Blitz to race the clock. 14,000 words across 23 categories, tiered for ages 6 to adult, with mastery tracking and a daily streak. Free to download; Spelly Pro is a one-time unlock. No ads, no account.',
+    audience: 'Parents, homeschool families, teachers, ESL learners.',
+    href: '/spelly',
+    icon: '/images/spelly-icon.png',
+    og: '/images/spelly-og.png',
+    store: appStoreUrl(APP_IDS.spelly, 'press'),
+  },
+  {
+    name: 'MusicQuest',
+    oneLiner: 'Learn to read sheet music, one note at a time.',
+    blurb:
+      'MusicQuest teaches note reading with a guided Journey of short units: learn each note on a keyboard, drill it with flashcards, then quest. Treble, bass, and alto clefs, key signatures, and note values, with a Mastery Map for parents and teachers. Name That Note and the first units are free; one purchase unlocks the rest. No ads.',
+    audience: 'Piano and instrument students, music teachers, homeschool music.',
+    href: '/musicquest',
+    icon: '/images/musicquest-icon.png',
+    og: '/images/musicquest-og.png',
+    store: appStoreUrl(APP_IDS.musicQuest, 'press'),
+  },
+  {
+    name: 'Scratchy',
+    oneLiner: 'Scratch the card, guess the picture.',
+    blurb:
+      'Scratchy is a scratch-and-guess picture game for young children: scratch away the foil, watch the picture appear, and pick the answer before the scratch budget runs out. A daily puzzle that is the same for everyone, sticker sets, and achievements. Free with ads; an optional Premium unlock removes them.',
+    audience: 'Parents of preschoolers and early readers.',
+    href: '/scratchy',
+    icon: '/images/scratchy-icon.png',
+    og: '/images/scratchy-og.png',
+    store: appStoreUrl(APP_IDS.scratchy, 'press'),
+  },
+  {
+    name: 'HamCram',
+    oneLiner: 'Pass your FCC amateur radio exam.',
+    blurb:
+      'HamCram drills the real NCVEC question pools for the Technician and General licences with flashcards, quizzes, and full practice exams scored like test day. Pay once, study until you pass. No ads, no in-app purchases.',
+    audience: 'Ham radio licence candidates, VE teams, radio clubs.',
+    href: '/hamcram',
+    icon: '/images/hamcram-icon.png',
+    og: '/images/hamcram-og.png',
+    store: appStoreUrl(APP_IDS.hamCram, 'press'),
+  },
+  {
+    name: 'Glide',
+    oneLiner: 'Ice-path puzzles with no walls.',
+    blurb:
+      'One swipe and the ball glides until a block stops it, or it slides off the edge. Reach the goal in as few glides as you can. Every board is solvable.',
+    audience: 'Casual puzzle players.',
+    href: '/glide',
+    icon: '/images/glide-icon.png',
+    og: '/images/glide-og.png',
+    store: appStoreUrl(APP_IDS.glide, 'press'),
+  },
+  {
+    name: 'Untangle Dots',
+    oneLiner: 'Calm knot puzzles.',
+    blurb:
+      'Drag the dots until no two lines cross. Every board is a planar graph, so a clean layout always exists. A daily puzzle that is the same for everyone, a 200-level campaign, no ads.',
+    audience: 'People who like a quiet daily puzzle.',
+    href: '/untangle-dots',
+    icon: '/images/untangle-dots-icon.png',
+    og: '/images/untangle-dots-og.png',
+    store: appStoreUrl(APP_IDS.untangleDots, 'press'),
+  },
+];
+
+const facts = [
+  ['Studio', 'Alpine Squad, an independent studio. One person answers the email.'],
+  ['Platforms', 'iPhone and iPad.'],
+  ['Business model', 'Free download with one optional one-time unlock, or a single up-front price. No subscriptions in the games, no accounts, no data collection.'],
+  ['Ads', 'Only Scratchy shows ads, and its Premium unlock removes them.'],
+  ['Also by us', 'Current Charts, a Salish Sea tidal-current app, lives at currentcharts.app.'],
+  ['Contact', email],
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      name: 'Alpine Squad',
+      url: site,
+      email,
+      logo: `${site}/images/alpinesquad-icon.png`,
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Press kit', path: '/press' },
+    ]),
+  ],
+};
+---
+
+<BaseLayout {title} {description} {schema}>
+  <SiteNav />
+
+  <section class="press-hero">
+    <div class="container-narrow">
+      <p class="eyebrow">Press kit</p>
+      <h1>Link us without asking first.</h1>
+      <p class="lede">
+        Everything below may be quoted and the images reused for coverage of our apps.
+        Need something else, a review code, or a quote? Write to
+        <a href={`mailto:${email}`}>{email}</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="facts">
+    <div class="container-narrow">
+      <h2>The studio</h2>
+      <dl class="facts-list">
+        {facts.map(([k, v]) => (
+          <div class="fact">
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="facts-note">
+        Logo: <a href="/images/alpinesquad-icon.png" download>alpinesquad-icon.png</a> ·
+        Social image: <a href="/images/alpinesquad-og.png" download>alpinesquad-og.png</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="apps" id="apps">
+    <div class="container-narrow">
+      <h2>The apps</h2>
+      <ul class="app-list">
+        {apps.map((app) => (
+          <li class="app-card">
+            <img src={app.icon} alt="" width="72" height="72" loading="lazy" class="app-icon" />
+            <div class="app-body">
+              <h3>{app.name}</h3>
+              <p class="one-liner">{app.oneLiner}</p>
+              <p class="blurb">{app.blurb}</p>
+              <p class="audience"><strong>For:</strong> {app.audience}</p>
+              <div class="app-links">
+                <a href={app.store} rel="noopener">App Store</a>
+                <a href={app.href}>Product page</a>
+                <a href={app.icon} download>Icon</a>
+                <a href={app.og} download>Share image</a>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .press-hero {
+    padding: 88px 0 48px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, #ffffff) 0%, #ffffff 85%);
+    text-align: center;
+  }
+  @media (max-width: 720px) {
+    .press-hero { padding: 60px 0 36px; }
+  }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin-bottom: 14px;
+  }
+  .press-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 6vw, 60px);
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 18px;
+    text-wrap: balance;
+  }
+  .lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0 auto;
+  }
+  .lede a { color: var(--ink); font-weight: 600; }
+
+  .facts { padding: 40px 0 16px; }
+  .facts h2, .apps h2 {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.6vw, 34px);
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 22px;
+  }
+  .facts-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 0;
+  }
+  .fact {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #fff;
+    padding: 14px 18px;
+  }
+  @media (max-width: 560px) {
+    .fact { grid-template-columns: 1fr; gap: 4px; }
+  }
+  .fact dt { font-weight: 600; color: var(--ink); font-size: 15px; }
+  .fact dd { color: var(--ink-soft); font-size: 15.5px; line-height: 1.55; margin: 0; }
+  .facts-note { margin-top: 18px; font-size: 14.5px; color: var(--ink-muted); }
+  .facts-note a { color: var(--ink-soft); text-decoration: underline; }
+
+  .apps { padding: 32px 0 80px; }
+  .app-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .app-card {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+    background: #fff;
+  }
+  .app-icon { border-radius: 16px; flex: none; }
+  .app-body { min-width: 0; }
+  .app-card h3 { font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+  .one-liner { font-weight: 600; color: var(--ink-soft); margin-bottom: 8px; }
+  .blurb { color: var(--ink-soft); line-height: 1.6; font-size: 15.5px; margin-bottom: 8px; }
+  .audience { color: var(--ink-muted); font-size: 14.5px; margin-bottom: 12px; }
+  .app-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .app-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .app-links a:hover { border-color: var(--ink); }
+  @media (max-width: 560px) {
+    .app-card { flex-direction: column; }
+  }
+</style>

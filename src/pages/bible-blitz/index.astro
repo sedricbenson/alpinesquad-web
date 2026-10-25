@@ -31,7 +31,7 @@ const appUrlCta = appStoreUrl(APP_IDS.bibleBlitz, 'web-bibleblitz');
 const faqs = [
   {
     q: 'Is Bible Blitz free?',
-    a: 'Download on the App Store. A one-time $4.99 premium unlock adds Timed Blitz mode and Smart Review (which surfaces questions you previously missed). There is no subscription.',
+    a: 'Download on the App Store. Quick Play, the Daily Challenge, Verse Memory, and five of the ten categories are free. A one-time $4.99 premium unlock adds Timed Blitz, Smart Review (spaced repetition that brings back questions you missed), and the other five categories. There is no subscription.',
   },
   {
     q: 'Which Bible translations are supported?',
@@ -177,7 +177,11 @@ const schema = {
       </div>
       <div class="feat">
         <h3>Smart Review <span class="badge">Premium</span></h3>
-        <p>Surfaces questions you previously missed. Spaced repetition without the overhead.</p>
+        <p>Spaced repetition brings back questions you missed, sooner after a miss. No overhead.</p>
+      </div>
+      <div class="feat">
+        <h3>All 10 categories <span class="badge">Premium</span></h3>
+        <p>Five categories are free. Premium adds Acts &amp; Early Church, Epistles, Revelation, People of the Bible, and Geography &amp; Culture.</p>
       </div>
     </div>
   </section>
@@ -188,8 +192,9 @@ const schema = {
       <p class="eyebrow">Pricing</p>
       <h2>Download on the App Store. <span class="accent-text">$4.99</span> premium unlock.</h2>
       <p class="pricing-sub">
-        No ads, no nags, no subscription. The one-time $4.99 unlock adds Timed Blitz and Smart
-        Review.
+        No ads, no nags, no subscription. Five categories, Quick Play, Daily Challenge, and Verse
+        Memory are free. The one-time $4.99 unlock adds Timed Blitz, Smart Review, and the other
+        five categories.
       </p>
       <div class="pricing-cta">
         <AppStoreButton href={appUrlCta} label="Download Bible Blitz on the App Store" />
