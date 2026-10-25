@@ -9,12 +9,17 @@ session (Mac, Xcode available) needs to pick up where it stopped.
 
 | Repo | Branches | Status |
 |---|---|---|
-| bible-blitz | `fable/polish-2026-10` → `fable/next-2026-10` → `fable/wave4-2026-10`; `fable/content-2026-10` | polish/next/content complete, reviewed, PRs #18 #19 #20. **wave4 is a WIP commit (046635a): untested, incomplete.** |
-| music-quest | same shape; PRs #2 #3 #4 | **wave4 is a WIP commit (bdf4fc3): only the pbxproj device-family edit, nothing else.** |
-| scratchy | polish/next/content; PRs #1 #2 #3 | wave4 not started (no branch pushed) |
-| spelling-game | polish/next/content; PRs #11 #12 #13 | wave4 not started |
-| current-atlas | polish/next; PRs #14 #15 | wave4 not started |
-| alpinesquad-web | `fable/polish-2026-10`; PR #2 | complete |
+| bible-blitz | polish → next → wave4; content | PRs #18 #19 #20; wave 4 complete in [#21](https://github.com/sedricbenson/bible-blitz/pull/21) (quick actions, widget sources + README, cross-promo row) |
+| music-quest | same shape | PRs #2 #3 #4; wave 4 complete in [#5](https://github.com/sedricbenson/music-quest/pull/5) (iPad layout, cross-promo row) |
+| scratchy | same shape | PRs #1 #2 #3; wave 4 complete in [#4](https://github.com/sedricbenson/scratchy/pull/4) (iPad) |
+| spelling-game | same shape | PRs #11 #12 #13; wave 4 complete in [#14](https://github.com/sedricbenson/spelling-game/pull/14) (Type the Word, cross-promo row) |
+| current-atlas | polish → next → wave4 | PRs #14 #15; wave 4 complete in [#16](https://github.com/sedricbenson/current-atlas/pull/16) (widget target) |
+| ios-distance (Word Trap) | `fable/polish-2026-10` | [#2](https://github.com/sedricbenson/ios-distance/pull/2); TestFlight build 1 is already VALID, submission is owner web clicks |
+| alpinesquad-web | `fable/polish-2026-10` | [#2](https://github.com/sedricbenson/alpinesquad-web/pull/2): support + press pages, marketing plan, triage; Vercel preview builds |
+
+All wave-4 branches were written in the cloud without Xcode, like the
+others: unverified until a Mac build passes. The briefs below are kept as
+the record of what each wave-4 PR set out to do.
 
 ## First job locally: build and verify (needs Xcode, nobody else can do it)
 
@@ -37,7 +42,7 @@ Nothing ships without the owner testing the UI. Version numbers were left
 alone everywhere; the pre-existing blockers (Appfile team id, K4 copy,
 Scratchy parental gate, NIV/NKJV rights, Spelly trial decision) still hold.
 
-## Wave 4 briefs (not done; start each from the repo's `fable/next-2026-10`)
+## Wave 4 briefs (done 2026-10-25; see the PRs above for what shipped)
 
 ### Current Charts: favourite-pass widget
 XcodeGen project (`app/project.yml`), so the target can be added in the spec.
