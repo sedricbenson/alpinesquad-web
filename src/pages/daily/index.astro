@@ -1,0 +1,284 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
+
+/**
+ * Daily hub — one page for the "daily puzzle" habit across the apps.
+ * Static on purpose: it describes each daily, not today's answer, so it
+ * never spoils a puzzle and never goes stale. Store links carry
+ * `ct=web-daily` so installs from here are attributable.
+ */
+
+const title = 'Daily puzzles — Alpine Squad';
+const description =
+  'One new puzzle a day, the same for everyone: Untangle Dots, Glide, Scratchy, and the Bible Blitz Daily Challenge. Free every day, with streaks and spoiler-free share cards. iPhone and iPad.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+
+const dailies = [
+  {
+    name: 'Untangle Dots',
+    kind: 'Daily Puzzle',
+    what: 'One knot, the same graph for everyone. Drag the dots until no two lines cross, then see how few moves it took you.',
+    free: 'Always free. Streak and a spoiler-free emoji share card.',
+    image: '/images/untangle-dots-board.webp',
+    href: '/untangle-dots',
+    store: appStoreUrl(APP_IDS.untangleDots, 'web-daily'),
+    accent: '#6B5CE7',
+  },
+  {
+    name: 'Glide',
+    kind: 'Daily Puzzle',
+    what: 'A short 6×6 ice maze with no outer walls. Swipe, slide until a block stops you, reach the goal in as few glides as you can.',
+    free: 'Always free. Streak and a spoiler-free share card.',
+    image: '/images/glide-board.webp',
+    href: '/glide',
+    store: appStoreUrl(APP_IDS.glide, 'web-daily'),
+    accent: '#3D6FD9',
+  },
+  {
+    name: 'Scratchy',
+    kind: 'Today',
+    what: 'One hidden picture, the same for everyone. Scratch as little as you can, then guess. One attempt a day.',
+    free: 'Free. The daily share card never shows the picture.',
+    image: '/images/scratchy-daily.webp',
+    href: '/scratchy',
+    store: appStoreUrl(APP_IDS.scratchy, 'web-daily'),
+    accent: '#D6467E',
+  },
+  {
+    name: 'Bible Blitz',
+    kind: 'Daily Challenge',
+    what: 'Ten Bible questions, the same set for every player that day. Each answer shows the verse behind it.',
+    free: 'Free. Keeps your streak; results share with a verse reference.',
+    image: '/images/bibleblitz-quiz-answered.png',
+    href: '/bible-blitz',
+    store: appStoreUrl(APP_IDS.bibleBlitz, 'web-daily'),
+    accent: '#1FA968',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Is the daily puzzle really the same for everyone?',
+    a: 'Yes. Each app picks the day’s puzzle from the calendar date, so two people on the same date get the same board, picture, or question set wherever they are.',
+  },
+  {
+    q: 'What time does a new one appear?',
+    a: 'At midnight. Untangle Dots, Glide, and Bible Blitz use your device’s local midnight; Scratchy changes at midnight UTC so the whole world is on one picture at a time.',
+  },
+  {
+    q: 'Do I have to pay to play the daily?',
+    a: 'No. Every daily listed here is free, every day. The one-time unlocks in Untangle Dots, Glide, and Bible Blitz open more levels and modes, not the daily.',
+  },
+  {
+    q: 'Can I share my result without spoiling it?',
+    a: 'Yes. The share cards show your score, moves, or streak and never the answer, so a friend can still play the same puzzle.',
+  },
+  {
+    q: 'What happens to my streak if I miss a day?',
+    a: 'It resets in most of the apps, so the habit is the point. Bible Blitz and Untangle Dots count calendar days you completed the daily; Scratchy counts consecutive days you played Today.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    {
+      '@type': 'ItemList',
+      name: 'Daily puzzles by Alpine Squad',
+      itemListElement: dailies.map((d, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: `${d.name} ${d.kind}`,
+        url: `${site}${d.href}`,
+      })),
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Daily puzzles', path: '/daily' },
+    ]),
+  ],
+};
+---
+
+<BaseLayout {title} {description} {schema}>
+  <SiteNav />
+
+  <section class="daily-hero">
+    <div class="container-narrow">
+      <p class="eyebrow">Daily puzzles</p>
+      <h1>One a day. Same for everyone.</h1>
+      <p class="lede">
+        Four of our apps set one puzzle each day for every player at once. They are free every day,
+        they keep a streak, and they share without spoiling. Pick your habit.
+      </p>
+    </div>
+  </section>
+
+  <section class="dailies" id="dailies">
+    <div class="container-narrow">
+      <ul class="daily-list">
+        {dailies.map((d) => (
+          <li class="daily-card" style={`--card-accent:${d.accent}`}>
+            <img src={d.image} alt={`${d.name} ${d.kind} on an iPhone`} loading="lazy" class="daily-shot" />
+            <div class="daily-body">
+              <p class="kind">{d.kind}</p>
+              <h2>{d.name}</h2>
+              <p class="what">{d.what}</p>
+              <p class="free">{d.free}</p>
+              <div class="daily-links">
+                <a href={d.store} rel="noopener" class="primary">App Store</a>
+                <a href={d.href}>About {d.name}</a>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="coming">
+        Next up: <a href="/word-trap">Word Trap</a>, an A-to-Z guessing game with a daily word, is in final preparation.
+      </p>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="container-narrow">
+      <h2>How the dailies work</h2>
+      <div class="faq-list">
+        {faqs.map((f) => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .daily-hero {
+    padding: 88px 0 48px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, #ffffff) 0%, #ffffff 85%);
+    text-align: center;
+  }
+  @media (max-width: 720px) {
+    .daily-hero { padding: 60px 0 36px; }
+  }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin-bottom: 14px;
+  }
+  .daily-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 6vw, 60px);
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 18px;
+    text-wrap: balance;
+  }
+  .lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0 auto;
+  }
+
+  .dailies { padding: 36px 0 24px; }
+  .daily-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 18px; }
+  .daily-card {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 22px;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--card-accent);
+    border-radius: 18px;
+    padding: 18px;
+    background: #fff;
+  }
+  .daily-shot {
+    width: 160px;
+    height: auto;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: #f4f4f7;
+  }
+  .kind {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--card-accent);
+    margin-bottom: 4px;
+  }
+  .daily-card h2 { font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+  .what { color: var(--ink-soft); line-height: 1.6; font-size: 15.5px; margin-bottom: 6px; }
+  .free { color: var(--ink-muted); font-size: 14.5px; margin-bottom: 12px; }
+  .daily-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .daily-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .daily-links a.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .daily-links a:hover { border-color: var(--ink); }
+  @media (max-width: 560px) {
+    .daily-card { grid-template-columns: 1fr; }
+    .daily-shot { width: 100%; max-width: 240px; }
+  }
+  .coming { margin-top: 22px; font-size: 14.5px; color: var(--ink-muted); }
+  .coming a { color: var(--ink-soft); text-decoration: underline; }
+
+  .faq { padding: 24px 0 80px; }
+  .faq h2 {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.6vw, 34px);
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 22px;
+  }
+  .faq-list { display: flex; flex-direction: column; gap: 10px; }
+  .faq-item { border: 1px solid var(--border); border-radius: 14px; background: #fff; padding: 0 18px; }
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16.5px;
+    color: var(--ink);
+    padding: 16px 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: '+'; font-size: 22px; line-height: 1; color: var(--ink-muted); flex: none; }
+  .faq-item[open] summary::after { content: '–'; }
+  .faq-item p { color: var(--ink-soft); line-height: 1.65; padding: 0 0 18px; font-size: 15.5px; }
+</style>
