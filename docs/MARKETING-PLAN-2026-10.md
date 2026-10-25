@@ -82,8 +82,9 @@ cards. That is the foundation; the plan below is what sits on top.
   **Status 2026-10-25:** the first three are live at `/guides/` (branch
   `fable/articles-2026-10`): `technician-exam-two-weeks`,
   `spelling-spaced-review`, `bible-trivia-30-questions`, each with Article
-  JSON-LD and its own `ct=web-article-*` store link. Current Charts post
-  still open.
+  JSON-LD and its own `ct=web-article-*` store link. The Current Charts
+  post, `salish-sea-slack-water-planning` (`ct=web-article-slack-water`),
+  followed the same day on `fable/guide-slack-water-2026-10`.
 
 ### 3.3 In the apps (code, each repo; queued as wave 5)
 - **"More from Alpine Squad" row** in every Settings screen: icon + one
