@@ -1,0 +1,243 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import { appStoreUrl, APP_IDS } from '../../lib/seo';
+import { GUIDES } from '../../lib/guides';
+
+/**
+ * Current Charts guide: planning a Salish Sea passage around slack water.
+ * Pass descriptions are general, widely published navigation knowledge;
+ * the current speeds are the ranges boating references commonly quote,
+ * and every section sends the reader to the official NOAA predictions.
+ * App claims follow current-atlas/README.md and the store description:
+ * SSCOFS model output blended toward official NOAA stations, 48-hour
+ * timeline, offline packs, three regions. The app is a planning aid and
+ * says so on every data surface; this page repeats that, and does not
+ * claim coverage for Admiralty Inlet or Tacoma Narrows, which the packs
+ * do not reach today.
+ */
+const guide = GUIDES.find((g) => g.path === '/guides/salish-sea-slack-water-planning')!;
+const storeUrl = appStoreUrl(APP_IDS.currentCharts, 'web-article-slack-water');
+
+const passes = [
+  {
+    name: 'Deception Pass',
+    where: 'Between Whidbey and Fidalgo Islands, under the Highway 20 bridge; the short cut between Skagit Bay and Rosario Strait.',
+    why: 'The narrowest and fastest of the four. Published predictions on large exchanges run well past 6 knots, and references commonly cite peaks around 8. The channel is a few hundred feet wide, bends, and empties into Rosario Strait on the ebb, so the water piles into standing waves, whirlpools, and strong eddies on either side of the main stream. Canoe Pass, the small channel north of Pass Island, is faster still and is not a shortcut for most boats.',
+    plan: 'Transit at slack, full stop. Usable slack is short here, often cited as 10 to 20 minutes before the stream rebuilds, so arrive early and wait in the quiet water on the side you are coming from. Kayakers and small craft treat Deception Pass as a slack-only passage; larger powerboats sometimes run it with a modest current, but never against a strong one. The Swinomish Channel is the slow, protected alternative between Skagit Bay and Padilla Bay if you miss the window.',
+  },
+  {
+    name: 'Admiralty Inlet',
+    where: 'The entrance to Puget Sound, between Point Wilson at Port Townsend and the west shore of Whidbey Island, running south past Bush Point to Foulweather Bluff.',
+    why: 'Wide and deep, so the speeds are moderate, commonly a couple of knots and more at the points, but the whole volume of Puget Sound moves through here twice a day. The problem is less the speed than the water state: an ebb pushing north into a westerly coming down the Strait of Juan de Fuca raises steep, short seas off Point Wilson and Marrowstone Point that have turned back many boats. The tide rip off Point Wilson is marked on the chart for a reason.',
+    plan: 'This is a fair-current passage, not a slack passage. A boat bound south from Port Townsend wants the flood under it for the twenty-plus miles to Seattle; a boat bound out to the Strait wants the ebb. Check the wind forecast against the current direction and, if they oppose, consider waiting for the turn or hugging the Whidbey shore where the rips are smaller. Slack here lasts longer than in the narrow passes and is the time to cross the inlet if you have to.',
+  },
+  {
+    name: 'Cattle Pass',
+    where: 'The south entrance to San Juan Channel, between Cattle Point on San Juan Island and the south tip of Lopez Island.',
+    why: 'The main door between the Strait of Juan de Fuca and the inner San Juan Islands, and the one most boats headed for Friday Harbor use. Published speeds reach several knots on big exchanges, and the ebb meets the open Strait over Salmon Bank and the shoals around Goose and Deadman Islands, so a south or southwest wind against the ebb builds a rough, confused rip right at the mouth. The whirlpools below Cattle Point are a well-known hazard for paddlers.',
+    plan: 'Go through with the current or at slack, and look at the wind before deciding. Northbound into the islands on the flood is the easy case. Southbound out into the Strait, a slack or the early ebb with light wind is comfortable; a strong ebb into a southwesterly is the day to wait or to leave the islands by another channel. The NOAA current station at Cattle Point is the reference for this pass, and the prediction tells you both the slack time and how big the following stream will be.',
+  },
+  {
+    name: 'Tacoma Narrows',
+    where: 'The mile-wide channel between Point Defiance and the Kitsap Peninsula, under the twin bridges, connecting the main basin of Puget Sound with the South Sound.',
+    why: 'Everything south of the bridges fills and drains through this one channel, so the stream runs for miles rather than for a few hundred yards. Published speeds reach four to five knots or more on strong exchanges. There is no fast-water drama like Deception Pass, but a slow displacement boat can be held nearly stationary against the current, and the eddy lines off Point Defiance and along the shores set a boat sideways without warning. Commercial traffic uses the channel constantly.',
+    plan: 'Ride it. Time the passage so the current is with you for the whole length, and remember that the turn reaches different parts of the Narrows at different times. The slack is long enough for a comfortable crossing. Sailboats under power should assume they are going nowhere against a full stream, and plan for the pre-slack hour on the favorable side if the schedule is tight.',
+  },
+];
+
+const steps = [
+  ['Decide which slack you want', 'Every slack is followed by a stream in one direction. Slack before flood turns into water moving in with the rising tide; slack before ebb turns into water moving out. Pick the slack whose following current helps you, so that arriving a little late costs you a push rather than a fight.'],
+  ['Look up the official prediction', 'NOAA publishes current predictions for reference stations at or near each pass, with the times of slack and the times and speeds of maximum flood and ebb. Note the slack time and the maximum speed on each side of it. A larger maximum means a shorter usable window and rougher water either side.'],
+  ['Set your window', 'For a fast narrow pass, plan to be at the entrance 20 to 30 minutes before predicted slack with room to hold in calm water, and expect to go through within a few minutes of the turn. For a wide channel you are riding rather than threading, the window is the whole favorable half of the cycle; aim for the first hour of it so that running late still leaves you a fair current.'],
+  ['Work backward to a departure time', 'Measure the distance from your dock or anchorage to the pass. Divide by the speed you honestly make over the ground, remembering that the approach may have its own current against you. Subtract that from the window start, add a margin for fuel, fog, and an engine that will not start on the first try, and that is when the lines come off.'],
+  ['Check the weather against the water', 'Wind against current is the single biggest source of ugly water in the Salish Sea. If the forecast puts a strong wind against the stream at the time you plan to be there, the prediction is still right but the passage is wrong. Move to a different slack, a different day, or a different route. Daylight matters too: pick a slack you will reach in good light the first time you run a pass.'],
+  ['Know your bailout', 'Decide before you leave what you will do if you are an hour late or the pass looks worse than expected. Waiting for the next slack is often six hours away; a protected anchorage or an alternate channel nearby turns a missed window into a long lunch rather than an emergency.'],
+  ['Verify on the water', 'The prediction is a schedule, not a promise. Spring and neap tides, wind, river runoff, and atmospheric pressure all shift the turn by minutes, sometimes tens of minutes. Look at the water as you approach: kelp lying flat points downstream, rip lines mark where fast water meets slow, and a channel marker leaning against its chain tells you the stream has not quit yet.'],
+];
+---
+
+<GuideLayout
+  title={guide.title}
+  description={guide.description}
+  datePublished={guide.datePublished}
+  eyebrow="Current Charts guide"
+  readingMinutes={guide.readingMinutes}
+  app={{
+    name: 'Current Charts',
+    icon: '/images/currentcharts-icon.png',
+    href: 'https://currentcharts.app',
+    id: APP_IDS.currentCharts,
+    storeUrl,
+    pitch:
+      'Animates NOAA’s SSCOFS tidal-current forecast for the San Juan Islands, Gulf Islands, and Strait of Juan de Fuca, blended toward official NOAA current stations, with a 48-hour timeline, station flood and ebb curves, slack markers, and offline packs. A planning aid, not for navigation.',
+    price: 'Current Charts Pro: $4.99 a week, $12.99 a month, or $99.99 a year, with a 7-day free trial on the yearly plan. No ads, no tracking.',
+  }}
+>
+  <p>
+    Ask anyone who has run Deception Pass in a kayak, or motored through Cattle Pass into a
+    southwesterly on the ebb, and you will hear the same word: slack. In the Salish Sea, where
+    the tide moves an enormous volume of water through a handful of narrow gaps twice a day,
+    the time of the turn is the most important number in a passage plan. This guide explains
+    what slack water is, why it matters so much at four of the region’s best-known passes, and
+    how to plan a trip around it. It ends with what our app, Current Charts, does and does not
+    do, because the honest answer to the second part is as important as the first.
+  </p>
+
+  <div class="note">
+    <p>
+      <strong>Before anything else:</strong> the only authoritative source for current timing is
+      the official prediction, published in the United States by NOAA and in Canada by the
+      Canadian Hydrographic Service. Everything below, including our app, is a way to understand
+      and plan around those predictions, not a replacement for them. Nothing here is for
+      navigation.
+    </p>
+  </div>
+
+  <h2>What slack water is</h2>
+  <p>
+    A tidal current is the horizontal movement of water that comes with the rise and fall of
+    the tide. As the tide rises, water flows into bays and inlets (the <strong>flood</strong>);
+    as it falls, water flows back out (the <strong>ebb</strong>). Between the two, for a short
+    while, the water nearly stops. That pause is <strong>slack water</strong>. It is the moment
+    the stream turns, and in a narrow pass it is the only moment the water is quiet.
+  </p>
+  <p>
+    Two things about slack trip up newcomers. First, slack water is not the same as high or
+    low tide. Tide tables tell you when the water is highest and lowest at a given spot; current
+    tables tell you when the water stops moving through a given channel. In the Salish Sea
+    those events can be separated by an hour or more, in either direction, depending on the
+    pass. Plan a Deception Pass transit by a Seattle tide table and you will arrive to a river.
+    Second, there are two slacks in each tidal cycle, and they are not interchangeable:
+    <strong>slack before flood</strong> is followed by water moving in, <strong>slack before
+    ebb</strong> by water moving out. Which one you want depends on which way you are going.
+  </p>
+  <p>
+    How long slack lasts depends on the pass and the size of the exchange. In a wide channel
+    with moderate currents, the water may be effectively still for half an hour or more. In a
+    constricted pass on a big spring tide, the usable window can be a matter of minutes before
+    the new stream is already running hard. The bigger the difference between high and low
+    water that day, the faster the peak currents and the shorter the slack.
+  </p>
+
+  <h2>Why the turn matters in the Salish Sea</h2>
+  <p>
+    The Salish Sea is the inland sea shared by Washington and British Columbia: Puget Sound,
+    the Strait of Juan de Fuca, the San Juan and Gulf Islands, and the Strait of Georgia. Its
+    basins are deep and large, and they connect through passes that are, by comparison,
+    tiny. Every six hours or so, the whole volume that the tide moves has to get through those
+    gaps. The result is some of the strongest tidal currents in North America, and a boating
+    culture in which the current table is consulted before the weather.
+  </p>
+  <p>
+    Timing matters for three different reasons, and they apply in different proportions at
+    different passes. The first is <strong>speed</strong>: a six-knot sailboat does not go
+    through six knots of water the wrong way. The second is <strong>water state</strong>:
+    where fast water meets slow water, or meets wind blowing the other way, it stands up into
+    rips, overfalls, and whirlpools that are dangerous out of proportion to the current speed.
+    The third is <strong>control</strong>: eddy lines and boils set a boat sideways, and in a
+    channel a few hundred feet wide there is not much room to recover.
+  </p>
+
+  <h2>Four passes, four different problems</h2>
+  <p>
+    These four are the ones most Salish Sea boaters learn first. The descriptions are general
+    and the speeds are the ranges that boating references commonly quote; for any actual
+    passage, look up the official prediction for the day.
+  </p>
+
+  {passes.map((p) => (
+    <>
+      <h3>{p.name}</h3>
+      <p><strong>Where it is.</strong> {p.where}</p>
+      <p><strong>Why timing matters.</strong> {p.why}</p>
+      <p><strong>How people plan it.</strong> {p.plan}</p>
+    </>
+  ))}
+
+  <h2>Planning a passage around a slack window</h2>
+  <p>
+    The method is the same for a kayak and a trawler; only the margins change. Work from the
+    pass backward to the dock, not from the dock forward to the pass.
+  </p>
+  <ol>
+    {steps.map(([head, body]) => (
+      <li>
+        <p><strong>{head}.</strong> {body}</p>
+      </li>
+    ))}
+  </ol>
+
+  <div class="note">
+    <p>
+      <strong>Spring and neap.</strong> Around the full and new moon the tidal range is largest,
+      peak currents are strongest, and slacks are shortest. Around the quarter moons the whole
+      cycle is gentler. If you are running a pass for the first time, pick a neap day. The
+      official prediction already accounts for this; your margins should too.
+    </p>
+  </div>
+
+  <h2>What Current Charts does</h2>
+  <p>
+    Current Charts is our iPhone and iPad app for Salish Sea tidal currents. It takes the
+    output of NOAA’s <strong>SSCOFS</strong> model, the Salish Sea and Columbia River
+    Operational Forecast System, which computes water movement across the whole region
+    several times a day, and animates it on one zoomable chart. Flowing trails show speed and
+    direction everywhere at once, so you can see the stream build and relax through a pass,
+    watch where the eddies form, and compare one route against another. Tap any point of water
+    for its predicted speed and direction at the time you have chosen.
+  </p>
+  <p>
+    A model on its own is not enough in the narrow passes, where the grid is coarse relative
+    to the channel and the model tends to understate the peaks. So the app’s data pipeline
+    <strong>blends the model toward NOAA’s official current stations</strong> in the
+    constricted passes where it matters, using the published station predictions as the anchor
+    and measuring the result against them. Tapping a station pin shows that station’s flood
+    and ebb curve for the day, with slack markers and the next maximum, which is the current
+    table workflow without the table.
+  </p>
+  <p>
+    The <strong>48-hour timeline</strong> is the planning tool. Scrub to the hour you are
+    thinking about, see what the pass is doing, drag forward to find the turn, and press play
+    to watch the day unfold. Fresh predictions download about twice a day, and the saved packs
+    keep working with no cell service, which in the islands is most of the time. Coverage today
+    is the <strong>San Juan Islands, the Gulf Islands, and the Strait of Juan de Fuca</strong>,
+    the Salish Sea waters that have official NOAA and CHS current predictions behind them.
+  </p>
+
+  <h2>What Current Charts does not do</h2>
+  <ul>
+    <li>
+      <strong>It is a planning aid, not a navigation instrument.</strong> Every data surface
+      in the app says “Predictions, not for navigation,” and we mean it. The app shows model
+      predictions, not measurements. Wind, weather, river runoff, and pressure change
+      everything, and none of them are in the model the way they are in the water in front of
+      you. Never use Current Charts, or any prediction, as your only source for a navigation
+      decision.
+    </li>
+    <li>
+      <strong>It does not replace the official predictions.</strong> The station curves in the
+      app are the published NOAA predictions and the model is anchored to them, but if the app
+      and the official table ever disagree, the official table wins. Check it.
+    </li>
+    <li>
+      <strong>It does not cover every pass in this guide.</strong> Deception Pass and Cattle
+      Pass are inside the current packs. Admiralty Inlet and Tacoma Narrows are not; for those,
+      use the official NOAA predictions directly until the coverage grows.
+    </li>
+    <li>
+      <strong>It is not a chart plotter.</strong> There is no routing, no AIS, no depth
+      sounder, and no substitute for the chart, the compass, and a look out the window.
+    </li>
+    <li>
+      <strong>It does not know about today’s weather.</strong> The wind-against-current
+      problem described above is yours to check, from the marine forecast, every time.
+    </li>
+  </ul>
+
+  <p>
+    Used for what it is, the app answers the planning questions this guide is about in a few
+    seconds: when does the pass go slack, which way does it run afterward, how hard, and what
+    is the water doing on the way there. The decision to go, the look at the sky, and the
+    official table stay with the skipper, which is where they belong.
+  </p>
+</GuideLayout>
