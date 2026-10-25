@@ -1,0 +1,249 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import { appStoreUrl, APP_IDS } from '../../lib/seo';
+import { GUIDES } from '../../lib/guides';
+
+/**
+ * HamCram guide: a two-week Technician study plan.
+ * Exam facts (35 questions, pass at 26, one question per group, 10
+ * subelements) are the published NCVEC / FCC Part 97 structure. The
+ * per-subelement split below is the shape recent pools have used; the
+ * copy tells readers to confirm against the pool they are studying.
+ * Do not promise a pass. Do not claim HamCram features the product page
+ * does not list.
+ */
+const guide = GUIDES.find((g) => g.path === '/guides/technician-exam-two-weeks')!;
+const storeUrl = appStoreUrl(APP_IDS.hamCram, 'web-article-technician-two-weeks');
+
+const subelements = [
+  ['T1', 'FCC rules, station license responsibilities', '6'],
+  ['T2', 'Operating procedures', '3'],
+  ['T3', 'Radio wave characteristics and propagation', '3'],
+  ['T4', 'Amateur radio practices and station setup', '2'],
+  ['T5', 'Electrical principles', '4'],
+  ['T6', 'Electrical components and circuits', '4'],
+  ['T7', 'Station equipment', '4'],
+  ['T8', 'Modulation modes and operating activities', '4'],
+  ['T9', 'Antennas and feed lines', '2'],
+  ['T0', 'Safety', '3'],
+];
+
+const plan = [
+  ['Day 1', 'Take a cold 35-question practice exam before studying anything. The score does not matter; the point is to see the shape of the test and to find out which subelements already make sense to you.'],
+  ['Day 2', 'T1, FCC rules. Read every question in the subelement once with its correct answer, then flashcards until you can call the answer before flipping. Finish with a 25-question quiz limited to T1.'],
+  ['Day 3', 'T1 again, quickly, then T2 operating procedures. Rules and procedures are the memorization block; get them done early so they have time to settle.'],
+  ['Day 4', 'T5 electrical principles. Learn Ohm’s law and the power formula well enough to rearrange them, then drill the arithmetic questions until they are boring.'],
+  ['Day 5', 'T6 components and T7 station equipment. Mostly vocabulary: what a part is called, what it does, which block of a radio handles what.'],
+  ['Day 6', 'T3 propagation and T9 antennas. Understand why VHF goes line of sight, why a longer wavelength means a lower frequency, and how antenna length tracks frequency.'],
+  ['Day 7', 'Rest day for new material. One 50-question mixed quiz, then review only what you missed.'],
+  ['Day 8', 'T8 modulation modes and operating activities: FM, SSB, digital modes, repeaters, satellites. Vocabulary plus a few numbers.'],
+  ['Day 9', 'T4 station setup and T0 safety. Safety is the most common-sense subelement; the RF exposure and electrical questions still have specific answers to remember.'],
+  ['Day 10', 'Full 35-question practice exam under exam conditions: no notes, no pausing. Then go through every miss and read the question with its correct answer twice.'],
+  ['Day 11', 'Weak spots only. Whatever subelement your mastery is lowest in, that is the whole day.'],
+  ['Day 12', 'Two full practice exams, morning and evening. If both clear 30 or better, you are ready. If not, the misses tell you what Day 13 is for.'],
+  ['Day 13', 'Light review of the misses from Day 12. Handle the logistics: FCC Registration Number, photo ID, exam fee, directions or video-session link.'],
+  ['Day 14', 'Exam day. One short quiz in the morning to warm up, nothing heavy. Arrive early, read every question to the end, and answer all 35.'],
+];
+---
+
+<GuideLayout
+  title={guide.title}
+  description={guide.description}
+  datePublished={guide.datePublished}
+  eyebrow="HamCram guide"
+  readingMinutes={guide.readingMinutes}
+  ogImage="/images/hamcram-og.png"
+  app={{
+    name: 'HamCram',
+    icon: '/images/hamcram-icon.png',
+    href: '/hamcram',
+    id: APP_IDS.hamCram,
+    storeUrl,
+    pitch:
+      'Drills the current NCVEC Technician and General pools with Learn, flashcards, sized quizzes, and 35-question practice exams scored like test day, with weak-spot review and mastery by subelement.',
+    price: '$9.99 once. No subscription, no ads, no account. Study data stays on your device.',
+  }}
+>
+  <p>
+    The Technician license is the entry ticket to amateur radio in the United States, and the
+    exam that grants it is smaller than most people expect: 35 multiple-choice questions, 26
+    correct to pass, drawn from a question pool that is published in full. Nothing on the test
+    is a surprise. That makes two weeks of focused study a realistic plan for most adults who
+    can give it 45 to 60 minutes a day. It is not a guarantee, and anyone who tells you
+    otherwise is selling something; it is a plan that gives the material enough time to stick.
+  </p>
+
+  <h2>How the exam is built</h2>
+  <p>
+    Every question you can be asked comes from a public pool maintained by the National
+    Conference of Volunteer Examiner Coordinators (NCVEC). The pool is replaced every four
+    years, and the current Technician pool is valid through June 2030. It holds roughly 400
+    questions, each with four answer choices and exactly one correct answer, and each question
+    keeps its correct answer no matter which practice app or book you use.
+  </p>
+  <p>
+    The pool is organized into ten <strong>subelements</strong> (T1 through T9, plus T0 for
+    safety), and each subelement is divided into <strong>groups</strong>. There are 35 groups
+    in total, and the exam takes exactly one question from each group. That single rule is the
+    most useful thing to know before you study: a subelement with six groups puts six
+    questions on your exam, a subelement with two groups puts two. Recent pools have used
+    this split; confirm it against the printed pool you are studying.
+  </p>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Subelement</th><th>Topic</th><th>Questions on exam</th></tr>
+      </thead>
+      <tbody>
+        {subelements.map(([code, topic, n]) => (
+          <tr><td>{code}</td><td>{topic}</td><td>{n}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    Two things follow. First, you can miss nine questions and still pass, so a subelement you
+    never fully understand is survivable if the rest is solid. Second, since each group
+    contributes one question, time spent on a group with twelve pool questions is worth exactly
+    as much on exam day as time spent on a group with four. Study by group, not by page count.
+  </p>
+
+  <h2>What to memorize and what to understand</h2>
+  <p>
+    Trying to understand everything is the slow way through this pool, and trying to memorize
+    everything is the fragile way. Sort the material.
+  </p>
+
+  <h3>Memorize</h3>
+  <ul>
+    <li>
+      <strong>Rules and numbers.</strong> Station identification intervals, the frequency edges
+      of the Technician privileges on the HF bands, power limits, what a control operator is,
+      who may be a third party, how long a license lasts and how long the grace period runs.
+      These have no logic to derive; they are definitions, and flashcards are the right tool.
+    </li>
+    <li>
+      <strong>Band and wavelength pairings.</strong> Know that the 2-meter band is 144 to 148
+      MHz and the 70-centimeter band is 420 to 450 MHz the way you know your own phone number.
+    </li>
+    <li>
+      <strong>Q-signals, abbreviations, and phonetics.</strong> A handful appear in the pool.
+      Learn the ones that do and ignore the rest for now.
+    </li>
+    <li>
+      <strong>The exact wording of safety answers.</strong> Safety questions are common sense,
+      but the pool wants a specific answer among several reasonable-sounding ones.
+    </li>
+  </ul>
+
+  <h3>Understand</h3>
+  <ul>
+    <li>
+      <strong>Ohm’s law and the power formula.</strong> Voltage equals current times
+      resistance; power equals voltage times current. Practice rearranging them so a question
+      that gives you power and voltage and asks for current does not feel like a new problem.
+    </li>
+    <li>
+      <strong>Frequency and wavelength.</strong> Wavelength in meters is approximately 300
+      divided by frequency in MHz. Once that is in your head, the band names, antenna lengths,
+      and several propagation questions stop being separate facts.
+    </li>
+    <li>
+      <strong>Why VHF and UHF behave the way they do.</strong> Line-of-sight propagation,
+      multipath, why a repeater on a hill matters, why you might hear a station on 10 meters
+      from another continent but not on 2 meters.
+    </li>
+    <li>
+      <strong>What the blocks of a station do.</strong> Transceiver, power supply, feed line,
+      antenna, SWR meter. Several questions ask what you would use to do something, and a
+      mental picture answers all of them at once.
+    </li>
+    <li>
+      <strong>Modulation basics.</strong> What FM, SSB, and CW are for, and why each is used
+      where it is. The digital-mode questions are mostly vocabulary on top of this.
+    </li>
+  </ul>
+
+  <div class="note">
+    <p>
+      <strong>About the figures.</strong> The pool includes a few schematic diagrams. The
+      questions ask you to identify a component in the figure; learning the handful of symbols
+      involved takes ten minutes and is worth doing on Day 5.
+    </p>
+  </div>
+
+  <h2>The 14-day plan</h2>
+  <p>
+    Each day is 45 to 60 minutes. The plan front-loads the pure memorization (rules,
+    procedures) because spaced repetition needs time to work, puts the conceptual material in
+    the middle when you have the energy for it, and reserves the last four days for practice
+    exams and weak spots. If you fall behind a day, drop a rest day rather than compressing two
+    study days into one.
+  </p>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Day</th><th>What to do</th></tr>
+      </thead>
+      <tbody>
+        {plan.map(([day, what]) => (
+          <tr><td>{day}</td><td>{what}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>How to use practice exams honestly</h2>
+  <p>
+    A practice exam is a measurement, not a study method. Taken too early, it only tells you
+    that you have not studied yet; taken too often, you start to recognize questions by shape
+    and your score drifts above what you actually know. Three to five full exams across the
+    two weeks is plenty. Take them without notes and without pausing, and treat the misses as
+    your reading list for the next day.
+  </p>
+  <p>
+    Aim for consistent scores of 30 or better before exam day. The pass mark is 26, but a
+    30-plus practice score leaves room for the nerves and the one question that is worded
+    differently than you remember.
+  </p>
+
+  <h2>Logistics people forget</h2>
+  <ul>
+    <li>
+      <strong>FCC Registration Number (FRN).</strong> You need one before the exam session, and
+      you get it free from the FCC’s CORES system. Bring it with you.
+    </li>
+    <li>
+      <strong>Finding a session.</strong> Volunteer Examiner teams run sessions in person and
+      by video. ARRL and the other VECs list upcoming sessions; many clubs test monthly.
+    </li>
+    <li>
+      <strong>Fees.</strong> Expect a small session fee charged by the VE team and a separate
+      FCC application fee after you pass. Check the current amounts; they change.
+    </li>
+    <li>
+      <strong>Photo ID.</strong> Required. If you plan to take the General exam on the same
+      day after passing Technician, say so when you register.
+    </li>
+  </ul>
+
+  <h2>Where HamCram fits</h2>
+  <p>
+    Any practice tool that uses the real pool will work with this plan. HamCram is ours. It
+    carries the complete Technician and General pools with every figure, a Learn mode that
+    walks each subelement with the correct answers shown, flashcards for the memorization
+    block, quizzes in 10, 25, 50, or 100 questions for the daily check, and full 35-question
+    practice exams scored exactly like test day. Weak-spot review resurfaces the questions you
+    keep missing, and mastery tracking shows your progress by subelement, which is what Day 11
+    is built around. It costs $9.99 once, has no ads or account, and keeps your study data on
+    the device.
+  </p>
+  <p>
+    Whatever you use, the plan is the same: learn the rules early, understand the handful of
+    ideas that generate most of the questions, measure yourself a few times, and show up with
+    your FRN.
+  </p>
+</GuideLayout>
