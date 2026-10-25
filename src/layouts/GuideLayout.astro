@@ -1,0 +1,360 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import AppStoreButton from '../components/AppStoreButton.astro';
+import { breadcrumbList } from '../lib/seo';
+
+/**
+ * Long-form guide shell for /guides/<slug>.
+ *
+ * One article per page, one app per article. The layout owns the Article +
+ * BreadcrumbList JSON-LD, the header, the reading column, and the closing
+ * app card; the page supplies the prose. The store link on the card must
+ * carry the article's own `ct` token so App Analytics can attribute the
+ * installs to the piece that earned them.
+ */
+interface Props {
+  /** Page <title>; also the Article headline. */
+  title: string;
+  /** Visible H1 when it should differ from the <title>. */
+  headline?: string;
+  description: string;
+  /** ISO date, e.g. 2026-10-25. */
+  datePublished: string;
+  dateModified?: string;
+  /** Short label shown above the title, e.g. "HamCram guide". */
+  eyebrow: string;
+  readingMinutes: number;
+  ogImage?: string;
+  app: {
+    name: string;
+    icon: string;
+    href: string;
+    /** App Store id, used for the Smart App Banner. */
+    id: string;
+    /** Store URL already carrying this article's ct= token. */
+    storeUrl: string;
+    /** One honest line about what the app actually does. */
+    pitch: string;
+    /** Price or unlock line as it appears on the product page. */
+    price: string;
+  };
+}
+
+const {
+  title,
+  headline = Astro.props.title,
+  description,
+  datePublished,
+  dateModified = datePublished,
+  eyebrow,
+  readingMinutes,
+  ogImage,
+  app,
+} = Astro.props;
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const path = Astro.url.pathname.replace(/\/$/, '');
+const pageUrl = `${site}${path}`;
+const publisher = {
+  '@type': 'Organization',
+  name: 'Alpine Squad',
+  url: site,
+  logo: { '@type': 'ImageObject', url: `${site}/images/alpinesquad-icon.png` },
+};
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      '@id': `${pageUrl}#article`,
+      headline,
+      description,
+      datePublished,
+      dateModified,
+      inLanguage: 'en-US',
+      author: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+      publisher,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+      ...(ogImage ? { image: `${site}${ogImage}` } : {}),
+      about: { '@type': 'MobileApplication', name: app.name, url: `${site}${app.href}` },
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Guides', path: '/guides' },
+      { name: headline, path },
+    ]),
+  ],
+};
+
+const published = new Date(`${datePublished}T00:00:00Z`).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<BaseLayout {title} {description} {schema} {ogImage} appId={app.id}>
+  <SiteNav />
+
+  <article class="guide">
+    <header class="guide-head">
+      <div class="container-narrow">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Alpine Squad</a>
+          <span aria-hidden="true">/</span>
+          <a href="/guides">Guides</a>
+        </nav>
+        <p class="eyebrow">{eyebrow}</p>
+        <h1>{headline}</h1>
+        <p class="lede">{description}</p>
+        <p class="meta">
+          <span>By Alpine Squad</span>
+          <span aria-hidden="true">·</span>
+          <time datetime={datePublished}>{published}</time>
+          <span aria-hidden="true">·</span>
+          <span>{readingMinutes} min read</span>
+        </p>
+      </div>
+    </header>
+
+    <div class="container-narrow guide-body">
+      <slot />
+    </div>
+
+    <aside class="guide-app" aria-labelledby="guide-app-title">
+      <div class="container-narrow guide-app-inner">
+        <img src={app.icon} alt="" width="72" height="72" class="guide-app-icon" loading="lazy" />
+        <div class="guide-app-text">
+          <p class="eyebrow">The app behind this guide</p>
+          <h2 id="guide-app-title">{app.name}</h2>
+          <p class="guide-app-pitch">{app.pitch}</p>
+          <p class="guide-app-price">{app.price}</p>
+          <div class="guide-app-actions">
+            <AppStoreButton href={app.storeUrl} label={`Download ${app.name} on the App Store`} />
+            <a href={app.href} class="guide-app-more">About {app.name}</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <footer class="guide-foot">
+      <div class="container-narrow">
+        <a href="/guides" class="back">All guides</a>
+      </div>
+    </footer>
+  </article>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .guide-head {
+    padding: 64px 0 36px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, #ffffff) 0%, #ffffff 90%);
+  }
+  @media (max-width: 720px) {
+    .guide-head { padding: 44px 0 28px; }
+  }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin-bottom: 26px;
+  }
+  .crumbs a { color: var(--ink-soft); }
+  .crumbs a:hover { color: var(--ink); }
+  .guide-head .eyebrow {
+    letter-spacing: 2.5px;
+    color: var(--accent-warm);
+    margin-bottom: 12px;
+  }
+  .guide-head h1 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 5.2vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 18px;
+    text-wrap: balance;
+  }
+  .lede {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 58ch;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+    font-size: 14.5px;
+    color: var(--ink-muted);
+  }
+
+  /* Reading column. Article pages write plain HTML; these are the only
+     rules they rely on, so keep them generous and predictable. */
+  .guide-body { padding: 24px 0 40px; }
+  .guide-body :global(h2) {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.4vw, 32px);
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 44px 0 14px;
+    text-wrap: balance;
+  }
+  .guide-body :global(h3) {
+    font-size: 19px;
+    font-weight: 650;
+    color: var(--ink);
+    margin: 30px 0 8px;
+  }
+  .guide-body :global(p) {
+    font-size: 17.5px;
+    line-height: 1.7;
+    color: var(--ink);
+    margin: 0 0 18px;
+  }
+  .guide-body :global(ul),
+  .guide-body :global(ol) {
+    margin: 0 0 20px;
+    padding-left: 26px;
+  }
+  .guide-body :global(li) {
+    font-size: 17px;
+    line-height: 1.65;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .guide-body :global(li > p) { margin-bottom: 6px; }
+  .guide-body :global(strong) { font-weight: 650; }
+  .guide-body :global(a) { text-decoration: underline; text-underline-offset: 3px; }
+  .guide-body :global(blockquote) {
+    margin: 24px 0;
+    padding: 4px 0 4px 20px;
+    border-left: 3px solid var(--accent);
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .guide-body :global(.note) {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-deep);
+    padding: 16px 20px;
+    margin: 0 0 22px;
+  }
+  .guide-body :global(.note p) { font-size: 16px; margin: 0; color: var(--ink-soft); }
+  .guide-body :global(.note p + p) { margin-top: 8px; }
+
+  .guide-body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 6px 0 26px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .guide-body :global(th),
+  .guide-body :global(td) {
+    text-align: left;
+    vertical-align: top;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .guide-body :global(th) {
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+  .guide-body :global(td:first-child) { font-weight: 650; white-space: nowrap; }
+  .guide-body :global(.table-scroll) { overflow-x: auto; margin: 0 -24px 26px; padding: 0 24px; }
+  .guide-body :global(.table-scroll table) { margin-bottom: 0; min-width: 520px; }
+
+  /* Q&A list for the trivia article */
+  .guide-body :global(.qa) {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 8px;
+    counter-reset: q;
+  }
+  .guide-body :global(.qa > li) {
+    position: relative;
+    padding: 14px 0 14px 46px;
+    border-bottom: 1px solid var(--border);
+    margin: 0;
+  }
+  .guide-body :global(.qa > li::before) {
+    counter-increment: q;
+    content: counter(q);
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-deep);
+    color: var(--ink-soft);
+    font-size: 14px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+  }
+  .guide-body :global(.qa .q) { font-weight: 600; margin-bottom: 4px; }
+  .guide-body :global(.qa .a) { color: var(--ink-soft); font-size: 16.5px; margin: 0; }
+  .guide-body :global(.qa .ref) { color: var(--ink-muted); font-size: 14.5px; }
+
+  /* Closing app card */
+  .guide-app {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-deep);
+    padding: 40px 0;
+  }
+  .guide-app-inner {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+  }
+  @media (max-width: 560px) {
+    .guide-app-inner { flex-direction: column; }
+  }
+  .guide-app-icon { border-radius: 16px; flex: none; }
+  .guide-app .eyebrow { margin-bottom: 6px; }
+  .guide-app h2 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .guide-app-pitch { color: var(--ink-soft); line-height: 1.6; margin-bottom: 6px; }
+  .guide-app-price { color: var(--ink-muted); font-size: 14.5px; margin-bottom: 16px; }
+  .guide-app-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; }
+  .guide-app-more {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--border);
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+    background: #fff;
+  }
+  .guide-app-more:hover { border-color: var(--ink); }
+
+  .guide-foot { padding: 28px 0 56px; }
+  .back { font-weight: 600; color: var(--ink-soft); }
+  .back::before { content: '← '; }
+  .back:hover { color: var(--ink); }
+</style>
