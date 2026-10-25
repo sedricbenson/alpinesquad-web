@@ -57,6 +57,8 @@ const {
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 const path = Astro.url.pathname.replace(/\/$/, '');
 const pageUrl = `${site}${path}`;
+// Product pages are site-relative; an app on its own domain passes an absolute href.
+const appUrl = /^https?:\/\//.test(app.href) ? app.href : `${site}${app.href}`;
 const publisher = {
   '@type': 'Organization',
   name: 'Alpine Squad',
@@ -79,7 +81,7 @@ const schema = {
       publisher,
       mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
       ...(ogImage ? { image: `${site}${ogImage}` } : {}),
-      about: { '@type': 'MobileApplication', name: app.name, url: `${site}${app.href}` },
+      about: { '@type': 'MobileApplication', name: app.name, url: appUrl },
     },
     breadcrumbList(site, [
       { name: 'Alpine Squad', path: '/' },
