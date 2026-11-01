@@ -1,0 +1,306 @@
+---
+import AppShell from '../../layouts/AppShell.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
+import { appStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
+
+/**
+ * Current Charts — hub page. The full product site is currentcharts.app; this
+ * page is the honest summary on the umbrella domain, not a copy of that site.
+ * Grounded in the live App Store listing (2026-11-01): Pro $4.99/wk, $12.99/mo,
+ * $99.99/yr, 7-day trial on yearly only, new subscribers. No ads.
+ * Never call it navigation, a chartplotter, or GPS. Never "your only source".
+ */
+
+const title = 'Current Charts — Salish Sea Tidal Current Atlas for iPhone & iPad';
+const description =
+  'Animated tidal-current predictions for the Salish Sea: San Juan Islands, Gulf Islands, Strait of Juan de Fuca. Flood, ebb, and slack, 48 hours ahead. Current Charts Pro from $4.99/week. Predictions — never your only source.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const appUrlClean = appStoreUrl(APP_IDS.currentCharts);
+const appUrlCta = appStoreUrl(APP_IDS.currentCharts, 'web-current-charts');
+const privacyUrl = 'https://sedricbenson.github.io/disclosures/currentcharts/privacy.html';
+const fullSite = 'https://currentcharts.app';
+
+const faqs = [
+  {
+    q: 'Where does Current Charts cover?',
+    a: 'The Salish Sea: the San Juan Islands, the Gulf Islands, and the Strait of Juan de Fuca. It is not a coast-wide app: water outside those three areas is not covered.',
+  },
+  {
+    q: 'Where do the currents come from?',
+    a: 'Model currents from NOAA’s SSCOFS forecast, blended toward official NOAA current stations. Fresh predictions download about twice a day. They are model predictions, not measurements.',
+  },
+  {
+    q: 'Can I use it as my only source on the water?',
+    a: 'No. Wind and weather change the water, and the app does not draw weather. Use Current Charts to plan a pass or a crossing, then check official tables and conditions yourself.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'The download is free and shows the present-time map as a preview. Current Charts Pro is $4.99 a week, $12.99 a month, or $99.99 a year. New subscribers get a 7-day free trial on the yearly plan only; weekly and monthly have no trial. Every plan auto-renews until you cancel in your App Store settings. Family Sharing is on.',
+  },
+  {
+    q: 'Does it work offline?',
+    a: 'Saved predictions keep working offline. The app still needs a download about twice a day when you have signal to stay current.',
+  },
+  {
+    q: 'Ads? Tracking?',
+    a: 'No ads. Your location never leaves your device. Privacy policy: ' + privacyUrl,
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'MobileApplication',
+      name: 'Current Charts',
+      operatingSystem: 'iOS 17+, iPadOS 17+',
+      applicationCategory: 'ReferenceApplication',
+      description,
+      url: `${site}/current-charts`,
+      sameAs: fullSite,
+      installUrl: appUrlClean,
+      downloadUrl: appUrlClean,
+      image: `${site}/images/currentcharts-icon.png`,
+      screenshot: [
+        `${site}/images/current-charts-overview.webp`,
+        `${site}/images/current-charts-station.webp`,
+        `${site}/images/current-charts-reading.webp`,
+        `${site}/images/current-charts-eddies.webp`,
+        `${site}/images/current-charts-scrub.webp`,
+      ],
+      offers: [
+        { '@type': 'Offer', name: 'Current Charts Pro — weekly', price: '4.99', priceCurrency: 'USD' },
+        { '@type': 'Offer', name: 'Current Charts Pro — monthly', price: '12.99', priceCurrency: 'USD' },
+        {
+          '@type': 'Offer',
+          name: 'Current Charts Pro — yearly',
+          price: '99.99',
+          priceCurrency: 'USD',
+          description: '7-day free trial for new subscribers.',
+        },
+      ],
+      publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+      privacyPolicy: privacyUrl,
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Current Charts', path: '/current-charts' },
+    ]),
+  ],
+};
+---
+
+<AppShell
+  {title}
+  {description}
+  {schema}
+  appName="Current Charts"
+  appHref="/current-charts"
+  appId={APP_IDS.currentCharts}
+  appStoreUrl={appStoreUrl(APP_IDS.currentCharts, 'web-current-charts-nav')}
+  accent="#1C7FC4"
+  accentPop="#4FC3E8"
+  accentDeep="#0F4C81"
+  privacyPath="/current-charts/privacy"
+  termsPath="/current-charts/terms"
+  contactEmail="support@currentcharts.app"
+  navLinks={[
+    { label: 'Screenshots', href: '#screenshots' },
+    { label: 'Coverage', href: '#coverage' },
+    { label: 'Pricing', href: '#pricing' },
+    { label: 'FAQ', href: '#faq' },
+  ]}
+>
+  <!-- HERO ----------------------------------------------------------- -->
+  <section class="s-hero">
+    <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
+    <div class="container s-hero-inner">
+      <img class="s-hero-icon" src="/images/currentcharts-icon.png" alt="Current Charts app icon" width="84" height="84" />
+      <p class="s-eyebrow">Current Charts · Salish Sea Current Atlas · iPhone &amp; iPad</p>
+      <h1>See the Salish Sea <span class="s-hero-accent">move</span>.</h1>
+      <p class="s-lede">
+        Animated tidal-current predictions for the San Juan Islands, the Gulf Islands, and the
+        Strait of Juan de Fuca. Flood, ebb, and slack, scrubbed up to 48 hours ahead — for planning
+        a pass or a crossing. <strong>Predictions — never your only source.</strong>
+      </p>
+      <div class="s-hero-cta">
+        <AppStoreButton href={appUrlCta} label="Download Current Charts on the App Store" />
+        <p class="s-hero-claims">Pro from $4.99/week · 7-day trial on yearly · No ads</p>
+      </div>
+
+      <div class="s-stat-strip">
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">48</span>h</span><span class="s-stat-label">Timeline to scrub ahead</span></div>
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">3</span></span><span class="s-stat-label">Salish Sea waterways covered</span></div>
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">2</span>×</span><span class="s-stat-label">Fresh predictions a day</span></div>
+        <div class="s-stat"><span class="s-stat-value"><span class="accent">0</span></span><span class="s-stat-label">Ads</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENSHOTS — App Store iPhone set ----------------------------- -->
+  <ScreenshotSlots
+    eyebrow="In the app"
+    heading="Real screens from the App Store."
+    lede="The whole atlas, a station curve, a tap reading, eddies up close, and the 48-hour scrubber — the App Store iPhone set."
+    shots={[
+      {
+        src: '/images/current-charts-overview.webp',
+        label: 'The whole atlas',
+        alt: 'Current Charts showing animated current trails across the San Juan Islands and Haro Strait',
+      },
+      {
+        src: '/images/current-charts-station.webp',
+        label: 'Station curve',
+        alt: 'A NOAA current station sheet with the flood and ebb curve and the next maximum flood',
+      },
+      {
+        src: '/images/current-charts-reading.webp',
+        label: 'Tap for a reading',
+        alt: 'A tap on open water showing predicted current speed and direction',
+      },
+      {
+        src: '/images/current-charts-eddies.webp',
+        label: 'Eddies up close',
+        alt: 'Zoomed-in current trails showing eddies near the islands',
+      },
+      {
+        src: '/images/current-charts-scrub.webp',
+        label: 'Scrub 48 hours',
+        alt: 'The timeline scrubbed forward to a later tide near Sucia and Orcas Islands',
+      },
+    ]}
+  />
+
+  <!-- WHAT IT DOES ----------------------------------------------------- -->
+  <section class="s-section" id="features">
+    <div class="container">
+      <p class="s-eyebrow">What it does</p>
+      <h2 class="s-h2">The current atlas, animated.</h2>
+      <p class="s-section-lede">
+        Plan the pass, time the crossing, find slack at the dock. Then check conditions yourself —
+        the tables stay the tables.
+      </p>
+      <div class="s-feature-grid">
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12c2-3 4-3 6 0s4 3 6 0 4-3 6 0"></path><path d="M2 17c2-3 4-3 6 0s4 3 6 0 4-3 6 0"></path></svg></div>
+          <h4>See the water move</h4>
+          <p>Flowing trails show predicted speed and direction everywhere at once. Eddies, races, and back-channels read at a glance.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6-7-12a7 7 0 0 1 14 0c0 6-7 12-7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></div>
+          <h4>Tap anywhere</h4>
+          <p>Tap any spot of water for its predicted speed and direction. Tap a station pin for the flood and ebb curve, slack, and the next maximum.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          <h4>Plan ahead</h4>
+          <p>Scrub the 48-hour timeline or press play and watch the day’s currents unfold.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg></div>
+          <h4>Anchored to official stations</h4>
+          <p>NOAA’s SSCOFS model forecast, blended toward official NOAA current stations. Fresh predictions download about twice a day.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+          <h4>Works offline</h4>
+          <p>Saved predictions keep working out of cell service, in the islands and on the water.</p>
+        </div>
+        <div class="s-feature">
+          <div class="s-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <h4>Private</h4>
+          <p>No ads. Your location never leaves your device.
+            <a href={privacyUrl}>Privacy policy</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COVERAGE + LIMITS ------------------------------------------------ -->
+  <section class="s-section-alt" id="coverage">
+    <div class="container-narrow">
+      <p class="s-eyebrow">Coverage and limits</p>
+      <h2 class="s-h2">Salish Sea only. Predictions only.</h2>
+      <ul class="cc-list">
+        <li><strong>Covers:</strong> the San Juan Islands, the Gulf Islands, and the Strait of Juan de Fuca.</li>
+        <li><strong>Shows:</strong> tidal currents — flood, ebb, and slack. Not water height, not wind, not weather.</li>
+        <li><strong>Is not:</strong> a chartplotter, a GPS, or a nautical chart.</li>
+        <li><strong>Remember:</strong> these are model predictions, not measurements. Wind and weather change everything — never use Current Charts as your only source for decisions on the water.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PRICING ---------------------------------------------------------- -->
+  <section class="s-section" id="pricing">
+    <div class="container-narrow">
+      <p class="s-eyebrow">Pricing</p>
+      <h2 class="s-h2">Pay for a weekend, a season, or the year.</h2>
+      <p class="s-section-lede">
+        The download is free and shows the present-time map as a preview. Scrubbing, play, taps,
+        and station curves need Current Charts Pro.
+      </p>
+      <ul class="cc-list">
+        <li><strong>Weekly:</strong> $4.99 — no trial</li>
+        <li><strong>Monthly:</strong> $12.99 — no trial</li>
+        <li><strong>Yearly:</strong> $99.99 — 7-day free trial for new subscribers</li>
+      </ul>
+      <p class="s-price-note" style="margin-top:16px">
+        Every plan auto-renews until you cancel in your App Store settings. Family Sharing is on.
+      </p>
+      <div class="s-hero-cta" style="margin-top:28px">
+        <AppStoreButton href={appUrlCta} label="Download Current Charts on the App Store" />
+      </div>
+      <p class="s-price-note" style="margin-top:16px">
+        Questions? <a href="mailto:support@currentcharts.app">support@currentcharts.app</a> ·
+        <a href={privacyUrl}>Privacy</a> ·
+        <a href="/current-charts/terms">Terms</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ --------------------------------------------------------------- -->
+  <section class="s-faq" id="faq">
+    <div class="container-narrow">
+      <p class="s-eyebrow">Frequently asked</p>
+      <h2 class="s-h2">The short answers.</h2>
+      {faqs.map((f) => (
+        <details class="s-faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- FINAL CTA ---------------------------------------------------------- -->
+  <section class="s-final">
+    <div class="container-narrow">
+      <h2>Watch the next tide before you go.</h2>
+      <p>Available on the App Store for iPhone and iPad. More at <a href={fullSite} rel="noopener">currentcharts.app</a>.</p>
+      <AppStoreButton href={appUrlCta} label="Download Current Charts on the App Store" />
+    </div>
+  </section>
+</AppShell>
+
+<style>
+  .cc-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.7;
+    max-width: 58ch;
+  }
+  .cc-list li { margin: 0.35rem 0; }
+  .cc-list strong { color: var(--ink); font-weight: 600; }
+</style>

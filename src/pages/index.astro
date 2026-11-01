@@ -7,7 +7,7 @@ import { appStoreUrl, APP_IDS } from '../lib/seo';
 
 const title = 'Alpine Squad — privacy-first iOS apps for learning, play & pro work';
 const description =
-  'Privacy-first iOS apps for learning, play, and real work. MusicQuest, Glide, Bible Blitz, Spelly, HamCram, and more — Ready on the App Store, built with care, priced honestly.';
+  'Privacy-first iOS apps for learning, play, and real work. MusicQuest, Glide, Bible Blitz, Spelly, HamCram, Current Charts, and more — on the App Store, built with care, priced honestly.';
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
 
@@ -111,6 +111,19 @@ const apps = [
     price: '0.00',
   },
   {
+    name: 'Current Charts',
+    tagline: 'Salish Sea tidal currents, animated.',
+    description:
+      'Flood, ebb, and slack for the San Juan Islands, Gulf Islands, and Strait of Juan de Fuca, 48 hours ahead. Model predictions for planning — never your only source.',
+    icon: '/images/currentcharts-icon.png',
+    href: '/current-charts',
+    appStore: appStoreUrl(APP_IDS.currentCharts, 'web-home-current-charts'),
+    storeUrlClean: appStoreUrl(APP_IDS.currentCharts),
+    tags: ['Boating', 'From $4.99/week'],
+    accent: '#1C7FC4',
+    category: 'ReferenceApplication',
+  },
+  {
     name: 'Pianotune',
     tagline: 'Pro piano tuner — coming soon.',
     description:
@@ -194,17 +207,6 @@ const schema = {
           <a href={app.href} tabindex="-1"><img src={app.icon} alt="" width="52" height="52" loading="eager" /></a>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- CROSS-LINK ------------------------------------------------------- -->
-  <section class="cross-link" aria-label="Also by Alpine Squad">
-    <div class="container">
-      <p>
-        Also by us, on its own site:
-        <a href="https://currentcharts.app" rel="noopener">Current Charts</a>
-        — Salish Sea tidal currents for boaters (iPhone &amp; iPad).
-      </p>
     </div>
   </section>
 
@@ -437,22 +439,6 @@ const schema = {
   /* App Store button sits above the stretched link so it stays separately clickable. */
   .app-store-wrap { position: relative; z-index: 1; }
 
-  .cross-link {
-    padding: 22px 0;
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    text-align: center;
-  }
-  .cross-link p {
-    margin: 0;
-    font-size: 14.5px;
-    color: var(--ink-soft);
-  }
-  .cross-link a {
-    color: var(--accent);
-    font-weight: 600;
-  }
-  .cross-link a:hover { color: var(--ink); }
   .section-lede {
     font-size: 15.5px;
     color: var(--ink-soft);

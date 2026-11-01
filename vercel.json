@@ -47,6 +47,16 @@
       "permanent": false
     },
     {
+      "source": "/current-charts/privacy",
+      "destination": "https://sedricbenson.github.io/disclosures/currentcharts/privacy.html",
+      "permanent": false
+    },
+    {
+      "source": "/current-charts/terms",
+      "destination": "https://sedricbenson.github.io/disclosures/currentcharts/terms.html",
+      "permanent": false
+    },
+    {
       "source": "/word-trap/privacy",
       "destination": "https://sedricbenson.github.io/disclosures/wordtrap/privacy.html",
       "permanent": false

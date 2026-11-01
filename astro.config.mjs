@@ -19,6 +19,7 @@ const DISCLOSURE_APPS = {
   musicquest: 'musicquest',
   glide: 'glide',
   'untangle-dots': 'untangle',
+  'current-charts': 'currentcharts',
   'word-trap': 'wordtrap',
   switch: 'switch',
 };
@@ -46,6 +47,7 @@ export default defineConfig({
           '/scratchy/',
           '/glide/',
           '/untangle-dots/',
+          '/current-charts/',
         ];
         const comingSoon = ['/pianotune/', '/word-trap/', '/switch/'];
         if (path === '/') item.priority = 1.0;
