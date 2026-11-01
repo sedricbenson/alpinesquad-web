@@ -14,6 +14,8 @@ export const APP_IDS = {
   scratchy: '6786076591',
   glide: '6807579233',
   untangleDots: '6807323625',
+  /** Lives on its own site (currentcharts.app); listed here for the guide's store link. */
+  currentCharts: '6800519774',
   // Not yet public / not Ready for Distribution:
   pianotune: '6772577552',
   wordTrap: '6809978528',

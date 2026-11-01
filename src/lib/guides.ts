@@ -48,4 +48,15 @@ export const GUIDES: Guide[] = [
     datePublished: '2026-10-25',
     readingMinutes: 6,
   },
+  {
+    path: '/guides/salish-sea-slack-water-planning',
+    title: 'Salish Sea slack-water planning',
+    description:
+      'What slack water is, why the turn matters at Deception Pass, Admiralty Inlet, Cattle Pass, and Tacoma Narrows, and how to plan a passage around a slack window using the official NOAA predictions.',
+    app: 'Current Charts',
+    appHref: 'https://currentcharts.app',
+    icon: '/images/currentcharts-icon.png',
+    datePublished: '2026-10-25',
+    readingMinutes: 10,
+  },
 ];
