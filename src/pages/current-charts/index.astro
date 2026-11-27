@@ -219,7 +219,7 @@ const schema = {
 
   <!-- COVERAGE -------------------------------------------------------- -->
   <section class="s-section-alt" id="coverage">
-    <div class="container-narrow">
+    <div class="container"><div class="cc-col">
       <p class="s-eyebrow">Coverage</p>
       <h2 class="s-h2">Three regions. Not the whole coast.</h2>
       <ul class="cc-list">
@@ -231,12 +231,12 @@ const schema = {
         Puget Sound south of the San Juans is not covered. The app shows tidal currents, not
         water heights, and it does not draw wind or weather.
       </p>
-    </div>
+    </div></div>
   </section>
 
   <!-- PRICING --------------------------------------------------------- -->
   <section class="s-section" id="pricing">
-    <div class="container-narrow">
+    <div class="container"><div class="cc-col">
       <p class="s-eyebrow">Pricing</p>
       <h2 class="s-h2">Current Charts Pro is a subscription.</h2>
       <ul class="cc-list">
@@ -256,12 +256,12 @@ const schema = {
         <a href={privacyUrl}>Privacy</a> ·
         <a href="/current-charts/terms">Terms</a>
       </p>
-    </div>
+    </div></div>
   </section>
 
   <!-- FAQ -------------------------------------------------------------- -->
   <section class="s-faq" id="faq">
-    <div class="container-narrow">
+    <div class="container"><div class="cc-col">
       <p class="s-eyebrow">Frequently asked</p>
       <h2 class="s-h2">The short answers.</h2>
       {faqs.map((f) => (
@@ -270,7 +270,7 @@ const schema = {
           <p>{f.a}</p>
         </details>
       ))}
-    </div>
+    </div></div>
   </section>
 
   <!-- FINAL CTA --------------------------------------------------------- -->
@@ -284,6 +284,11 @@ const schema = {
 </AppShell>
 
 <style>
+  /* same left edge as the hero and feature grid; readable line length */
+  .cc-col { max-width: 712px; }
+  /* hero shares that edge too: full container, copy capped at the old width */
+  .s-hero-inner.container { max-width: 1200px !important; }
+  .s-hero-inner.container > * { max-width: 832px; }
   .cc-limit {
     margin-top: 20px;
     font-size: 15px;
