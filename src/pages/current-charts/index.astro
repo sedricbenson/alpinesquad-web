@@ -1,0 +1,306 @@
+---
+import AppShell from '../../layouts/AppShell.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import ScreenshotSlots from '../../components/ScreenshotSlots.astro';
+import { currentChartsStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
+
+/**
+ * Current Charts — product page on the Alpine Squad hub.
+ * Facts: shipped app v1.0.3. Subscription (Current Charts Pro), trial on yearly only.
+ * Currents, not water heights. Never "navigation", never accuracy figures.
+ * Screenshots: raw app captures from store-assets/raw-iphone-6.9. Never atlas imagery.
+ */
+
+const title = 'Current Charts — Salish Sea Tidal Currents, Animated | San Juan Islands & Gulf Islands';
+const description =
+  'Animated tidal currents for the Salish Sea: San Juan Islands, Gulf Islands, and the Strait of Juan de Fuca. Flood, ebb, and next slack at every station, including Deception Pass. Subscription; 7-day trial on yearly only. Predictions, never your only source.';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://alpinesquad.com';
+const appUrlClean = currentChartsStoreUrl();
+const appUrlCta = currentChartsStoreUrl('web-current-charts');
+const privacyUrl = 'https://sedricbenson.github.io/disclosures/currentcharts/privacy.html';
+
+const faqs = [
+  {
+    q: 'Which waters does Current Charts cover?',
+    a: 'The San Juan Islands, the Gulf Islands, and the Strait of Juan de Fuca. Puget Sound south of the San Juans is not covered. Nothing outside the Salish Sea waters named here is covered either.',
+  },
+  {
+    q: 'Does it show tide heights?',
+    a: 'No. It shows tidal currents: flood, ebb, slack, speed, and direction. It does not show water levels.',
+  },
+  {
+    q: 'Where do the numbers come from?',
+    a: 'Model currents come from NOAA’s SSCOFS forecast, anchored to official NOAA and Canadian Hydrographic Service predictions, with official curves for 64 stations. They are predictions, not measurements. New data arrives about twice a day, and saved forecasts keep working offline.',
+  },
+  {
+    q: 'Is it a chartplotter?',
+    a: 'No. Current Charts is a planning view, not a chartplotter. Wind and weather change the day. Predictions — never your only source.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'Current Charts Pro is a subscription: $4.99 per week, $12.99 per month, or $99.99 per year. The yearly plan includes a 7-day free trial for new subscribers only. The weekly and monthly plans have no trial. Plans renew until you cancel in your App Store settings.',
+  },
+  {
+    q: 'Does it track me?',
+    a: 'There is no account and there are no ads. Your location never leaves your device. Privacy policy: ' + privacyUrl,
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'MobileApplication',
+      name: 'Current Charts',
+      alternateName: 'Current Charts: Salish Sea Current Atlas',
+      operatingSystem: 'iOS',
+      applicationCategory: 'TravelApplication',
+      description,
+      url: `${site}/current-charts`,
+      installUrl: appUrlClean,
+      downloadUrl: appUrlClean,
+      image: `${site}/images/current-charts-icon.png`,
+      screenshot: [
+        `${site}/images/current-charts-overview.jpg`,
+        `${site}/images/current-charts-station.jpg`,
+        `${site}/images/current-charts-passes.jpg`,
+        `${site}/images/current-charts-regions.jpg`,
+      ],
+      offers: [
+        { '@type': 'Offer', name: 'Current Charts Pro, weekly', price: '4.99', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+        { '@type': 'Offer', name: 'Current Charts Pro, monthly', price: '12.99', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+        {
+          '@type': 'Offer',
+          name: 'Current Charts Pro, yearly',
+          price: '99.99',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
+          description: '7-day free trial for new subscribers on the yearly plan only.',
+        },
+      ],
+      publisher: { '@type': 'Organization', name: 'Alpine Squad', url: site },
+      privacyPolicy: privacyUrl,
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    breadcrumbList(site, [
+      { name: 'Alpine Squad', path: '/' },
+      { name: 'Current Charts', path: '/current-charts' },
+    ]),
+  ],
+};
+---
+
+<AppShell
+  {title}
+  {description}
+  {schema}
+  ogImage="/images/current-charts-og.png"
+  appName="Current Charts"
+  appHref="/current-charts"
+  appId={APP_IDS.currentCharts}
+  appStoreUrl={currentChartsStoreUrl('web-current-charts-nav')}
+  accent="#0E7C86"
+  accentPop="#2BB3B1"
+  accentDeep="#0A5C66"
+  privacyPath="/current-charts/privacy"
+  termsPath="/current-charts/terms"
+  contactEmail="support@alpinesquad.com"
+  navLinks={[
+    { label: 'Screenshots', href: '#screenshots' },
+    { label: 'Features', href: '#features' },
+    { label: 'Pricing', href: '#pricing' },
+    { label: 'FAQ', href: '#faq' },
+  ]}
+>
+  <!-- HERO ----------------------------------------------------------- -->
+  <section class="s-hero">
+    <div class="s-hero-bg" aria-hidden="true"><div class="s-hero-glow"></div></div>
+    <div class="container s-hero-inner">
+      <img class="s-hero-icon" src="/images/current-charts-icon.png" alt="Current Charts app icon" width="84" height="84" />
+      <p class="s-eyebrow">Current Charts · Salish Sea currents · iPhone</p>
+      <h1>See the Salish Sea <span class="s-hero-accent">currents move</span>.</h1>
+      <p class="s-lede">
+        An animated tidal current atlas for the <strong>San Juan Islands</strong>, the
+        <strong>Gulf Islands</strong>, and the <strong>Strait of Juan de Fuca</strong>. Flood, ebb,
+        and the next slack at every official station. Puget Sound south of the San Juans is not
+        covered.
+      </p>
+      <div class="s-hero-cta">
+        <AppStoreButton href={appUrlCta} label="Download Current Charts on the App Store" />
+        <p class="s-hero-claims">Subscription · 7-day trial on yearly only · No ads · No account</p>
+      </div>
+      <p class="cc-limit">Predictions — never your only source.</p>
+    </div>
+  </section>
+
+  <!-- SCREENSHOTS ---------------------------------------------------- -->
+  <ScreenshotSlots
+    eyebrow="In the app"
+    heading="Real screens from the app."
+    lede="The overview, a station curve, the Passes list, and the three regions."
+    shots={[
+      {
+        src: '/images/current-charts-overview.webp',
+        label: 'Overview',
+        alt: 'Current Charts map of the San Juan Islands with animated current trails',
+      },
+      {
+        src: '/images/current-charts-station.webp',
+        label: 'Station curve',
+        alt: 'Current Charts station card for Deception Pass with the flood and ebb curve and next slack times',
+      },
+      {
+        src: '/images/current-charts-passes.webp',
+        label: 'Passes',
+        alt: 'Current Charts Passes list with favorites and next slack for each pass',
+      },
+      {
+        src: '/images/current-charts-regions.webp',
+        label: 'Three regions',
+        alt: 'Current Charts map covering the San Juan Islands, Gulf Islands, and Strait of Juan de Fuca',
+      },
+    ]}
+  />
+
+  <!-- FEATURES -------------------------------------------------------- -->
+  <section class="s-section" id="features">
+    <div class="container">
+      <p class="s-eyebrow">What it does</p>
+      <h2 class="s-h2">Flood, ebb, and slack, planned ahead.</h2>
+      <p class="s-section-lede">
+        Current Charts is a planning view, not a chartplotter. Use it to see how the water moves
+        around a pass or a crossing, then cross-check it.
+      </p>
+      <div class="s-feature-grid">
+        <div class="s-feature">
+          <h4>Animated currents</h4>
+          <p>Trails flow across the chart and are colored by speed, so races, eddies, and calm water read at a glance.</p>
+        </div>
+        <div class="s-feature">
+          <h4>Next slack at each station</h4>
+          <p>See flood, ebb, and the next slack at every official station. Tap a station for its curve. Looking for slack water at Deception Pass? Start there.</p>
+        </div>
+        <div class="s-feature">
+          <h4>Tap water for a reading</h4>
+          <p>Tap any water for predicted speed and direction.</p>
+        </div>
+        <div class="s-feature">
+          <h4>Scrub the timeline</h4>
+          <p>Move through time in half-hour steps. The forecast runs more than two days ahead.</p>
+        </div>
+        <div class="s-feature">
+          <h4>Passes and favorites</h4>
+          <p>A Passes list with favorites puts the places you watch most one tap away.</p>
+        </div>
+        <div class="s-feature">
+          <h4>Works offline</h4>
+          <p>Saved forecasts keep working without signal. New data arrives about twice a day.</p>
+        </div>
+        <div class="s-feature">
+          <h4>Anchored to official predictions</h4>
+          <p>Model currents from NOAA&rsquo;s SSCOFS forecast, anchored to official NOAA and Canadian Hydrographic Service predictions, with official curves for 64 stations.</p>
+        </div>
+        <div class="s-feature">
+          <h4>Private</h4>
+          <p>No account, no ads. Your location never leaves your device.
+            <a href={privacyUrl}>Privacy policy</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COVERAGE -------------------------------------------------------- -->
+  <section class="s-section-alt" id="coverage">
+    <div class="container"><div class="cc-col">
+      <p class="s-eyebrow">Coverage</p>
+      <h2 class="s-h2">Three regions. Not the whole coast.</h2>
+      <ul class="cc-list">
+        <li>San Juan Islands</li>
+        <li>Gulf Islands</li>
+        <li>Strait of Juan de Fuca</li>
+      </ul>
+      <p class="s-section-lede">
+        Puget Sound south of the San Juans is not covered. The app shows tidal currents, not
+        water heights, and it does not draw wind or weather.
+      </p>
+    </div></div>
+  </section>
+
+  <!-- PRICING --------------------------------------------------------- -->
+  <section class="s-section" id="pricing">
+    <div class="container"><div class="cc-col">
+      <p class="s-eyebrow">Pricing</p>
+      <h2 class="s-h2">Current Charts Pro is a subscription.</h2>
+      <ul class="cc-list">
+        <li><strong>$4.99</strong> per week</li>
+        <li><strong>$12.99</strong> per month</li>
+        <li><strong>$99.99</strong> per year, with a 7-day free trial for new subscribers</li>
+      </ul>
+      <p class="s-section-lede">
+        The trial is on the yearly plan only, and only for new subscribers. Weekly and monthly
+        have no trial. Plans renew until you cancel in your App Store settings. No ads.
+      </p>
+      <div class="s-hero-cta" style="margin-top:28px">
+        <AppStoreButton href={appUrlCta} label="Download Current Charts on the App Store" />
+      </div>
+      <p class="s-price-note" style="margin-top:16px">
+        Questions? <a href="mailto:support@alpinesquad.com">support@alpinesquad.com</a> ·
+        <a href={privacyUrl}>Privacy</a> ·
+        <a href="/current-charts/terms">Terms</a>
+      </p>
+    </div></div>
+  </section>
+
+  <!-- FAQ -------------------------------------------------------------- -->
+  <section class="s-faq" id="faq">
+    <div class="container"><div class="cc-col">
+      <p class="s-eyebrow">Frequently asked</p>
+      <h2 class="s-h2">The short answers.</h2>
+      {faqs.map((f) => (
+        <details class="s-faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div></div>
+  </section>
+
+  <!-- FINAL CTA --------------------------------------------------------- -->
+  <section class="s-final">
+    <div class="container-narrow">
+      <h2>Plan the pass. Then check it.</h2>
+      <p>A planning view for the Salish Sea. Predictions — never your only source.</p>
+      <AppStoreButton href={appUrlCta} label="Download Current Charts on the App Store" />
+    </div>
+  </section>
+</AppShell>
+
+<style>
+  /* same left edge as the hero and feature grid; readable line length */
+  .cc-col { max-width: 712px; }
+  /* hero shares that edge too: full container, copy capped at the old width */
+  .s-hero-inner.container { max-width: 1200px !important; }
+  .s-hero-inner.container > * { max-width: 832px; }
+  .cc-limit {
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--s-accent-deep);
+  }
+  .cc-list {
+    margin: 0 0 20px;
+    padding-left: 1.2rem;
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.8;
+  }
+  .cc-list strong { color: var(--ink); font-weight: 600; }
+</style>

@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import AppStoreButton from '../components/AppStoreButton.astro';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import { appStoreUrl, APP_IDS } from '../lib/seo';
+import { appStoreUrl, currentChartsStoreUrl, APP_IDS } from '../lib/seo';
 
 const title = 'Alpine Squad — privacy-first iOS apps for learning, play & pro work';
 const description =
@@ -109,6 +109,19 @@ const apps = [
     accent: '#6B5CE7',
     category: 'GameApplication',
     price: '0.00',
+  },
+  {
+    name: 'Current Charts',
+    tagline: 'Animated tidal currents for the Salish Sea.',
+    description:
+      'Watch flood and ebb move through the San Juan Islands, Gulf Islands, and Strait of Juan de Fuca. Next slack at every station. Subscription, 7-day trial on yearly only. Predictions, not your only source.',
+    icon: '/images/current-charts-icon.png',
+    href: '/current-charts',
+    appStore: currentChartsStoreUrl('web-home-current-charts'),
+    storeUrlClean: currentChartsStoreUrl(),
+    tags: ['Boating & paddling'],
+    accent: '#0E7C86',
+    category: 'TravelApplication',
   },
   {
     name: 'Pianotune',
