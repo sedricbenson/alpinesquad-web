@@ -14,6 +14,7 @@ export const APP_IDS = {
   scratchy: '6786076591',
   glide: '6807579233',
   untangleDots: '6807323625',
+  currentCharts: '6800519774',
   // Not yet public / not Ready for Distribution:
   pianotune: '6772577552',
   wordTrap: '6809978528',
@@ -28,6 +29,12 @@ export const APP_IDS = {
  */
 export function appStoreUrl(id: string, campaign?: string): string {
   const base = `https://apps.apple.com/app/id${id}`;
+  return campaign ? `${base}?ct=${encodeURIComponent(campaign)}` : base;
+}
+
+/** Current Charts uses the canonical storefront URL; same `ct` convention. */
+export function currentChartsStoreUrl(campaign?: string): string {
+  const base = `https://apps.apple.com/us/app/current-charts/id${APP_IDS.currentCharts}`;
   return campaign ? `${base}?ct=${encodeURIComponent(campaign)}` : base;
 }
 

@@ -21,6 +21,7 @@ const DISCLOSURE_APPS = {
   'untangle-dots': 'untangle',
   'word-trap': 'wordtrap',
   switch: 'switch',
+  'current-charts': 'currentcharts',
 };
 const redirects = { '/bibleblitz': '/bible-blitz' };
 for (const [route, folder] of Object.entries(DISCLOSURE_APPS)) {
@@ -46,6 +47,7 @@ export default defineConfig({
           '/scratchy/',
           '/glide/',
           '/untangle-dots/',
+          '/current-charts/',
         ];
         const comingSoon = ['/pianotune/', '/word-trap/', '/switch/'];
         if (path === '/') item.priority = 1.0;
