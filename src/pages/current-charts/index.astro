@@ -8,7 +8,7 @@ import { currentChartsStoreUrl, APP_IDS, breadcrumbList } from '../../lib/seo';
  * Current Charts — product page on the Alpine Squad hub.
  * Facts: shipped app v1.0.3. Subscription (Current Charts Pro), trial on yearly only.
  * Currents, not water heights. Never "navigation", never accuracy figures.
- * Screenshots: UI-review capture (timeline) + framed store set. Never atlas imagery.
+ * Screenshots: raw app captures from store-assets/raw-iphone-6.9. Never atlas imagery.
  */
 
 const title = 'Current Charts — Salish Sea Tidal Currents, Animated | San Juan Islands & Gulf Islands';
@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: 'Where do the numbers come from?',
-    a: 'Model currents come from NOAA’s SSCOFS forecast, anchored to official NOAA and Canadian Hydrographic Service predictions at 64 stations. They are predictions, not measurements. New data arrives about twice a day, and saved forecasts keep working offline.',
+    a: 'Model currents come from NOAA’s SSCOFS forecast, anchored to official NOAA and Canadian Hydrographic Service predictions, with official curves for 64 stations. They are predictions, not measurements. New data arrives about twice a day, and saved forecasts keep working offline.',
   },
   {
     q: 'Is it a chartplotter?',
@@ -62,7 +62,7 @@ const schema = {
       downloadUrl: appUrlClean,
       image: `${site}/images/current-charts-icon.png`,
       screenshot: [
-        `${site}/images/current-charts-timeline.jpg`,
+        `${site}/images/current-charts-overview.jpg`,
         `${site}/images/current-charts-station.jpg`,
         `${site}/images/current-charts-passes.jpg`,
         `${site}/images/current-charts-regions.jpg`,
@@ -145,12 +145,12 @@ const schema = {
   <ScreenshotSlots
     eyebrow="In the app"
     heading="Real screens from the app."
-    lede="The timeline, a station curve, the Passes list, and the three regions."
+    lede="The overview, a station curve, the Passes list, and the three regions."
     shots={[
       {
-        src: '/images/current-charts-timeline.webp',
-        label: 'Timeline',
-        alt: 'Current Charts map of the San Juan Islands with speed-colored current trails and the half-hour time picker',
+        src: '/images/current-charts-overview.webp',
+        label: 'Overview',
+        alt: 'Current Charts map of the San Juan Islands with animated current trails',
       },
       {
         src: '/images/current-charts-station.webp',
@@ -206,7 +206,7 @@ const schema = {
         </div>
         <div class="s-feature">
           <h4>Anchored to official predictions</h4>
-          <p>Model currents from NOAA&rsquo;s SSCOFS forecast, anchored to official NOAA and Canadian Hydrographic Service predictions at 64 stations.</p>
+          <p>Model currents from NOAA&rsquo;s SSCOFS forecast, anchored to official NOAA and Canadian Hydrographic Service predictions, with official curves for 64 stations.</p>
         </div>
         <div class="s-feature">
           <h4>Private</h4>
